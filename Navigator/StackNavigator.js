@@ -28,7 +28,6 @@ import WorkShopLoginScreen from '../Screens/Workshop/LoginScreen/WorkshopLoginSc
 import WorkshopMainScreen from '../Screens/Workshop/MainScreen/WorkshopMainScreen';
 import SearchClientScreen from '../Screens/Workshop/SearchClientScreen/SearchClientScreen';
 import ChatListScreen from '../Screens/Workshop/ChatListScreen/ChatListScreen';
-import WorkshopChatting from '../Screens/Workshop/ChatScreen/WorkshopChatScreen';
 import PaymentScreen from '../Screens/Workshop/PaymentScreen/PaymentScreen';
 import DeliveryScreen from '../Screens/Workshop/DeliveryScreen/DeliveryScreen';
 import WorkshopMypageScreen from '../Screens/Workshop/MypageScreen/WorkshopMypagescreen';
@@ -42,7 +41,8 @@ import EditInformationScreen from '../Screens/EditInformationScreen/EditInformat
 import AddressScreen from '../Screens/AddressScreen/AddressScreen';
 import ArViewerStorage from '../Components/ArViewer/ArViewerStorage';
 import EstimateDetailScreen from '../Screens/EstimateDetailScreen/EstimateDetailScreen';
-
+import SelectEstimateScreen from '../Screens/Workshop/SelectEstimateScreen/SelectEstimateScreen';
+import DetailEstimateScreen from '../Screens/Workshop/DetailEstimateScreen/DetailEstimateScreen';
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
@@ -79,7 +79,6 @@ const StackNavigator = () => {
       <Stack.Screen name='WorkshopMainScreen' component={WorkshopMainScreen} />
       <Stack.Screen name='SearchClientScreen' component={SearchClientScreen} />
       <Stack.Screen name='ChatListScreen' component={ChatListScreen} />
-      <Stack.Screen name="WorkshopChatting" component={WorkshopChatting} />
       <Stack.Screen name='PaymentScreen' component={PaymentScreen} />
       <Stack.Screen name="DeliveryScreen" component={DeliveryScreen} />
       <Stack.Screen name="WorkshopMypageScreen" component={WorkshopMypageScreen} />
@@ -93,6 +92,8 @@ const StackNavigator = () => {
       <Stack.Screen name='AddressScreen' component={AddressScreen}/>
       <Stack.Screen name="ArViewerStorage" component={ArViewerStorage} />
       <Stack.Screen name='EstimateDetailScreen' component={EstimateDetailScreen} />
+      <Stack.Screen name='SelectEstimateScreen' component={SelectEstimateScreen} />
+      <Stack.Screen name='DetailEstimateScreen' component={DetailEstimateScreen} />
     </Stack.Navigator>
   );
 };
