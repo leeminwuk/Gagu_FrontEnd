@@ -22,10 +22,6 @@ const ProgressDetailScreen = ({ navigation }) => {
   };
   const [noneselecttext, setNoneselecttext] = useState(mockData.noneselecttext);
 
-  const handlerBack = () => {
-    navigation.goBack();
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -84,17 +80,9 @@ const ProgressDetailScreen = ({ navigation }) => {
     }
   };
 
-  const renderEstimateItem = ({ item }) => (
-    <View style={styles.estimateItem}>
-      <Text style={styles.estimateText}>{item.furnitureName}</Text>
-      <Text style={styles.estimateText}>{item.description}</Text>
-      <Text style={styles.estimateText}>{item.price}원</Text>
-    </View>
-  );
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
-        <BackButton onPress={handlerBack} />
+        <BackButton navigation={navigation} />
       <View style={styles.container}>
         <View style={styles.title}>
           <View style={styles.userProgress}>
@@ -122,14 +110,6 @@ const ProgressDetailScreen = ({ navigation }) => {
               </View>
             )}
           </View>
-          {estimates.length > 0 && (
-            <FlatList
-              data={estimates}
-              renderItem={renderEstimateItem}
-              keyExtractor={item => item.id.toString()}
-              contentContainerStyle={styles.estimateList}
-            />
-          )}
         </View>
       </View>
     </SafeAreaView>

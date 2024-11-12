@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   exitButton: {
     position: 'absolute',
-    top: height * 0.06,
+    top: height * 0.12,
     right: width * 0.05,
     backgroundColor: '#ffffff',
     padding: 10,

@@ -9,11 +9,9 @@ import { writeReview } from '../../api/writeReview';
 import { uploadFile } from '../../api/fileUpload';
 import { getToken } from '../../utils/storage';
 
-const title = '"가구공방"후기를\n작성해주세요';
-
 const WriteReviewScreen = ({ navigation }) => {
   const route = useRoute();
-  const workshopName = route.params?.workshopName || '';
+  const shopname = route.params?.shopname || '가구공방'; // shopname 받기
 
   const [rating, setRating] = useState(0);
   const [images, setImages] = useState([null, null, null]);
@@ -55,7 +53,7 @@ const WriteReviewScreen = ({ navigation }) => {
 
       // 리뷰 데이터 전송
       const reviewData = {
-        workshopName,
+        workshopName: shopname, // shopname 사용
         description: reviewText,
         reviewPhoto1: uploadedImageUrls[0] || null,
         reviewPhoto2: uploadedImageUrls[1] || null,
@@ -68,7 +66,7 @@ const WriteReviewScreen = ({ navigation }) => {
       const response = await writeReview(token, reviewData);
       if (response) {
         Alert.alert('성공', '리뷰가 성공적으로 작성되었습니다.');
-        navigation.goBack();
+        navigation.navigate('BottomTabNavigator'); // 리뷰 작성 후 BottomTabNavigator로 이동
       } else {
         Alert.alert('오류', '리뷰 작성에 실패했습니다.');
       }
@@ -82,7 +80,7 @@ const WriteReviewScreen = ({ navigation }) => {
     <SafeAreaView style={styles.SafeAreaView}>
       <View style={styles.container}>
         <View style={styles.title}>
-          <Text style={styles.titleText}>{title}</Text>
+          <Text style={styles.titleText}>{`"${shopname}" 후기를\n작성해주세요`}</Text>
         </View>
         <View style={styles.starRatingContainer}>
           {[...Array(5)].map((_, index) => (

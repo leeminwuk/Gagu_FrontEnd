@@ -17,7 +17,7 @@ import SockJS from 'sockjs-client';
 import { getToken, getNickname } from '../../utils/storage';
 import { UserInfo } from '../../api/userInfo'; 
 import { getChatRooms } from '../../api/chatMyRoom'; 
-import { getChatContents } from '../../api/chatContents'; // 여기서 getChatContents를 가져옵니다.
+import { getChatContents } from '../../api/chatContents';
 import { getWorkshopEstimates } from '../../api/authWorkshop'; 
 import { outChat } from '../../api/outChat'; 
 import RequestButton from '../../Components/RequestButton/RequestButton';
@@ -259,7 +259,8 @@ const ChatScreen = ({ navigation, route }) => {
       if (client.current) {
         client.current.deactivate();
       }
-      navigation.navigate('WriteReviewScreen');
+      navigation.navigate('WriteReviewScreen', { shopname }); // shopname 전달
+      setModalVisible(false);
     } else {
       console.error(message);
     }

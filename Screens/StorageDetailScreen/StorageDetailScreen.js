@@ -28,6 +28,15 @@ const StorageDetailScreen = () => {
     }
   }, [isFocused]);
 
+  const formatDate = dateString => {
+    const dateParts = dateString.split(' ')[0].split('-');
+    if (dateParts.length !== 3) {
+      return '2000년 01월 01일'; // 기본 날짜 설정
+    }
+    const [year, month, day] = dateParts;
+    return `${year}년 ${month}월 ${day}일`;
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
       <BackButton navigation={navigation} />
@@ -49,7 +58,7 @@ const StorageDetailScreen = () => {
                 key={item.id}
                 imageSource={{ uri: item.furniture2DUrl }}
                 furnitureText={item.furnitureName}
-                date={item.createdDate}
+                date={formatDate(item.createdDate)}
                 onPress={() => navigation.navigate('ProduceDetailScreen', { item })}
               />
             ))}
