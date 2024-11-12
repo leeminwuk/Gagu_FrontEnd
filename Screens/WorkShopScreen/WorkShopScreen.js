@@ -7,7 +7,7 @@ import { Dimensions } from 'react-native';
 import CommonButton from '../../Button/CommonButton';
 import CommonModal from '../../Modal/CommonModal';
 import { createChatRoom } from '../../api/createChat';
-import { getToken } from '../../utils/storage';
+import { getToken, saveNickname } from '../../utils/storage';
 import detailWorkshop from '../../api/detailWorkshop'; 
 import { checkReview } from '../../api/checkReview';
 import { UserInfo } from '../../api/userInfo';
@@ -38,6 +38,7 @@ const WorkShopScreen = ({ navigation, route }) => {
         const userInfo = await UserInfo(token);
         if (userInfo) {
           setNickname(userInfo.name); 
+          await saveNickname(userInfo.nickname); // 닉네임 저장
         } else {
           console.error('User info is missing');
         }
@@ -99,7 +100,7 @@ const WorkShopScreen = ({ navigation, route }) => {
     try {
       const chatRoomData = await createChatRoom(workshopDetails.workshopName, token);
       if (chatRoomData) {
-        navigation.navigate('ChatScreen', { shopname: workshopDetails.workshopName, item, isWorkshop: false, nickname});
+        navigation.navigate('ChatScreen', { shopname: workshopDetails.workshopName, item, isWorkshop: false, nickname });
       }
     } catch (error) {
       console.error('채팅방 생성 중 오류 발생:', error);

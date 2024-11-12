@@ -37,6 +37,7 @@ export const workshopSignup = async ({ email, password, profileUrl, workShopName
       });
 
       if (response.status === 200) {
+        console.log('signupResponseData', response.data)
         return response.data;
       } else {
         Alert.alert('회원가입 오류', response.data.message || '회원가입에 실패했습니다.');

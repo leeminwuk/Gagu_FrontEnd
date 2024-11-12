@@ -50,6 +50,7 @@ export const updateUserProfileImage = async (file) => {
     });
 
     if (response.status === 200) {
+      console.log('프로필 이미지 업데이트 성공:', response.data);
       return response.data;
     } else {
       Alert.alert('프로필 이미지 업데이트 오류', response.data.message || '프로필 이미지 업데이트에 실패했습니다.');

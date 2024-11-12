@@ -8,7 +8,7 @@ import { UserInfo } from '../../api/userInfo';
 import { getWorkshopProfile } from '../../api/workshopProfile';
 import { checkWorkshop } from '../../api/checkWorkshop';
 import { getEstimates } from '../../api/returnEstimates';
-import { chatroomNumber } from '../../api/chatroomNumber'; // 추가된 부분
+import { chatroomNumber } from '../../api/chatroomNumber';
 import SelectWorkShop from '../../Components/SelectWorkShop/SelectWorkShop';
 
 const ProgressDetailScreen = ({ navigation }) => {
@@ -42,19 +42,24 @@ const ProgressDetailScreen = ({ navigation }) => {
           setWorkshopProfile(profile);
         }
 
-        const estimatesData = await getEstimates(0);
+        const estimatesData = await getEstimates(0, token);
         console.log('Fetched estimates:', estimatesData);
-        setEstimates(estimatesData.content);
+
+        // null 값을 필터링합니다.
+        const filteredEstimates = estimatesData.content.filter(item => item !== null);
+        setEstimates(filteredEstimates);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
+
     fetchData();
   }, []);
 
   const handleCheckEstimate = async () => {
     try {
-      const estimates = await getEstimates(0);
+      const token = await getToken();
+      const estimates = await getEstimates(0, token);
       console.log('Fetched estimates:', estimates);
       navigation.navigate('EstimateDetailScreen', { estimates });
     } catch (error) {
@@ -89,8 +94,8 @@ const ProgressDetailScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
+        <BackButton onPress={handlerBack} />
       <View style={styles.container}>
-        <BackButton navigation={navigation} />
         <View style={styles.title}>
           <View style={styles.userProgress}>
             <Text style={styles.userProgressText}>

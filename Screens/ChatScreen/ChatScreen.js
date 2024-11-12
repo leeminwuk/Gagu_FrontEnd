@@ -14,9 +14,10 @@ import {
 } from 'react-native';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { getToken } from '../../utils/storage';
+import { getToken, getNickname } from '../../utils/storage';
 import { UserInfo } from '../../api/userInfo'; 
 import { getChatRooms } from '../../api/chatMyRoom'; 
+import { getChatContents } from '../../api/chatContents'; // 여기서 getChatContents를 가져옵니다.
 import { getWorkshopEstimates } from '../../api/authWorkshop'; 
 import { outChat } from '../../api/outChat'; 
 import RequestButton from '../../Components/RequestButton/RequestButton';
@@ -150,6 +151,28 @@ const ChatScreen = ({ navigation, route }) => {
     };
   }, [chatRoomId]);
 
+  useEffect(() => {
+    const fetchChatHistory = async () => {
+      if (chatRoomId) {
+        const token = await getToken();
+        if (!token) {
+          console.error('Token is missing');
+          return;
+        }
+
+        try {
+          const chatHistory = await getChatContents(chatRoomId, 0, token);
+          console.log('Fetched chat history:', chatHistory); // 로그 추가
+          setMessages(chatHistory);
+        } catch (error) {
+          console.error('Error fetching chat history:', error);
+        }
+      }
+    };
+
+    fetchChatHistory();
+  }, [chatRoomId]);
+
   const subscribeToMessages = () => {
     if (!client.current || !client.current.connected) {
       console.error('WebSocket client is not connected.');
@@ -196,7 +219,8 @@ const ChatScreen = ({ navigation, route }) => {
 
   const handlePaymentRequest = async () => {
     try {
-      const estimates = await getWorkshopEstimates(useNickname);
+      const savedNickname = await getNickname(); // 닉네임 불러오기
+      const estimates = await getWorkshopEstimates(savedNickname);
       console.log('Fetched workshop estimates:', estimates);
 
       const filteredEstimates = estimates.content.filter(item => item !== null);
@@ -235,7 +259,7 @@ const ChatScreen = ({ navigation, route }) => {
       if (client.current) {
         client.current.deactivate();
       }
-      navigation.goBack();
+      navigation.navigate('WriteReviewScreen');
     } else {
       console.error(message);
     }
@@ -285,12 +309,12 @@ const ChatScreen = ({ navigation, route }) => {
           {messages.map((message, index) => (
             <View 
               key={index} 
-              style={message.nickName === nickname ? styles.senderMessage : styles.receiverMessage}
+              style={message.sender === nickname ? styles.senderMessage : styles.receiverMessage}
             >
               <Text 
-                style={message.nickName === nickname ? styles.messageSenderText : styles.messageReceiverText} 
+                style={message.sender === nickname ? styles.messageSenderText : styles.messageReceiverText} 
               >
-                {message.contents}
+                {message.message}
               </Text>
             </View>
           ))}

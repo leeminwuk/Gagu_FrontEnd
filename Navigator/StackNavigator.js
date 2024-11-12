@@ -43,6 +43,8 @@ import ArViewerStorage from '../Components/ArViewer/ArViewerStorage';
 import EstimateDetailScreen from '../Screens/EstimateDetailScreen/EstimateDetailScreen';
 import SelectEstimateScreen from '../Screens/Workshop/SelectEstimateScreen/SelectEstimateScreen';
 import DetailEstimateScreen from '../Screens/Workshop/DetailEstimateScreen/DetailEstimateScreen';
+import ReviewScreen from '../Screens/ReviewScreen/ReviewScreen';
+import WriteReviewScreen from '../Screens/WriteReviewScreen/WriteReviewScreen';
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
@@ -94,6 +96,8 @@ const StackNavigator = () => {
       <Stack.Screen name='EstimateDetailScreen' component={EstimateDetailScreen} />
       <Stack.Screen name='SelectEstimateScreen' component={SelectEstimateScreen} />
       <Stack.Screen name='DetailEstimateScreen' component={DetailEstimateScreen} />
+      <Stack.Screen name='ReviewScreen' component={ReviewScreen}/>
+      <Stack.Screen name='WriteReviewScreen' component={WriteReviewScreen}/>
     </Stack.Navigator>
   );
 };
