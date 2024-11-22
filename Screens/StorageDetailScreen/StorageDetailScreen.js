@@ -31,7 +31,7 @@ const StorageDetailScreen = () => {
   const formatDate = dateString => {
     const dateParts = dateString.split(' ')[0].split('-');
     if (dateParts.length !== 3) {
-      return '2000년 01월 01일'; // 기본 날짜 설정
+      return '2000년 01월 01일';
     }
     const [year, month, day] = dateParts;
     return `${year}년 ${month}월 ${day}일`;

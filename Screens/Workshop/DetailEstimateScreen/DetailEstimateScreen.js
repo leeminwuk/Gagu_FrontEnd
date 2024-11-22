@@ -16,13 +16,13 @@ const DetailEstimateScreen = ({ navigation, route }) => {
     navigation.navigate('ArViewer', { modelUrl: item.furnitureGlbUrl });
   };
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('ko-KR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
+  const formatDate = dateString => {
+    const dateParts = dateString.split(' ')[0].split('-');
+    if (dateParts.length !== 3) {
+      return '2000년 01월 01일'; // 기본 날짜 설정
+    }
+    const [year, month, day] = dateParts;
+    return `${year}년 ${month}월 ${day}일`;
   };
 
   return (

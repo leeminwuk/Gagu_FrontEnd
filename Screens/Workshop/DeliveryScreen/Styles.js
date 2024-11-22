@@ -1,5 +1,5 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
+import { StyleSheet, Dimensions } from 'react-native';
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   safeContainer: {
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   estimateText: {
     color: '#ffffff',
     fontSize: 14,
-    fontWeight:'600',
+    fontWeight: '600',
   },
   estimateInputContainer: {
     backgroundColor: '#303030',
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   estimateInput: {
     color: '#ffffff',
     fontSize: 14,
-    fontWeight:'700',
+    fontWeight: '700',
   },
   multilineInput: {
     textAlignVertical: 'top',
@@ -72,10 +72,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   listContainer: {
-    height: height * 0.2,
+    maxHeight: height * 0.2,
+    backgroundColor: '#303030',
+    borderRadius: 5,
+    marginTop: 5,
   },
   listItem: { 
-    paddingVertical: 10, 
+    paddingVertical: 10,
+    paddingHorizontal: 16,
   },
   selectText: {
     color: '#d7d7d7',

@@ -89,14 +89,6 @@ const ReviewScreen = () => {
             })}
           </View>
         </ScrollView>
-        <View style={styles.reviewButtonContainer}>
-          <CommonButton
-            buttonText="리뷰 작성하기"
-            buttonColor="#ffffff"
-            textColor="#000000"
-            onPress={handleWriteReview}
-          />
-        </View>
       </View>
     </SafeAreaView>
   );

@@ -6,7 +6,7 @@ import CheckRenderStorage from '../../Components/CheckRender/CheckRenderStorage'
 
 const EstimateDetailScreen = ({ navigation, route }) => {
   const { estimates } = route.params;
-  const item = estimates.content[0];
+  const item = estimates.content.find(est => est !== null) || {}; // null이 아닌 첫 번째 항목을 찾거나 빈 객체 사용
 
   const formatDate = dateString => {
     const dateParts = dateString.split(' ')[0].split('-');
@@ -29,16 +29,16 @@ const EstimateDetailScreen = ({ navigation, route }) => {
           <View style={styles.fixedContainer}>
             <View style={styles.textContainer}>
               <Text style={styles.mainText}>
-                {formatDate(item.createdDate)} 제작된{'\n'}
-                {item.furnitureName} 입니다.
+                {item.createdDate ? formatDate(item.createdDate) : '2000년 01월 01일'} 제작된{'\n'}
+                {item.furnitureName || '가구 이름'} 입니다.
               </Text>
               <View style={styles.miniTextContainer}>
                 <Text style={styles.miniText}>설명</Text>
-                <Text style={styles.descriptionText}>{item.description}</Text>
+                <Text style={styles.descriptionText}>{item.description || '설명 없음'}</Text>
               </View>
               <View style={styles.miniTextContainer}>
                 <Text style={styles.miniText}>가격</Text>
-                <Text style={styles.priceText}>{formatPrice(item.price)}원</Text>
+                <Text style={styles.priceText}>{item.price ? formatPrice(item.price) : '0'}원</Text>
               </View>
             </View>
             <View style={styles.miniTextContainer}>
@@ -57,7 +57,7 @@ const EstimateDetailScreen = ({ navigation, route }) => {
                 <Text style={styles.miniText}>3D 도면</Text>
               </View>
               <View style={{ height: 400 }}>
-                <CheckRenderStorage gltfUrl={item.furnitureGltfUrl} />
+                <CheckRenderStorage gltfUrl={item.furnitureGltfUrl || ''} />
               </View>
             </View>
           </View>

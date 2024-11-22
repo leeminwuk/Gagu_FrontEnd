@@ -91,7 +91,6 @@ const ChatList = () => {
       {chatRooms.map((room) => {
         const roomName = room.roomName.split('님과')[0];
         const lastMessage = room.lastMessage || '메시지가 없습니다';
-        const lastMessageTime = room.lastMessageTime || new Date();
 
         return (
           <TouchableOpacity
@@ -112,7 +111,6 @@ const ChatList = () => {
             </View>
             <View style={styles.timecountContainer}>
               <View style={styles.timeContainer}>
-                <Text style={styles.timeText}>{getTimeDifference(lastMessageTime)}</Text>
               </View>
             </View>
           </TouchableOpacity>

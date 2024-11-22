@@ -55,7 +55,7 @@ const ChatScreen = ({ navigation, route }) => {
         const userInfo = await UserInfo(token);
         if (userInfo) {
           setNickname(userInfo.nickname); 
-          //console.log('Fetched nickname:', userInfo.nickname); 
+          console.log('Fetched nickname:', userInfo.nickname);
         } else {
           //console.error('User info is missing');
         }
@@ -100,6 +100,24 @@ const ChatScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     if (chatRoomId) {
+      const fetchChatHistory = async () => {
+        const token = await getToken();
+        if (!token) {
+          console.error('Token is missing');
+          return;
+        }
+
+        try {
+          const chatHistory = await getChatContents(chatRoomId, 0, token);
+          //console.log('Fetched chat history:', chatHistory);
+          // setMessages(chatHistory.map(msg => ({ ...msg, sender: msg.nickName })));
+        } catch (error) {
+          console.error('Error fetching chat history:', error);
+        }
+      };
+
+      fetchChatHistory();
+
       const connectWebSocket = async () => {
         const authToken = await getToken();
         if (!authToken) {
@@ -151,28 +169,6 @@ const ChatScreen = ({ navigation, route }) => {
     };
   }, [chatRoomId]);
 
-  useEffect(() => {
-    const fetchChatHistory = async () => {
-      if (chatRoomId) {
-        const token = await getToken();
-        if (!token) {
-          console.error('Token is missing');
-          return;
-        }
-
-        try {
-          const chatHistory = await getChatContents(chatRoomId, 0, token);
-          console.log('Fetched chat history:', chatHistory); // 로그 추가
-          setMessages(chatHistory);
-        } catch (error) {
-          console.error('Error fetching chat history:', error);
-        }
-      }
-    };
-
-    fetchChatHistory();
-  }, [chatRoomId]);
-
   const subscribeToMessages = () => {
     if (!client.current || !client.current.connected) {
       console.error('WebSocket client is not connected.');
@@ -186,7 +182,7 @@ const ChatScreen = ({ navigation, route }) => {
     subscription.current = client.current.subscribe(`/sub/chatroom/${chatRoomId}`, (message) => {
       const receivedMessage = JSON.parse(message.body);
       console.log('Received message:', receivedMessage); 
-      setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+      setMessages((prevMessages) => [...prevMessages, { ...receivedMessage, sender: receivedMessage.nickName }]); 
     });
   };
 
@@ -219,7 +215,7 @@ const ChatScreen = ({ navigation, route }) => {
 
   const handlePaymentRequest = async () => {
     try {
-      const savedNickname = await getNickname(); // 닉네임 불러오기
+      const savedNickname = await getNickname();
       const estimates = await getWorkshopEstimates(savedNickname);
       console.log('Fetched workshop estimates:', estimates);
 
@@ -315,7 +311,7 @@ const ChatScreen = ({ navigation, route }) => {
               <Text 
                 style={message.sender === nickname ? styles.messageSenderText : styles.messageReceiverText} 
               >
-                {message.message}
+                {message.contents}
               </Text>
             </View>
           ))}
