@@ -3,10 +3,18 @@ import { View, Text, Image, Alert } from 'react-native';
 import BackButton from '../../Components/BackButton/BackButton';
 import CommonButton from '../../Button/CommonButton';
 import CommonModal from '../../Modal/CommonModal';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import styles from './Styles';
 import { getWebSocketInstance } from '../../api/chat2d';
 import { saveImageUrl, getImageUrl } from '../../utils/storage'; 
+import {
+  Container,
+  FixedContainer,
+  TextContainer,
+  MainText,
+  ImageBox,
+  ImageContainer,
+  ChairImage,
+  ButtonContainer
+} from './Styles';
 
 const CheckScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -63,63 +71,60 @@ const CheckScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
+    <Container>
       <BackButton navigation={navigation} />
-      <View style={styles.container}>
-        <View style={styles.fixedContainer}>
-          <View style={styles.textContainer}>
-            <Text style={styles.mainText}>
-              아래 가구 이미지가 맞으면,{'\n'}다음단계로 넘어갈게요.
-            </Text>
-          </View>
-          <View style={styles.imageBox}>
-            <View style={styles.imageContainer}>
-              {imageUrl ? (
-                <Image
-                  source={{ uri: imageUrl }}
-                  style={styles.chairImage}
-                />
-              ) : (
-                <Text style={styles.loadingText}>이미지를 불러오는 중...</Text>
-              )}
-            </View>
-          </View>
-          <View style={styles.buttonContainer}>
-            <CommonButton
-              buttonText="다음"
-              buttonColor="#ffffff"
-              textColor="#000000"
-              onPress={handleNextButtonPress}
-            />
-          </View>
-          <View style={{ marginTop: 20 }}>
-            <CommonButton
-              buttonText="원하는 가구가 아닙니다."
-              buttonColor="#696969"
-              textColor="#ffffff"
-              onPress={handleButtonPress}
-            />
-          </View>
-
-          <CommonModal
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
-            navigation={navigation}
-            imageSource={require('../../assets/images/warning.png')}
-            mainText="확인필요"
-            sideText={`기존에 만든 도면은 삭제됩니다.\n그래도 진행할까요?`}
-            firstButtonColor="#ffffff"
-            secondButtonColor="#666666"
-            firstButtonText="진행"
-            secondButtonText="취소"
-            firstButtonTextColor="#000000"
-            secondButtonTextColor="#ffffff"
-            onFirstButtonPress={handleFirstButtonPress}
-            onSecondButtonPress={handleSecondButtonPress}
+      <FixedContainer>
+        <TextContainer>
+          <MainText>
+            아래 가구 이미지가 맞으면,{'\n'}다음단계로 넘어갈게요.
+          </MainText>
+        </TextContainer>
+        <ImageBox>
+          <ImageContainer>
+            {imageUrl ? (
+              <ChairImage
+                source={{ uri: imageUrl }}
+              />
+            ) : (
+              <Text style={{ color: 'white' }}>이미지를 불러오는 중...</Text>
+            )}
+          </ImageContainer>
+        </ImageBox>
+        <ButtonContainer>
+          <CommonButton
+            buttonText="다음"
+            buttonColor="#ffffff"
+            textColor="#000000"
+            onPress={handleNextButtonPress}
+          />
+        </ButtonContainer>
+        <View style={{ marginTop: 20 }}>
+          <CommonButton
+            buttonText="원하는 가구가 아닙니다."
+            buttonColor="#696969"
+            textColor="#ffffff"
+            onPress={handleButtonPress}
           />
         </View>
-      </View>
-    </SafeAreaView>
+
+        <CommonModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          navigation={navigation}
+          imageSource={require('../../assets/images/warning.png')}
+          mainText="확인필요"
+          sideText={`기존에 만든 도면은 삭제됩니다.\n그래도 진행할까요?`}
+          firstButtonColor="#ffffff"
+          secondButtonColor="#666666"
+          firstButtonText="진행"
+          secondButtonText="취소"
+          firstButtonTextColor="#000000"
+          secondButtonTextColor="#ffffff"
+          onFirstButtonPress={handleFirstButtonPress}
+          onSecondButtonPress={handleSecondButtonPress}
+        />
+      </FixedContainer>
+    </Container>
   );
 };
 

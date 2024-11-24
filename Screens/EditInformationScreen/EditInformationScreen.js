@@ -1,15 +1,24 @@
-import React, {useState, useEffect} from 'react';
-import {View, Image, Alert, TouchableOpacity, SafeAreaView, LogBox} from 'react-native';
-import styles from './Styles';
+import React, { useState, useEffect } from 'react';
+import { View, Image, Alert, LogBox } from 'react-native';
 import BackButton from '../../Components/BackButton/BackButton';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import InputContainer from '../../Components/InputContainer/InputContainer';
-import {getToken} from '../../utils/storage';
-import {UserInfo, UpdateUserInfo} from '../../api/userInfo';
-import {updateUserProfileImage} from '../../api/profileUpload';
+import { getToken } from '../../utils/storage';
+import { UserInfo, UpdateUserInfo } from '../../api/userInfo';
+import { updateUserProfileImage } from '../../api/profileUpload';
 import CommonButton from '../../Button/CommonButton';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 import logOut from '../../api/logOut';
+import {
+  SafeContainer,
+  Container,
+  InputContainer as StyledInputContainer,
+  ProfileBox,
+  ProfileImageContainer,
+  ProfileImage,
+  CameraButton,
+  CameraIcon,
+} from './Styles';
 
 // 특정 경고 메시지를 무시합니다.
 LogBox.ignoreLogs([
@@ -55,7 +64,7 @@ const EditInformationScreen = () => {
       } else if (result.errorCode) {
         console.log('ImagePicker Error: ', result.errorMessage);
       } else {
-        const source = {uri: result.assets[0].uri};
+        const source = { uri: result.assets[0].uri };
         setSelectedImage(result.assets[0]);
         setProfileUrl(source.uri);
       }
@@ -166,28 +175,24 @@ const EditInformationScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    <SafeContainer>
       <BackButton navigation={navigation} titleText={'개인정보 수정'} />
-      <View style={styles.Container}>
-        <View style={styles.imageBox}>
-          <TouchableOpacity
-            style={styles.profileBox}
+      <Container>
+          <ProfileBox
             activeOpacity={0.8}
             onPress={selectImage}>
             {profileUrl && (
-              <View style={styles.profileImageContainer}>
-                <Image source={{uri: profileUrl}} style={styles.profileImage} />
-              </View>
+              <ProfileImageContainer>
+                <ProfileImage source={{ uri: profileUrl }} />
+              </ProfileImageContainer>
             )}
-            <View style={styles.cameraButton} activeOpacity={0.8}>
-              <Image
+            <CameraButton activeOpacity={0.8}>
+              <CameraIcon
                 source={require('../../assets/images/camera.png')}
-                style={styles.cameraIcon}
               />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.inputContainer}>
+            </CameraButton>
+          </ProfileBox>
+        <StyledInputContainer>
           <InputContainer
             title={'닉네임'}
             type={'닉네임'}
@@ -207,8 +212,8 @@ const EditInformationScreen = () => {
             type={'이메일'}
             value={email}
           />
-        </View>
-      </View>
+        </StyledInputContainer>
+      </Container>
       <CommonButton
         buttonText={isEditing ? '전송하기' : '수정하기'}
         buttonColor={'#ffffff'}
@@ -221,7 +226,7 @@ const EditInformationScreen = () => {
         textColor={'#000000'}
         onPress={handleImageUpload}
       />
-    </SafeAreaView>
+    </SafeContainer>
   );
 };
 

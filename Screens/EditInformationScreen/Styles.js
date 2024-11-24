@@ -1,52 +1,62 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
-const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#191919',
-  },
-  Container: {
-    flex: 1,
-    backgroundColor: '#191919',
-    paddingHorizontal: 22,
-  },
-  inputContainer: {
-    gap: height * 0.05,
-  },
-  titleContainer: {
-    height: height * 0.05,
-    justifyContent: 'center',
-  },
-  profileBox: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-  },
-  profileContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profileImageContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  profileImage: {
-    width: width * 0.3,
-    height: width * 0.3,
-    borderRadius: width * 0.15,
-  },
-  cameraButton: {
-    position: 'absolute',
-    bottom: 20,
-    right: 0,
-    backgroundColor: '#ffffff',
-    borderRadius: 50,
-    padding: 6,
-  },
-  cameraIcon: {
-    width: 30,
-    height: 30,
-  },
-});
-export default styles;
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+const { width, height } = Dimensions.get('window');
+
+export const SafeContainer = styled(SafeAreaView)`
+  flex: 1;
+  background-color: #191919;
+`;
+
+export const Container = styled.View`
+  flex: 1;
+  background-color: #191919;
+  padding-horizontal: 22px;
+`;
+
+export const InputContainer = styled.View`
+  gap: ${height * 0.05}px;
+`;
+
+export const TitleContainer = styled.View`
+  height: ${height * 0.05}px;
+  justify-content: center;
+`;
+
+export const ProfileBox = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+`;
+
+export const ProfileContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ProfileImageContainer = styled.View`
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+export const ProfileImage = styled.Image`
+  width: ${width * 0.3}px;
+  height: ${width * 0.3}px;
+  border-radius: ${width * 0.15}px;
+`;
+
+export const CameraButton = styled.TouchableOpacity`
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 50px;
+  padding: 6px;
+`;
+
+export const CameraIcon = styled.Image`
+  width: 30px;
+  height: 30px;
+`;
