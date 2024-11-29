@@ -39,7 +39,6 @@ import NoticeScreen from '../Screens/NoticeScreen/NoticeScreen';
 import ProgressDetailScreen from '../Screens/ProgressDetailScreen/ProgressDetailScreen';
 import EditInformationScreen from '../Screens/EditInformationScreen/EditInformationScreen';
 import AddressScreen from '../Screens/AddressScreen/AddressScreen';
-import ArViewerStorage from '../Components/ArViewer/ArViewerStorage';
 import EstimateDetailScreen from '../Screens/EstimateDetailScreen/EstimateDetailScreen';
 import SelectEstimateScreen from '../Screens/Workshop/SelectEstimateScreen/SelectEstimateScreen';
 import DetailEstimateScreen from '../Screens/Workshop/DetailEstimateScreen/DetailEstimateScreen';
@@ -92,7 +91,6 @@ const StackNavigator = () => {
       <Stack.Screen name='ProgressDetailScreen' component={ProgressDetailScreen}/>
       <Stack.Screen name='EditInformationScreen' component={EditInformationScreen}/>
       <Stack.Screen name='AddressScreen' component={AddressScreen}/>
-      <Stack.Screen name="ArViewerStorage" component={ArViewerStorage} />
       <Stack.Screen name='EstimateDetailScreen' component={EstimateDetailScreen} />
       <Stack.Screen name='SelectEstimateScreen' component={SelectEstimateScreen} />
       <Stack.Screen name='DetailEstimateScreen' component={DetailEstimateScreen} />

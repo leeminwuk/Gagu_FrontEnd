@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, Image, View} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import styles from './Styles';
 import { handleLogin } from '../../api/kakaoSignup';
+import {
+  KakaoButton,
+  KakaoIcon,
+  KakaoText,
+  TextContainer,
+} from './Styles';
 
 const KakaoSignupButton = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -19,18 +23,14 @@ const KakaoSignupButton = () => {
 
   return (
     <>
-      <TouchableOpacity
-        style={styles.kakaoButton}
-        activeOpacity={0.9}
-        onPress={handleSignup}>
-        <Image
+      <KakaoButton onPress={handleSignup} activeOpacity={0.9}>
+        <KakaoIcon
           source={require('../../assets/images/KakaoLogo.png')}
-          style={styles.kakaoIcon}
         />
-        <View style={styles.textContainer}>
-        <Text style={styles.kakaoText}>Kakao 계정으로 가입</Text>
-        </View>
-      </TouchableOpacity>
+        <TextContainer>
+          <KakaoText>Kakao 계정으로 가입</KakaoText>
+        </TextContainer>
+      </KakaoButton>
     </>
   );
 };

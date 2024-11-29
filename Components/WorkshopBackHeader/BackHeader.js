@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
+import { Alert } from 'react-native';
 import { UserInfo } from '../../api/userInfo';
 import { getToken } from '../../utils/storage';
-import styles from './Styles';
+import {
+  Container,
+  BackButtonContainer,
+  BackButton,
+  TitleContainer,
+  TitleText,
+  ProfileContainer,
+  NicknameText,
+  ProfileImage,
+} from './Styles';
 
 const BackHeader = ({ navigation, titleText }) => {
   const handlerBack = () => {
@@ -38,28 +47,24 @@ const BackHeader = ({ navigation, titleText }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.backbuttonContainer}>
-        <TouchableOpacity onPress={handlerBack} activeOpacity={0.8}>
+    <Container>
+      <BackButtonContainer>
+        <BackButton onPress={handlerBack} activeOpacity={0.8}>
           <Image
             source={require('../../assets/images/backButton.png')}
-            style={styles.backButton}
           />
-        </TouchableOpacity>
-        <View style={styles.titleContainer}>
-          <Text style={styles.titleText}>{titleText}</Text>
-        </View>
-      </View>
-      <View style={styles.workshopTitle}>
-      <View style={styles.profileContainer}>
-        <Text style={styles.nicknameText}>{nickname} 님</Text>
-          <Image
-            source={profileImage}
-            style={styles.profileImage}
-          />
-      </View>
-      </View>
-    </View>
+        </BackButton>
+        <TitleContainer>
+          <TitleText>{titleText}</TitleText>
+        </TitleContainer>
+      </BackButtonContainer>
+      <ProfileContainer>
+        <NicknameText>{nickname} 님</NicknameText>
+        <ProfileImage
+          source={profileImage}
+        />
+      </ProfileContainer>
+    </Container>
   );
 };
 

@@ -1,91 +1,62 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import styled from 'styled-components/native';
+import { Dimensions, Animated } from 'react-native';
+
 const { width, height } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#191919',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#191919',
-    paddingHorizontal: 22,
-  },
-  title: {
-    marginVertical: height * 0.05,
-    justifyContent: 'center',
-  },
-  titleText: {
-    color: '#ffffff',
-    fontSize: 26,
-    fontWeight: '600',
-  },
-  noticeBox: {
-    backgroundColor: '#191919',
-  },
-  noticeCategory: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: width * 0.4,
-  },
-  noticeCategoryText: {
-    fontSize: 20,
-    fontWeight: '600',
-  },
-  activeTabText: {
-    color: '#ffffff',
-  },
-  inactiveTabText: {
-    color: '#666666',
-  },
-  animatedLine: {
-    height: 2,
-    marginTop: height * 0.005,
-    width: width * 0.18,
-    backgroundColor: '#ffffff',
-  },
-  noticeContainer: {
-    alignSelf: 'center',
-    width: width * 0.9,
-    height: height * 0.08,
-    borderRadius: 10,
-    backgroundColor: 'rgba(110,110,110, 0.8)',
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: 10,
-  },
-  imageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: '#ffffff',
-    margin: 10,
-  },
-  image: {
-    width: 20,
-    height: 20,
-  },
-  textContainer: {
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  },
-  noticeMainText: {
-    color: '#ffffff',
-    fontSize: 14,
-    fontWeight: '400',
-  },
-  noticeSubText: {
-    color: '#aeaeae',
-    fontSize: 12,
-    fontWeight: '400',
-  },
-  noticeContent: {
-    gap: height * 0.02,
-    marginTop: height * 0.05,
-  },
-});
+export const SafeContainer = styled.SafeAreaView`
+  flex: 1;
+  background-color: #191919;
+`;
 
-export default styles;
+export const Container = styled.View`
+  flex: 1;
+  background-color: #191919;
+  padding-horizontal: 22px;
+`;
+
+export const Title = styled.View`
+  margin-vertical: ${height * 0.05}px;
+  justify-content: center;
+`;
+
+export const TitleText = styled.Text`
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 600;
+`;
+
+export const NoticeBox = styled.View`
+  background-color: #191919;
+`;
+
+export const NoticeCategory = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: ${width * 0.4}px;
+`;
+
+export const NoticeCategoryText = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+`;
+
+export const ActiveTabText = styled.Text`
+  color: #ffffff;
+`;
+
+export const InactiveTabText = styled.Text`
+  color: #666666;
+`;
+
+export const AnimatedLine = styled(Animated.View)`
+  height: 2px;
+  margin-top: ${height * 0.005}px;
+  width: ${width * 0.18}px;
+  background-color: #ffffff;
+`;
+
+export const NoticeContentContainer = styled.View`
+  gap: ${height * 0.02}px;
+  margin-top: ${height * 0.05}px;
+`;

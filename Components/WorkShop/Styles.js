@@ -1,113 +1,139 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
-const styles = StyleSheet.create({
-  workShopContainer: {
-    width: width * 0.887,
-    backgroundColor: '#353535',
-    borderRadius: 20,
-    padding: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  image: {
-    width:width * 0.30,
-    height: height * 0.15,
-  },
-  conatiner: {
-    flex:1,
-    flexDirection: 'column',
-    gap: height * 0.014,
-    paddingHorizontal: width * 0.02,
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  titleTextContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  titleText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  locationContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  locationImageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  locationImage: {
-    width: 14,
-    height: 14,
-  },
-  locationTextContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  locationText: {
-    color: 'white',
-    fontSize: 10,
-    fontWeight: '400',
-  },
-  subTextContainer: {
-    width: width * 0.4,
-  },
-  subText: {
-    color: 'white',
-    fontSize: 10,
-    fontWeight: '400',
-  },
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
-  reviewContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    gap: width * 0.02,
-  },
-  starImageContainer: {
-    flexDirection: 'row',
-    gap: width * 0.008,
-  },
-  starImage: {
-    width: 14,
-    height: 14,
-  },
-  reviewTextContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  reviewText: {
-    color: 'white',
-    fontSize: 10,
-    fontWeight: '400',
-  },
-  expactedCostContainer: {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-  },
-  expactedTextContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  expactedText: {
-    color: 'white',
-    fontSize: 8,
-    fontWeight: '400',
-  },
-  costContainer:{
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  costText:{
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
-  }
-});
-export default styles;
+const { width, height } = Dimensions.get('window');
+
+export const WorkShopContainer = styled.TouchableOpacity`
+  width: ${width * 0.887}px;
+  background-color: #353535;
+  border-radius: 20px;
+  padding: 16px;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const ImageContainer = styled.View`
+  width: ${width * 0.30}px;
+  height: ${height * 0.15}px;
+`;
+
+export const StyledImage = styled.Image`
+  width: 100%;
+  height: 100%;
+`;
+
+export const Container = styled.View`
+  flex: 1;
+  flex-direction: column;
+  gap: ${height * 0.014}px;
+  padding-horizontal: ${width * 0.02}px;
+`;
+
+export const TitleContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const TitleTextContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TitleText = styled.Text`
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+`;
+
+export const LocationContainer = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LocationImageContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LocationImage = styled.Image`
+  width: 14px;
+  height: 14px;
+`;
+
+export const LocationTextContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LocationText = styled.Text`
+  color: white;
+  font-size: 10px;
+  font-weight: 400;
+`;
+
+export const SubTextContainer = styled.View`
+  width: ${width * 0.4}px;
+`;
+
+export const SubText = styled.Text`
+  color: white;
+  font-size: 10px;
+  font-weight: 400;
+`;
+
+export const ReviewContainer = styled.View`
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: ${width * 0.02}px;
+`;
+
+export const StarImageContainer = styled.View`
+  flex-direction: row;
+  gap: ${width * 0.008}px;
+`;
+
+export const StarImage = styled.Image`
+  width: 14px;
+  height: 14px;
+`;
+
+export const ReviewTextContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ReviewText = styled.Text`
+  color: white;
+  font-size: 10px;
+  font-weight: 400;
+`;
+
+export const ExpactedCostContainer = styled.View`
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+export const ExpactedTextContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ExpactedText = styled.Text`
+  color: white;
+  font-size: 8px;
+  font-weight: 400;
+`;
+
+export const CostContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const CostText = styled.Text`
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+`;

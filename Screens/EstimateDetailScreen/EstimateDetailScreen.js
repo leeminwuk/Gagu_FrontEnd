@@ -1,12 +1,25 @@
 import React from 'react';
-import { View, Text, Image, SafeAreaView, ScrollView } from 'react-native';
-import styles from './Styles';
+import { Image, SafeAreaView, ScrollView } from 'react-native';
 import BackButton from '../../Components/BackButton/BackButton';
 import CheckRenderStorage from '../../Components/CheckRender/CheckRenderStorage';
+import {
+  Container,
+  FixedContainer,
+  TextContainer,
+  MainText,
+  MiniTextContainer,
+  MiniText,
+  DescriptionText,
+  PriceText,
+  ImageBox,
+  ImageContainer,
+  ChairImage,
+  SolidImageContainer,
+} from './Styles';
 
 const EstimateDetailScreen = ({ navigation, route }) => {
   const { estimates } = route.params;
-  const item = estimates.content.find(est => est !== null) || {}; // null이 아닌 첫 번째 항목을 찾거나 빈 객체 사용
+  const item = estimates.content.find(est => est !== null) || {};
 
   const formatDate = dateString => {
     const dateParts = dateString.split(' ')[0].split('-');
@@ -25,43 +38,38 @@ const EstimateDetailScreen = ({ navigation, route }) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
       <BackButton navigation={navigation} />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={styles.container}>
-          <View style={styles.fixedContainer}>
-            <View style={styles.textContainer}>
-              <Text style={styles.mainText}>
+        <Container>
+          <FixedContainer>
+            <TextContainer>
+              <MainText>
                 {item.createdDate ? formatDate(item.createdDate) : '2000년 01월 01일'} 제작된{'\n'}
                 {item.furnitureName || '가구 이름'} 입니다.
-              </Text>
-              <View style={styles.miniTextContainer}>
-                <Text style={styles.miniText}>설명</Text>
-                <Text style={styles.descriptionText}>{item.description || '설명 없음'}</Text>
-              </View>
-              <View style={styles.miniTextContainer}>
-                <Text style={styles.miniText}>가격</Text>
-                <Text style={styles.priceText}>{item.price ? formatPrice(item.price) : '0'}원</Text>
-              </View>
-            </View>
-            <View style={styles.miniTextContainer}>
-              <Text style={styles.miniText}>가구 평면도</Text>
-            </View>
-            <View style={styles.imageBox}>
-              <View style={styles.imageContainer}>
-                <Image
-                  source={{ uri: item.furniture2DUrl }}
-                  style={styles.chairImage}
-                />
-              </View>
-            </View>
-            <View style={styles.arContainer}>
-              <View style={styles.miniTextContainer}>
-                <Text style={styles.miniText}>3D 도면</Text>
-              </View>
-              <View style={{ height: 400 }}>
-                <CheckRenderStorage gltfUrl={item.furnitureGltfUrl || ''} />
-              </View>
-            </View>
-          </View>
-        </View>
+              </MainText>
+              <MiniTextContainer>
+                <MiniText>설명</MiniText>
+                <DescriptionText>{item.description || '설명 없음'}</DescriptionText>
+              </MiniTextContainer>
+              <MiniTextContainer>
+                <MiniText>가격</MiniText>
+                <PriceText>{item.price ? formatPrice(item.price) : '0'}원</PriceText>
+              </MiniTextContainer>
+            </TextContainer>
+            <MiniTextContainer>
+              <MiniText>가구 평면도</MiniText>
+            </MiniTextContainer>
+            <ImageBox>
+              <ImageContainer>
+                <ChairImage source={{ uri: item.furniture2DUrl }} />
+              </ImageContainer>
+            </ImageBox>
+            <MiniTextContainer>
+              <MiniText>3D 도면</MiniText>
+            </MiniTextContainer>
+            <SolidImageContainer>
+              <CheckRenderStorage gltfUrl={item.furnitureGltfUrl || ''} />
+            </SolidImageContainer>
+          </FixedContainer>
+        </Container>
       </ScrollView>
     </SafeAreaView>
   );

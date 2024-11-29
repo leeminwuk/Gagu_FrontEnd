@@ -2,12 +2,29 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute } from '@react-navigation/native';
-import styles from './Styles';
 import CommonButton from '../../Button/CommonButton';
 import SmallImagePickerButton from '../../Components/SmallImagePickerButton/SmallImagePickerButton';
 import { writeReview } from '../../api/writeReview';
 import { uploadFile } from '../../api/fileUpload';
 import { getToken } from '../../utils/storage';
+import {
+  SafeContainer,
+  Container,
+  Title,
+  TitleText,
+  StarRatingContainer,
+  StarImage,
+  RatingText,
+  InputContainer,
+  Input,
+  TextArea,
+  PhotoSelectContainer,
+  PhotoTitle,
+  PhotoTitleText,
+  PhotoSubTitleText,
+  PhotoSelect,
+  ButtonContainer,
+} from './Styles';
 
 const WriteReviewScreen = ({ navigation }) => {
   const route = useRoute();
@@ -77,32 +94,31 @@ const WriteReviewScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.SafeAreaView}>
-      <View style={styles.container}>
-        <View style={styles.title}>
-          <Text style={styles.titleText}>{`"${shopname}" 후기를\n작성해주세요`}</Text>
-        </View>
-        <View style={styles.starRatingContainer}>
+    <SafeContainer>
+      <Container>
+        <Title>
+          <TitleText>{`"${shopname}" 후기를\n작성해주세요`}</TitleText>
+        </Title>
+        <StarRatingContainer>
           {[...Array(5)].map((_, index) => (
             <TouchableOpacity
               key={index}
               onPress={() => handleStarPress(index)}
               activeOpacity={0.8}>
-              <Image
+              <StarImage
                 source={
                   index < rating
                     ? require('../../assets/images/filedstar.png')
                     : require('../../assets/images/star.png')
                 }
-                style={styles.starImage}
               />
             </TouchableOpacity>
           ))}
-        </View>
-        <Text style={styles.ratingText}>{rating}점</Text>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={[styles.input, styles.textArea]}
+        </StarRatingContainer>
+        <RatingText>{rating}점</RatingText>
+        <InputContainer>
+          <Input
+            style={TextArea}
             placeholder="욕설, 부적합한 내용은 삭제 될 수 있습니다."
             placeholderTextColor="#d0d0d0"
             multiline={true}
@@ -110,15 +126,15 @@ const WriteReviewScreen = ({ navigation }) => {
             value={reviewText}
             onChangeText={setReviewText}
           />
-        </View>
-        <View style={styles.photoSelectContainer}>
-          <View style={styles.photoTitle}>
-            <Text style={styles.photoTitleText}>사진</Text>
-            <Text style={styles.photoSubTitleText}>
+        </InputContainer>
+        <PhotoSelectContainer>
+          <PhotoTitle>
+            <PhotoTitleText>사진</PhotoTitleText>
+            <PhotoSubTitleText>
               사진은 최대 3개까지만 가능합니다
-            </Text>
-          </View>
-          <View style={styles.photoSelect}>
+            </PhotoSubTitleText>
+          </PhotoTitle>
+          <PhotoSelect>
             {images.map((image, index) => (
               <SmallImagePickerButton
                 key={index}
@@ -126,9 +142,9 @@ const WriteReviewScreen = ({ navigation }) => {
                 profileUrl={image}
               />
             ))}
-          </View>
-        </View>
-        <View style={styles.buttonContainer}>
+          </PhotoSelect>
+        </PhotoSelectContainer>
+        <ButtonContainer>
           <CommonButton
             buttonText="후기 작성 완료"
             buttonColor="#ffffff"
@@ -141,9 +157,9 @@ const WriteReviewScreen = ({ navigation }) => {
             textColor="#ffffff"
             onPress={() => navigation.goBack()}
           />
-        </View>
-      </View>
-    </SafeAreaView>
+        </ButtonContainer>
+      </Container>
+    </SafeContainer>
   );
 };
 

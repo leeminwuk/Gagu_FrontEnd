@@ -1,39 +1,44 @@
-import {StyleSheet, Dimensions, ImageComponent} from 'react-native';
-const {width, height} = Dimensions.get('window');
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#191919',
-  },
-  fixedContainer: {
-    height: height * 0.8,
-    justifyContent: 'center',
-  },
-  imageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  lightImgae: {
-    width: 300,
-    height: 200,
-    alignSelf: 'center',
-  },
-  bigLight: {
-    width: 350,
-    height: 200,
-    alignSelf: 'center',
-  },
-  textContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  successText: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
-    opacity: 0.8,
-  },
-  
-});
-export default styles;
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
+export const Container = styled.View`
+  flex: 1;
+  background-color: #191919;
+`;
+
+export const FixedContainer = styled.View`
+  height: ${height * 0.8}px;
+  justify-content: center;
+`;
+
+export const ImageContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LightImage = styled.Image`
+  width: 300px;
+  height: 200px;
+  align-self: center;
+`;
+
+export const BigLight = styled.ImageBackground`
+  width: 350px;
+  height: 200px;
+  align-self: center;
+`;
+
+export const TextContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SuccessText = styled.Text`
+  color: #fff;
+  font-size: 30px;
+  font-weight: bold;
+  opacity: 0.8;
+`;

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Alert, SafeAreaView, Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Title from './Title/Title';
-import styles from './Styles';
-import { Dimensions } from 'react-native';
 import CommonButton from '../../Button/CommonButton';
 import CommonModal from '../../Modal/CommonModal';
 import { createChatRoom } from '../../api/createChat';
@@ -12,6 +10,40 @@ import detailWorkshop from '../../api/detailWorkshop';
 import { checkReview } from '../../api/checkReview';
 import { UserInfo } from '../../api/userInfo';
 import SmallReviewContainer from '../../Components/SmallReviewContainer/SmallReviewContainer';
+import {
+  Container,
+  CloseButtonContainer,
+  CloseButton,
+  ImageContainer,
+  ImageStyled,
+  ContentsContainer,
+  OpinionContainer,
+  OpinionTitleContainer,
+  OpImageContainer,
+  OpinionImage,
+  OpniTitleContainer,
+  OpinionTitle,
+  OpinionContentsContainer,
+  OpinionContents,
+  ReviewContainer,
+  ReviewTitleContainer,
+  ReviewIconContainer,
+  ReviewIcon,
+  ReviewTextContainer,
+  ReviewTitleText,
+  ReviewRowContainer,
+  NoReviews,
+  ReviewImage,
+  MoreContainer,
+  MoreIconContainer,
+  MoreIcon,
+  MoreTextContainer,
+  MoreText,
+  ButtonContainer,
+  NoReviewText,
+} from './Styles';
+
+const { height } = Dimensions.get('window');
 
 const WorkShopScreen = ({ navigation, route }) => {
   const workshopId = route?.params?.workshopId; 
@@ -123,102 +155,74 @@ const WorkShopScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
-      <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.closeButtonContainer}
-          onPress={handleBackButton}
-          activeOpacity={0.8}>
-          <Image
-            source={require('../../assets/images/backButton.png')}
-            style={styles.closeButton}
-          />
-        </TouchableOpacity>
-        <View style={styles.imageContainer}>
-          <Image
-            source={require('../../assets/images/workshop.png')}
-            style={styles.image}
-          />
-        </View>
+      <Container>
+        <CloseButtonContainer onPress={handleBackButton} activeOpacity={0.8}>
+          <CloseButton source={require('../../assets/images/backButton.png')} />
+        </CloseButtonContainer>
+        <ImageContainer>
+          <ImageStyled source={require('../../assets/images/workshop.png')} />
+        </ImageContainer>
         <Title
           nameText={workshopDetails.workshopName}
           locationText={workshopDetails.address}
           costText={'10,000원'}
         />
-        <ScrollView
-          contentContainerStyle={{
-            minHeight: Dimensions.get('window').height * 0.46,
-          }}>
-          <View style={styles.contentsContainer}>
-            <View style={styles.opinionContainer}>
-              <View style={styles.opiniontitleContainer}>
-                <View style={styles.opImageContainer}>
-                  <Image
-                    source={require('../../assets/images/opinionicon.png')}
-                    style={styles.opinionImage}
-                  />
-                </View>
-                <View style={styles.opnititleContainer}>
-                  <Text style={styles.opinionTitle}>공방 의견</Text>
-                </View>
-              </View>
-              <View style={styles.opinioncontentsContainer}>
-                <Text style={styles.opinionContents}>
-                  {workshopDetails.description}
-                </Text>
-              </View>
-              <View style={styles.reviewContainer}>
-                <View style={styles.reviewTitleContainer}>
-                  <View style={styles.reviewiconContainer}>
-                    <Image
-                      source={require('../../assets/images/reviewicon.png')}
-                      style={styles.reviewIcon}
-                    />
-                  </View>
-                  <View style={styles.reviewTextContainer}>
-                    <Text style={styles.reviewTitleText}>공방 리뷰</Text>
-                  </View>
-                </View>
-                <View style={[styles.reviewRowContainer, reviews.length === 0 && styles.noReviews]}>
+          <ContentsContainer>
+            <OpinionContainer>
+              <OpinionTitleContainer>
+                <OpImageContainer>
+                  <OpinionImage source={require('../../assets/images/opinionicon.png')} />
+                </OpImageContainer>
+                <OpniTitleContainer>
+                  <OpinionTitle>공방 의견</OpinionTitle>
+                </OpniTitleContainer>
+              </OpinionTitleContainer>
+              <OpinionContentsContainer>
+                <OpinionContents>{workshopDetails.description}</OpinionContents>
+              </OpinionContentsContainer>
+              <ReviewContainer>
+                <ReviewTitleContainer>
+                  <ReviewIconContainer>
+                    <ReviewIcon source={require('../../assets/images/reviewicon.png')} />
+                  </ReviewIconContainer>
+                  <ReviewTextContainer>
+                    <ReviewTitleText>공방 리뷰</ReviewTitleText>
+                  </ReviewTextContainer>
+                </ReviewTitleContainer>
+                <ReviewRowContainer style={reviews.length === 0 && NoReviews}>
                   {reviews.length > 0 ? (
                     <>
                       {reviews.map((review, index) => (
                         <SmallReviewContainer
                           key={index}
-                          img1={<Image source={{ uri: review.img1 }} style={styles.reviewImage} />}
+                          img1={<Image source={{ uri: review.img1 }} style={ReviewImage} />}
                           description={review.description}
                         />
                       ))}
-                      <View style={styles.moreContainer}>
-                        <TouchableOpacity
-                          style={styles.moreIconContainer}
-                          activeOpacity={0.8}
-                          onPress={handleMorePress}>
-                          <Image
-                            source={require('../../assets/images/moreicon.png')}
-                            style={styles.moreIcon}
-                          />
-                          <View style={styles.moretextContainer}>
-                            <Text style={styles.moreText}>더보기</Text>
-                          </View>
-                        </TouchableOpacity>
-                      </View>
+                      <MoreContainer>
+                        <MoreIconContainer onPress={handleMorePress} activeOpacity={0.8}>
+                          <MoreIcon source={require('../../assets/images/moreicon.png')} />
+                          <MoreTextContainer>
+                            <MoreText>더보기</MoreText>
+                          </MoreTextContainer>
+                        </MoreIconContainer>
+                      </MoreContainer>
                     </>
                   ) : (
-                    <Text style={styles.noReviewText}>아직 리뷰가 없어요!</Text>
+                    <NoReviewText>아직 리뷰가 없어요!</NoReviewText>
                   )}
-                </View>
-              </View>
-            </View>
-          </View>
-        </ScrollView>
-        <View style={styles.buttonContainer}>
+                </ReviewRowContainer>
+              </ReviewContainer>
+            </OpinionContainer>
+          </ContentsContainer>
+        <ButtonContainer>
           <CommonButton
             buttonText="견적서 저장하기"
             buttonColor="#ffffff"
             textColor="#000000"
             onPress={handleStorageButton}
           />
-        </View>
+        </ButtonContainer>
         <CommonModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
@@ -239,7 +243,7 @@ const WorkShopScreen = ({ navigation, route }) => {
           onFirstButtonPress={handleFirstButtonPress}
           onSecondButtonPress={handleSecondButtonPress}
         />
-      </View>
+      </Container>
     </SafeAreaView>
   );
 };

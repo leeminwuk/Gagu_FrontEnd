@@ -1,111 +1,126 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
-const styles = StyleSheet.create({
-  googleButton: {
-    width: width * 0.887,
-    height: 52,
-    borderRadius: 8,
-    marginBottom: 8,
-    fontSize: 12,
-    color: '#4a4a4a',
-    backgroundColor: '#ffffff',
-    shadowColor: '#9b9b9b',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 1,
-    shadowRadius: 0,
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  googleIcon: {
-    width: 24,
-    height: 24,
-    marginLeft: 10,
-  },
-  googleText: {
-    color: '#000000',
-    textAlign: 'center',
-    marginRight: 34,
-  },
-  kakaoButton: {
-    width: width * 0.887,
-    height: 52,
-    borderRadius: 8,
-    marginBottom: 8,
-    fontSize: 12,
-    color: '#4a4a4a',
-    backgroundColor: '#Fee500',
-    shadowColor: '#9b9b9b',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 1,
-    shadowRadius: 0,
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  kakaoIcon: {
-    width: 24,
-    height: 24,
-    marginLeft: 10,
-  },
-  kakaoText: {
-    color: '#000000',
-    textAlign: 'center',
-    marginRight: 34,
-  },
-  textContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-  },
-  mainText: {
-    fontWeight: '900',
-    fontSize: 30,
-    color: '#ffffff',
-  },
-  sideTextBox: {
-    marginTop: 40,
-  },
-  sideText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#ffffff',
-    marginTop: 14,
-    letterSpacing: -0.5,
-  },
-  startButton: {
-    marginTop: 140,
-    marginLeft: 12,
-  },
-  startText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#ffffff',
-    letterSpacing: -0.5,
-    marginLeft: 8,
-  },
-  startArrow: {
-    width: width * 0.7,
-    height: 2,
-    backgroundColor: '#ffffff',
-    marginTop: -20,
-  },
-  startArrowContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  rightArrow: {
-    marginLeft: -80,
-    marginTop: -20,
-  },
-  arrowCircle: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#ffffff',
-    marginTop: -20,
-    marginLeft: -30,
-  },
-});
-export default styles;
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
+export const GoogleButton = styled.TouchableOpacity`
+  width: ${width * 0.887}px;
+  height: 52px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #4a4a4a;
+  background-color: #ffffff;
+  shadow-color: #9b9b9b;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 1;
+  shadow-radius: 0px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const GoogleIcon = styled.Image`
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+`;
+
+export const GoogleText = styled.Text`
+  color: #000000;
+  text-align: center;
+  margin-right: 34px;
+`;
+
+export const KakaoButton = styled.TouchableOpacity`
+  width: ${width * 0.887}px;
+  height: 52px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #4a4a4a;
+  background-color: #fee500;
+  shadow-color: #9b9b9b;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 1;
+  shadow-radius: 0px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const KakaoIcon = styled.Image`
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+`;
+
+export const KakaoText = styled.Text`
+  color: #000000;
+  text-align: center;
+  margin-right: 34px;
+`;
+
+export const TextContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
+
+export const MainText = styled.Text`
+  font-weight: 900;
+  font-size: 30px;
+  color: #ffffff;
+`;
+
+export const SideTextBox = styled.View`
+  margin-top: 40px;
+`;
+
+export const SideText = styled.Text`
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 14px;
+  letter-spacing: -0.5px;
+`;
+
+export const StartButton = styled.TouchableOpacity`
+  margin-top: 140px;
+  margin-left: 12px;
+`;
+
+export const StartText = styled.Text`
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  margin-left: 8px;
+`;
+
+export const StartArrow = styled.View`
+  width: ${width * 0.7}px;
+  height: 2px;
+  background-color: #ffffff;
+  margin-top: -20px;
+`;
+
+export const StartArrowContainer = styled.View`
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const RightArrow = styled.Image`
+  margin-left: -80px;
+  margin-top: -20px;
+`;
+
+export const ArrowCircle = styled.View`
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: #ffffff;
+  margin-top: -20px;
+  margin-left: -30px;
+`;

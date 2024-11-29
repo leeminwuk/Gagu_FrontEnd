@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,17 +8,31 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import styles from './Styles';
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
-import BackButton from '../../Components/BackButton/BackButton';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Postcode from '@actbase/react-daum-postcode';
-import {TextInput} from 'react-native-gesture-handler';
+import { TextInput } from 'react-native-gesture-handler';
 import CommonButton from '../../Button/CommonButton';
 import SignupAccept from '../../Modal/SignupAccept/SignupAccept'; // SignupAccept 컴포넌트 임포트
 import { postAddress } from '../../api/addressInput'; // postAddress 함수 임포트
 import { getToken } from '../../utils/storage'; // 토큰 가져오는 함수 임포트
+import {
+  Container,
+  TextContainer,
+  TitleText,
+  SideTextBox,
+  SideText,
+  AddressContainer,
+  HintText,
+  InputContainer,
+  TextInputContainer,
+  AddressText,
+  ButtonContainer,
+  InvalidInput,
+  ModalSafeArea,
+} from './Styles';
+import BackButton from '../../Components/BackButton/BackButton';
 
-const AddressScreen = ({navigation, onAddressSubmit}) => {
+const AddressScreen = ({ navigation, onAddressSubmit }) => {
   const [address, setAddress] = useState('');
   const [detailAddress, setDetailAddress] = useState(''); // 상세 주소 상태 변수 추가
   const [modalVisible, setModalVisible] = useState(false);
@@ -115,30 +129,31 @@ const AddressScreen = ({navigation, onAddressSubmit}) => {
 
   return (
     <KeyboardAvoidingView
-      style={{flex: 1, backgroundColor: '#191919'}}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <SafeAreaView style={{flex: 1}}>
+      style={{ flex: 1, backgroundColor: '#191919' }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      <SafeAreaView style={{ flex: 1 }}>
         <BackButton navigation={navigation} />
-        <View style={styles.container}>
-          <View style={styles.textContainer}>
-            <Text style={styles.titleText}>{mainText}</Text>
-          </View>
+        <Container>
+          <TextContainer>
+            <TitleText>{mainText}</TitleText>
+          </TextContainer>
           {sideText ? (
-            <View style={styles.sideTextBox}>
-              <Text style={styles.sideText}>{sideText}</Text>
-            </View>
+            <SideTextBox>
+              <SideText>{sideText}</SideText>
+            </SideTextBox>
           ) : null}
-          <View style={styles.addressContainer}>
-            <View style={styles.inputContainer}>
-              <Text style={styles.hintText}>주소입력</Text>
-              <View style={styles.textInputContainer}>
+          <AddressContainer>
+            <InputContainer>
+              <HintText>주소입력</HintText>
+              <TextInputContainer>
                 <TouchableOpacity onPress={() => setModalVisible(true)}>
-                  <Text style={styles.addressText}>
+                  <AddressText>
                     {address || '주소를 입력해주세요'}
-                  </Text>
+                  </AddressText>
                 </TouchableOpacity>
-              </View>
-            </View>
+              </TextInputContainer>
+            </InputContainer>
             {showNewInput && (
               <Animated.View
                 style={{
@@ -151,34 +166,32 @@ const AddressScreen = ({navigation, onAddressSubmit}) => {
                     },
                   ],
                   opacity: slideAnim,
-                }}>
+                }}
+              >
                 <Animated.View
                   style={{
-                    transform: [{translateX: shakeAnim}],
-                  }}>
-                  <View style={styles.inputContainer}>
-                    <Text style={styles.hintText}>상세주소</Text>
-                    <View
-                      style={[
-                        styles.textInputContainer,
-                        !isValid && styles.invalidInput,
-                      ]}>
+                    transform: [{ translateX: shakeAnim }],
+                  }}
+                >
+                  <InputContainer>
+                    <HintText>상세주소</HintText>
+                    <TextInputContainer style={!isValid && InvalidInput}>
                       <TextInput
-                        style={styles.addressText}
+                        style={AddressText}
                         placeholder="상세주소를 입력해주세요"
                         placeholderTextColor="#ffffff"
                         onChangeText={text => {
                           setDetailAddress(text);
                           setIsValid(true); // 입력 중에는 유효성 검사를 하지 않음
                         }}
-                      ></TextInput>
-                    </View>
-                  </View>
+                      />
+                    </TextInputContainer>
+                  </InputContainer>
                 </Animated.View>
               </Animated.View>
             )}
-          </View>
-          <View style={styles.buttonContainer}>
+          </AddressContainer>
+          <ButtonContainer>
             {showDetailInput && (
               <CommonButton
                 buttonText="다음"
@@ -192,28 +205,30 @@ const AddressScreen = ({navigation, onAddressSubmit}) => {
               textColor="#878787"
               onPress={handleSkip}
             />
-          </View>
-        </View>
+          </ButtonContainer>
+        </Container>
         <Modal
           visible={modalVisible}
           animationType="slide"
           transparent={true}
-          onRequestClose={() => setModalVisible(false)}>
+          onRequestClose={() => setModalVisible(false)}
+        >
           <SafeAreaProvider>
-            <SafeAreaView style={styles.modalSafeArea}>
+            <ModalSafeArea>
               <Postcode
-                style={{width: '100%', height: '100%'}}
-                jsOptions={{animation: true, theme}}
+                style={{ width: '100%', height: '100%' }}
+                jsOptions={{ animation: true, theme }}
                 onSelected={handleAddressSelect}
               />
-            </SafeAreaView>
+            </ModalSafeArea>
           </SafeAreaProvider>
         </Modal>
         <Modal
           visible={signupModalVisible}
           animationType="slide"
           transparent={true}
-          onRequestClose={() => setSignupModalVisible(false)}>
+          onRequestClose={() => setSignupModalVisible(false)}
+        >
           <SignupAccept
             setModalVisible={setSignupModalVisible} // 여기서 setModalVisible을 setSignupModalVisible로 변경
             mainText="환영합니다!"

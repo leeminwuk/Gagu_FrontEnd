@@ -1,15 +1,12 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
+import styled from 'styled-components/native';
 
-const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#191919',
-  },
-  container: {
-    flex: 1,
-    paddingHorizontal: 22,
-    backgroundColor: '#191919',
-  },
-});
-export default styles;
+export const SafeContainer = styled.SafeAreaView`
+  flex: 1;
+  background-color: #191919;
+`;
+
+export const Container = styled.View`
+  flex: 1;
+  padding-horizontal: 22px;
+  background-color: #191919;
+`;

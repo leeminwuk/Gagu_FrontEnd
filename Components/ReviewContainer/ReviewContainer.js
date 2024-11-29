@@ -1,8 +1,29 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, Modal } from 'react-native';
-import styles from './Styles';
+import { TouchableOpacity, Modal } from 'react-native';
+import {
+  ReviewContainer,
+  ReviewTitleContainer,
+  ProfileContainer,
+  ProfileImage,
+  ProfileText,
+  ReviewRatingContainer,
+  ReviewStarContainer,
+  ReviewStarImage,
+  ReviewDateContainer,
+  ReviewDateText,
+  ReviewDetailContainer,
+  ReviewCommentContainer,
+  CommentText,
+  ReviewImageContainer,
+  ReviewImage,
+  ModalContainer,
+  ModalImage,
+  ModalComment,
+  CloseButton,
+  CloseButtonText,
+} from './Styles';
 
-const ReviewContainer = ({ writer, date, description, stars, img1, img2, img3 }) => {
+const ReviewComponent = ({ writer, date, description, stars, img1, img2, img3 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedComment, setSelectedComment] = useState('');
@@ -14,37 +35,35 @@ const ReviewContainer = ({ writer, date, description, stars, img1, img2, img3 })
   };
 
   return (
-    <View style={styles.reviewContainer}>
-      <View style={styles.reviewTitleContainer}>
-        <View style={styles.profileContainer}>
-          <Image
+    <ReviewContainer>
+      <ReviewTitleContainer>
+        <ProfileContainer>
+          <ProfileImage
             source={require('../../assets/images/profile.png')}
-            style={styles.profileImage}
           />
-          <Text style={styles.profileText}>{writer}</Text>
-        </View>
-        <View style={styles.reviewRatingContainer}>
-          <View style={styles.reviewStarContainer}>
+          <ProfileText>{writer}</ProfileText>
+        </ProfileContainer>
+        <ReviewRatingContainer>
+          <ReviewStarContainer>
             {[...Array(stars)].map((_, index) => (
-              <Image
+              <ReviewStarImage
                 key={index}
                 source={require('../../assets/images/filedstar.png')}
-                style={styles.reviewStarImage}
               />
             ))}
-          </View>
-          <View style={styles.reviewDateContainer}>
-            <Text style={styles.reviewDateText}>{date}</Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.reviewDetailContainer}>
-        <View style={styles.reviewCommentContainer}>
-          <Text style={styles.commentText}>
+          </ReviewStarContainer>
+          <ReviewDateContainer>
+            <ReviewDateText>{date}</ReviewDateText>
+          </ReviewDateContainer>
+        </ReviewRatingContainer>
+      </ReviewTitleContainer>
+      <ReviewDetailContainer>
+        <ReviewCommentContainer>
+          <CommentText>
             {description}
-          </Text>
-        </View>
-        <View style={styles.reviewImageContainer}>
+          </CommentText>
+        </ReviewCommentContainer>
+        <ReviewImageContainer>
           {[img1, img2, img3].map((img, index) => (
             img ? (
               <TouchableOpacity
@@ -52,15 +71,14 @@ const ReviewContainer = ({ writer, date, description, stars, img1, img2, img3 })
                 key={index}
                 onPress={() => handleImagePress(img, description)}
               >
-                <Image
+                <ReviewImage
                   source={{ uri: img }}
-                  style={styles.reviewImage}
                 />
               </TouchableOpacity>
             ) : null
           ))}
-        </View>
-      </View>
+        </ReviewImageContainer>
+      </ReviewDetailContainer>
 
       <Modal
         visible={modalVisible}
@@ -68,20 +86,19 @@ const ReviewContainer = ({ writer, date, description, stars, img1, img2, img3 })
         animationType="none"
         onRequestClose={() => setModalVisible(false)}
       >
-        <View style={styles.modalContainer}>
-          <Image source={selectedImage} style={styles.modalImage} />
-          <Text style={styles.modalComment}>{selectedComment}</Text>
-          <TouchableOpacity
+        <ModalContainer>
+          <ModalImage source={selectedImage} />
+          <ModalComment>{selectedComment}</ModalComment>
+          <CloseButton
             onPress={() => setModalVisible(false)}
             activeOpacity={0.8}
-            style={styles.closeButton}
           >
-            <Text style={styles.closeButtonText}>닫기</Text>
-          </TouchableOpacity>
-        </View>
+            <CloseButtonText>닫기</CloseButtonText>
+          </CloseButton>
+        </ModalContainer>
       </Modal>
-    </View>
+    </ReviewContainer>
   );
 };
 
-export default ReviewContainer;
+export default ReviewComponent;

@@ -1,65 +1,57 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#191919',
-  },
-  title: {
-    marginHorizontal: 22,
-    marginBottom: 20,
-    justifyContent: 'center',
-  },
-  userProgress: {},
-  userProgressText: {
-    fontSize: 26,
-    fontWeight: '600',
-    color: '#ffffff',
-    lineHeight: 30,
-  },
-  iconContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  icon: {
-    width: 30,
-    height: 30,
-  },
-  noselectTextContainer: {
-    height: height * 0.6,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  noselectText: {
-    fontSize: 12,
-    fontWeight: '400',
-    color: '#ffffff',
-    lineHeight: 20,
-    textAlign: 'center',
-  },
-  choiceTitle: {
-    marginHorizontal: 22,
-    marginVertical: 14,
-    justifyContent: 'center',
-  },
-  choiceText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#ffffff',
-    lineHeight: 30,
-  },
-  selectContainer:{
-    marginHorizontal: 22,
-  },
-  noSelectContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  noSelectText: {
-    fontSize: 16,
-    color: '#ffffff',
-    textAlign: 'center',
-  },
-});
-export default styles;
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
+export const Container = styled.View`
+  flex: 1;
+  background-color: #191919;
+`;
+
+export const Title = styled.View`
+  margin-horizontal: 22px;
+  margin-bottom: 20px;
+  justify-content: center;
+`;
+
+export const UserProgress = styled.View``;
+
+export const UserProgressText = styled.Text`
+  font-size: 26px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 30px;
+`;
+
+export const ChoiceWorkshopContainer = styled.View``;
+
+export const ChoiceTitle = styled.View`
+  margin-horizontal: 22px;
+  margin-vertical: 14px;
+  justify-content: center;
+`;
+
+export const ChoiceText = styled.Text`
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 30px;
+`;
+
+export const SelectContainer = styled.View`
+  margin-horizontal: 22px;
+`;
+
+export const NoSelectTextContainer = styled.View`
+  height: ${height * 0.6}px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const NoSelectText = styled.Text`
+  font-size: 12px;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 20px;
+  text-align: center;
+`;

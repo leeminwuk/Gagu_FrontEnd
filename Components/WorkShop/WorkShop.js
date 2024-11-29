@@ -1,6 +1,30 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import styles from './Styles';
+import {
+  WorkShopContainer,
+  ImageContainer,
+  StyledImage,
+  Container,
+  TitleContainer,
+  TitleTextContainer,
+  TitleText,
+  LocationContainer,
+  LocationImageContainer,
+  LocationImage,
+  LocationTextContainer,
+  LocationText,
+  SubTextContainer,
+  SubText,
+  ReviewContainer,
+  StarImageContainer,
+  StarImage,
+  ReviewTextContainer,
+  ReviewText,
+  ExpactedCostContainer,
+  ExpactedTextContainer,
+  ExpactedText,
+  CostContainer,
+  CostText,
+} from './Styles';
 
 const WorkShop = ({
   workshopId, 
@@ -21,60 +45,52 @@ const WorkShop = ({
   const starCount = Math.ceil(validStarAverage);
 
   return (
-    <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
-      <View style={styles.workShopContainer}>
-        <View style={styles.imageContainer}>
-          <Image source={workshopimage} style={styles.image} />
-        </View>
-        <View style={styles.conatiner}>
-          <View style={styles.titleContainer}>
-            <View style={styles.titleTextContainer}>
-              <Text style={styles.titleText}>{titleText}</Text>
-            </View>
-            <View style={styles.locationContainer}>
-              <View style={styles.locationImageContainer}>
-                <Image
-                  source={require('../../assets/images/whitelocation.png')}
-                  style={styles.locationImage}
-                />
-              </View>
-              <View style={styles.locationTextContainer}>
-                <Text style={styles.locationText}>{locationText}</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.subTextContainer}>
-            <Text style={styles.subText}>{subText}</Text>
-          </View>
-          <View style={styles.reviewContainer}>
-            <View style={styles.starImageContainer}>
-              {[...Array(starCount)].map((_, i) => (
-                <Image
-                  key={i}
-                  source={require('../../assets/images/filedstar.png')}
-                  style={styles.starImage}
-                />
-              ))}
-            </View>
-            <View style={styles.reviewTextContainer}>
-              <Text style={styles.reviewText}>{reviewText}</Text>
-            </View>
-          </View>
-          <View style={styles.expactedCostContainer}>
-              <View style={styles.expactedTextContainer}>
-                  <Text style={styles.expactedText}>
-                      예상 가격
-                  </Text>
-              </View>
-              <View style={styles.costContainer}>
-                  <Text style={styles.costText}>
-                      {costText}
-                  </Text>
-              </View>
-          </View>
-        </View>
-      </View>
-    </TouchableOpacity>
+    <WorkShopContainer onPress={handlePress} activeOpacity={0.8}>
+      <ImageContainer>
+        <StyledImage source={workshopimage} />
+      </ImageContainer>
+      <Container>
+        <TitleContainer>
+          <TitleTextContainer>
+            <TitleText>{titleText}</TitleText>
+          </TitleTextContainer>
+          <LocationContainer>
+            <LocationImageContainer>
+              <LocationImage
+                source={require('../../assets/images/whitelocation.png')}
+              />
+            </LocationImageContainer>
+            <LocationTextContainer>
+              <LocationText>{locationText}</LocationText>
+            </LocationTextContainer>
+          </LocationContainer>
+        </TitleContainer>
+        <SubTextContainer>
+          <SubText>{subText}</SubText>
+        </SubTextContainer>
+        <ReviewContainer>
+          <StarImageContainer>
+            {[...Array(starCount)].map((_, i) => (
+              <StarImage
+                key={i}
+                source={require('../../assets/images/filedstar.png')}
+              />
+            ))}
+          </StarImageContainer>
+          <ReviewTextContainer>
+            <ReviewText>{reviewText}</ReviewText>
+          </ReviewTextContainer>
+        </ReviewContainer>
+        <ExpactedCostContainer>
+          <ExpactedTextContainer>
+            <ExpactedText>예상 가격</ExpactedText>
+          </ExpactedTextContainer>
+          <CostContainer>
+            <CostText>{costText}</CostText>
+          </CostContainer>
+        </ExpactedCostContainer>
+      </Container>
+    </WorkShopContainer>
   );
 };
 

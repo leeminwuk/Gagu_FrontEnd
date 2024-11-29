@@ -1,24 +1,25 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
-const styles = StyleSheet.create({
-  photoSelectBox: {
-    width: width * 0.2,
-    height: width * 0.18,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#d0d0d0',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  selectedImage: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 5,
-  },
-  cameraImage: {
-    width: 30,
-    height: 30,
-  },
-});
-export default styles;
+const { width } = Dimensions.get('window');
+
+export const PhotoSelectBox = styled.View`
+  width: ${width * 0.2}px;
+  height: ${width * 0.18}px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #d0d0d0;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SelectedImage = styled.Image`
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+`;
+
+export const CameraImage = styled.Image`
+  width: 30px;
+  height: 30px;
+`;

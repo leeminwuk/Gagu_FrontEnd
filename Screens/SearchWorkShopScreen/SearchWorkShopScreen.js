@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, SafeAreaView } from 'react-native';
-import styles from './Styles';
 import BackButton from '../../Components/BackButton/BackButton';
 import { useNavigation } from '@react-navigation/native';
 import NearLocation from '../../Components/NearLocation/NearLocaion';
@@ -8,6 +7,15 @@ import SelectDistance from '../../Components/SelectDistance/SelectDistance';
 import WorkShop from '../../Components/WorkShop/WorkShop';
 import { checkWorkshop } from '../../api/checkWorkshop';
 import { getToken } from '../../utils/storage';
+import {
+  Container,
+  MainText,
+  SideTextContainer,
+  SideText,
+  LocationContainer,
+  WorkShopContainer,
+  WorkshopWrapper,
+} from './Styles';
 
 const SearchWorkShopScreen = (props) => {
   const [workshops, setWorkshops] = useState([]);
@@ -36,37 +44,36 @@ const SearchWorkShopScreen = (props) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
       <BackButton navigation={navigation} steps={2} />
-      <View style={styles.container}>
-        <View style={styles.textContainer}>
-          <Text style={styles.mainText}>근처 공방 찾기</Text>
-          <View style={styles.sideTextContainer}>
-            <Text style={styles.sideText}>
-              원하는 공방을 선택하여 가구제작을 완성해보세요.
-            </Text>
-          </View>
-        </View>
-        <View style={styles.locationContainer}>
+      <Container>
+        <MainText>근처 공방 찾기</MainText>
+        <SideTextContainer>
+          <SideText>
+            원하는 공방을 선택하여 가구제작을 완성해보세요.
+          </SideText>
+        </SideTextContainer>
+        <LocationContainer>
           <NearLocation />
           <SelectDistance />
-        </View>
-        <ScrollView contentContainerStyle={styles.workShopcontainer}>
+        </LocationContainer>
+        <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
           {workshops.map((workshop, index) => (
-            <WorkShop
-              key={index}
-              workshopId={workshop.id}
-              navigation={navigation}
-              workshopimage={require('../../assets/images/workshop.png')}
-              titleText={workshop.workshopName}
-              subText={workshop.description.length > 50 ? workshop.description.substring(0, 50) + '...' : workshop.description}
-              locationText={workshop.address}
-              starAverage={workshop.starAverage}
-              reviewText={`리뷰 ${workshop.count}건`}
-              costText={'10,000원'}
-              handleButtonPress={handleButtonPress}
-            />
+            <WorkshopWrapper key={index}>
+              <WorkShop
+                workshopId={workshop.id}
+                navigation={navigation}
+                workshopimage={require('../../assets/images/workshop.png')}
+                titleText={workshop.workshopName}
+                subText={workshop.description.length > 50 ? workshop.description.substring(0, 50) + '...' : workshop.description}
+                locationText={workshop.address}
+                starAverage={workshop.starAverage}
+                reviewText={`리뷰 ${workshop.count}건`}
+                costText={'10,000원'}
+                handleButtonPress={handleButtonPress}
+              />
+            </WorkshopWrapper>
           ))}
         </ScrollView>
-      </View>
+      </Container>
     </SafeAreaView>
   );
 };

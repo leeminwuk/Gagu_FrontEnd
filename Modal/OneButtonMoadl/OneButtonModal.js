@@ -1,7 +1,20 @@
 import React from 'react';
-import {View, Text, Modal, Image, TouchableOpacity} from 'react-native';
-import {BlurView} from '@react-native-community/blur';
-import styles from './Styles';
+import { Text, Modal, Image, TouchableOpacity } from 'react-native';
+import { BlurView } from '@react-native-community/blur';
+import {
+  BlurContainer,
+  ModalContainer,
+  CheckContainer,
+  CheckImage,
+  MainTextContainer,
+  MainText,
+  SideTextContainer,
+  SideText,
+  ButtonBox,
+  ButtonContainer,
+  OneButton,
+  ButtonText,
+} from './Styles';
 
 const OneButtonModal = ({
   modalVisible,
@@ -20,44 +33,39 @@ const OneButtonModal = ({
       visible={modalVisible}
       alignItems="center"
       justifyContent="center"
-      >
+    >
       <BlurView
-        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+        style={{ flex: 1 }}
         blurType="dark"
-        blurAmount={1}
-        reducedTransparencyFallbackColor="rgba(99,99,99,0.08)">
-        <View style={styles.modal}>
-          <View style={styles.modalContainer}>
-            <View style={styles.checkContainer}>
-              <Image source={imageSource} style={styles.checkImage} />
-              <View style={styles.mainTextContainer}>
-                <Text style={styles.mainText}>{mainText}</Text>
-              </View>
-            </View>
-            <View>
-              <View style={styles.sideTextContainer}>
-                <Text style={styles.sideText}>{sideText}</Text>
-              </View>
-            </View>
-            <View style={styles.buttonBox}>
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity
+        blurAmount={10}
+        reducedTransparencyFallbackColor="rgba(99,99,99,0.08)"
+      >
+        <BlurContainer>
+          <ModalContainer>
+            <CheckContainer>
+              <CheckImage source={imageSource} />
+              <MainTextContainer>
+                <MainText>{mainText}</MainText>
+              </MainTextContainer>
+            </CheckContainer>
+            <SideTextContainer>
+              <SideText>{sideText}</SideText>
+            </SideTextContainer>
+            <ButtonBox>
+              <ButtonContainer>
+                <OneButton
                   onPress={onButtonPress}
-                  style={[
-                    styles.oneButton,
-                    {backgroundColor: buttonColor},
-                  ]}
+                  style={{ backgroundColor: buttonColor }}
                   activeOpacity={0.8}
-                  >
-                  <Text
-                    style={[styles.buttonText, {color: buttonTextColor}]}>
+                >
+                  <ButtonText style={{ color: buttonTextColor }}>
                     {buttonText}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </View>
+                  </ButtonText>
+                </OneButton>
+              </ButtonContainer>
+            </ButtonBox>
+          </ModalContainer>
+        </BlurContainer>
       </BlurView>
     </Modal>
   );

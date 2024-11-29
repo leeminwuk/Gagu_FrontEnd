@@ -1,59 +1,68 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  backgroundImage: {
-    width: width,
-    height: height,
-  },
-  textContainer: {
-    marginTop: 100,
-    marginLeft: 22,
-  },
-  overlayText: {
-    color: '#ffffff',
-    fontSize: 26,
-    fontWeight: '600',
-  },
-  startButton: {
-    marginTop: 200,
-    marginLeft: 22,
-  },
-  startText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#ffffff',
-    letterSpacing: -0.5,
-    width: width * 0.3,
-  },
-  startArrowContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  startArrow: {
-    width: width * 0.7,
-    height: 2,
-    backgroundColor: '#ffffff',
-  },
-  rightArrow: {
-    marginLeft: -20,
-    marginTop: 10,
-  },
-  rightArrowImage: {
-    width: 40,
-    height: 40,
-    resizeMode: 'contain',
-  },
-  arrowCircle: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#ffffff',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-});
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
-export default styles;
+const { width, height } = Dimensions.get('window');
+
+export const MainContainer = styled.View`
+  flex: 1;
+`;
+
+export const BackgroundImage = styled.ImageBackground`
+  width: ${width}px;
+  height: ${height}px;
+`;
+
+export const TextContainer = styled.View`
+  margin-top: 100px;
+  margin-left: 22px;
+`;
+
+export const OverlayText = styled.Text`
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 600;
+`;
+
+export const StartButton = styled.View`
+  margin-top: 200px;
+  margin-left: 22px;
+`;
+
+export const StartText = styled.Text`
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  width: ${width * 0.3}px;
+`;
+
+export const StartArrowContainer = styled.View`
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const StartArrow = styled.View`
+  width: ${width * 0.7}px;
+  height: 2px;
+  background-color: #ffffff;
+`;
+
+export const RightArrow = styled.View`
+  margin-left: -20px;
+  margin-top: 10px;
+`;
+
+export const RightArrowImage = styled.Image`
+  width: 40px;
+  height: 40px;
+  resize-mode: contain;
+`;
+
+export const ArrowCircle = styled.View`
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: #ffffff;
+  justify-content: flex-start;
+  align-items: center;
+`;

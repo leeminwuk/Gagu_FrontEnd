@@ -1,8 +1,16 @@
 import React, { useRef, useEffect } from 'react';
-import { View, Text, TextInput, Animated } from 'react-native';
-import styles from './Styles';
+import { Animated } from 'react-native';
+import {
+  Container,
+  TitleContainer,
+  TitleText,
+  InputContainer,
+  Input,
+  EditingInput,
+  InvalidInput,
+} from './Styles';
 
-const InputContainer = ({ title, value, setValue, isEditing, isValid = true }) => {
+const InputContainerComponent = ({ title, value, setValue, isEditing, isValid = true }) => {
   const shakeAnimation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -21,20 +29,22 @@ const InputContainer = ({ title, value, setValue, isEditing, isValid = true }) =
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>{title}</Text>
-      </View>
-      <Animated.View style={[styles.inputContainer, { transform: [{ translateX: shakeAnimation }] }]}>
-        <TextInput
-          style={[styles.input, isEditing ? styles.editingInput : null, !isValid ? styles.invalidInput : null]}
-          value={value}
-          onChangeText={handleChange}
-          editable={isEditing}
-        />
+    <Container>
+      <TitleContainer>
+        <TitleText>{title}</TitleText>
+      </TitleContainer>
+      <Animated.View style={{ transform: [{ translateX: shakeAnimation }] }}>
+        <InputContainer>
+          <Input
+            style={[isEditing ? EditingInput : null, !isValid ? InvalidInput : null]}
+            value={value}
+            onChangeText={handleChange}
+            editable={isEditing}
+          />
+        </InputContainer>
       </Animated.View>
-    </View>
+    </Container>
   );
 };
 
-export default InputContainer;
+export default InputContainerComponent;

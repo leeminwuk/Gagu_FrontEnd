@@ -1,7 +1,11 @@
 import React from 'react';
-import { TouchableOpacity, Image, View } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
-import styles from './Styles';
+import {
+  PhotoSelectBox,
+  SelectedImage,
+  CameraImage,
+} from './Styles';
 
 const SmallImagePickerButton = ({ setProfileUrl, profileUrl }) => {
   const selectImage = async () => {
@@ -27,16 +31,15 @@ const SmallImagePickerButton = ({ setProfileUrl, profileUrl }) => {
 
   return (
     <TouchableOpacity onPress={selectImage} activeOpacity={0.7}>
-      <View style={styles.photoSelectBox}>
+      <PhotoSelectBox>
         {profileUrl ? (
-          <Image source={profileUrl} style={styles.selectedImage} />
+          <SelectedImage source={profileUrl} />
         ) : (
-          <Image
+          <CameraImage
             source={require('../../assets/images/camera.png')}
-            style={styles.cameraImage}
           />
         )}
-      </View>
+      </PhotoSelectBox>
     </TouchableOpacity>
   );
 };

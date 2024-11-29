@@ -1,9 +1,15 @@
-import React, {useState} from 'react';
-import {TouchableOpacity, Text, Image, Modal, View} from 'react-native';
-import styles from './Styles';
+import React, { useState } from 'react';
+import { Modal, View } from 'react-native';
 import SignupAccept from '../../Modal/SignupAccept/SignupAccept';
 import { useNavigation } from '@react-navigation/native';
 import { handleLogin } from '../../api/kakaoSignup';
+import {
+  KakaoButton,
+  KakaoIcon,
+  KakaoText,
+  TextContainer,
+} from './Styles';
+
 const KakaoLoginButton = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
@@ -16,6 +22,7 @@ const KakaoLoginButton = () => {
       console.error('카카오 로그인 실패');
     }
   };
+
   return (
     <>
       <Modal
@@ -32,18 +39,14 @@ const KakaoLoginButton = () => {
           navigationTo="BottomTabNavigator"
         />
       </Modal>
-      <TouchableOpacity
-        style={styles.kakaoButton}
-        activeOpacity={0.9}
-        onPress={handleSignIn}>
-        <Image
+      <KakaoButton onPress={handleSignIn} activeOpacity={0.9}>
+        <KakaoIcon
           source={require('../../assets/images/KakaoLogo.png')}
-          style={styles.kakaoIcon}
         />
-        <View style={styles.textContainer}>
-        <Text style={styles.kakaoText}>Kakao 계정으로 로그인</Text>
-        </View>
-      </TouchableOpacity>
+        <TextContainer>
+          <KakaoText>Kakao 계정으로 로그인</KakaoText>
+        </TextContainer>
+      </KakaoButton>
     </>
   );
 };

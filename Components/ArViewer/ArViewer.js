@@ -1,8 +1,8 @@
-import { View, StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import RNFS from 'react-native-fs';
 import { ArViewerView } from 'react-native-ar-viewer';
 import { useRoute } from '@react-navigation/native';
+import { Container } from './Styles';
 
 const ArViewer = () => {
   const route = useRoute();
@@ -26,7 +26,7 @@ const ArViewer = () => {
   }, [modelUrl]);
 
   return (
-    <View style={styles.container}>
+    <Container>
       {localModelPath && (
         <ArViewerView
           style={{ flex: 1 }}
@@ -44,15 +44,8 @@ const ArViewer = () => {
           planeOrientation={'horizontal'}
         />
       )}
-    </View>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-  },
-});
 
 export default ArViewer;

@@ -1,28 +1,35 @@
-import {View, Text, Image} from 'react-native';
+import { View, Text, Image } from 'react-native';
 import React from 'react';
-import styles from './Styles';
 import StartButton from '../../Button/StartButton/StartButton';
+import {
+  Container,
+  BackgroundImage,
+  LogoBox,
+  Logo,
+  LogoImage,
+  SideTextContainer,
+  SideText,
+} from './Styles';
 
 const StartScreen = () => {
   return (
-    <View style={styles.container}>
-      <Image
+    <Container>
+      <BackgroundImage
         source={require('../../assets/images/background.png')}
-        style={styles.backgroundImage}
       />
-      <View style={styles.logoBox}>
-        <View style={styles.logo}>
-          <Image
+      <LogoBox>
+        <Logo>
+          <LogoImage
             source={require('../../assets/images/logo.png')}
-            style={styles.logoImage}
           />
-        </View>
-        <View style={styles.sideTextContainer}>
-          <Text style={styles.sideText}>원하는 가구를 내 손안에</Text>
-        </View>
-      </View>
+        </Logo>
+        <SideTextContainer>
+          <SideText>원하는 가구를 내 손안에</SideText>
+        </SideTextContainer>
+      </LogoBox>
       <StartButton />
-    </View>
+    </Container>
   );
 };
+
 export default StartScreen;

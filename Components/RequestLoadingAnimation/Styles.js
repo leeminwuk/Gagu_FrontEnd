@@ -1,23 +1,20 @@
-import { StyleSheet, Dimensions } from "react-native";
-const { width, height } = Dimensions.get('window');
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#191919',
-  },
-  fixedContainer: {
-    height: height * 0.6,
-  },
-  imageContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    marginTop: 100,
-},
-  carImage: {
-    width: width * 0.6,
-    height: height * 0.3,
-  },
-});
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
-export default styles;
+const { width, height } = Dimensions.get('window');
+
+export const FixedContainer = styled.View`
+  height: ${height * 0.6}px;
+`;
+
+export const ImageContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  margin-top: 100px;
+`;
+
+export const CarImage = styled.Image`
+  width: ${width * 0.6}px;
+  height: ${height * 0.3}px;
+`;

@@ -1,6 +1,16 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
-import styles from "./Styles";
+import {
+  PaymentRequestMessage,
+  PaymentTitle,
+  LogoImage,
+  PaymentRequestText,
+  ProductContainer,
+  ProductInfoContainer,
+  ProductImage,
+  ProductName,
+  ProductDate,
+  ProductPrice,
+} from "./Styles";
 
 const RequestPayment = ({ item, price }) => {
   const message = {
@@ -42,36 +52,32 @@ const RequestPayment = ({ item, price }) => {
   };
 
   return (
-    <View key={message.id} style={styles.paymentRequestMessage}>
-      <View style={styles.paymentTitle}>
-        <View style={styles.logoContainer}>
-          <Image
-            source={require('../../assets/images/blackLogo.png')}
-            style={styles.logoImage}
-          />
-        </View>
-        <Text style={styles.paymentRequestText}>
-          {message.text}
-        </Text>
-      </View>
-      <View style={styles.productContainer}>
-        <Image
-          source={{ uri: productData.imageUrl }}
-          style={styles.productImage}
+    <PaymentRequestMessage key={message.id}>
+      <PaymentTitle>
+        <LogoImage
+          source={require('../../assets/images/blackLogo.png')}
         />
-        <View style={styles.productInfoContainer}>
-          <Text style={styles.productName}>
+        <PaymentRequestText>
+          {message.text}
+        </PaymentRequestText>
+      </PaymentTitle>
+      <ProductContainer>
+        <ProductImage
+          source={{ uri: productData.imageUrl }}
+        />
+        <ProductInfoContainer>
+          <ProductName>
             {productData.name}
-          </Text>
-          <Text style={styles.productDate}>
+          </ProductName>
+          <ProductDate>
             {productData.manufactureDate} 제작
-          </Text>
-          <Text style={styles.productPrice}>
+          </ProductDate>
+          <ProductPrice>
             {productData.price}
-          </Text>
-        </View>
-      </View>
-    </View>
+          </ProductPrice>
+        </ProductInfoContainer>
+      </ProductContainer>
+    </PaymentRequestMessage>
   );
 };
 

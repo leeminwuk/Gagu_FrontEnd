@@ -1,10 +1,23 @@
-import React, {useState} from 'react';
-import {View, Image, Text, TouchableOpacity} from 'react-native';
-import styles from './Styles';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import {
+  Container,
+  TextContainer,
+  MainText,
+  SideTextBox,
+  SideText,
+  StartButton,
+  StartText,
+  StartArrow,
+  StartArrowContainer,
+  RightArrow,
+  RightArrowImage,
+  ArrowCircle,
+} from './Styles';
 
-const SignupAccept = ({setModalVisible, mainText, sideText, navigationTo}) => {
+const SignupAccept = ({ setModalVisible, mainText, sideText, navigationTo }) => {
   const navigation = useNavigation();
 
   const onClickMain = () => {
@@ -13,34 +26,29 @@ const SignupAccept = ({setModalVisible, mainText, sideText, navigationTo}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1, backgroundColor: '#191919'}}>
-        <View style={styles.textContainer}>
-          <View>
-            <Text style={styles.mainText}>{mainText}</Text>
-          </View>
-          <View style={styles.sideTextBox}>
-            <Text style={styles.sideText}>
-                {sideText}
-            </Text>
-          </View>
-          <View style={styles.startButton}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <Container>
+        <TextContainer>
+          <MainText>{mainText}</MainText>
+          <SideTextBox>
+            <SideText>{sideText}</SideText>
+          </SideTextBox>
+          <StartButton>
             <TouchableOpacity onPress={onClickMain} activeOpacity={0.8}>
-              <Text style={styles.startText}>시작하기</Text>
-              <View style={styles.startArrowContainer}>
-                <View style={styles.startArrow}></View>
-                <View style={styles.arrowCircle}></View>
-                <View style={styles.rightArrow}>
-                  <Image
+              <StartText>시작하기</StartText>
+              <StartArrowContainer>
+                <StartArrow />
+                <ArrowCircle />
+                <RightArrow>
+                  <RightArrowImage
                     source={require('../../assets/images/rightArrow.png')}
-                    style={styles.rightArrowImage}
                   />
-                </View>
-              </View>
+                </RightArrow>
+              </StartArrowContainer>
             </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+          </StartButton>
+        </TextContainer>
+      </Container>
     </SafeAreaView>
   );
 };

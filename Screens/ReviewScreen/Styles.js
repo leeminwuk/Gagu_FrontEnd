@@ -1,58 +1,68 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
 const { width, height } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
-  SafeAreaView: {
-    flex: 1,
-    backgroundColor: '#191919',
-  },
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  title: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  titleTextContainer: {
-    flex: 1,
-  },
-  titleText: {
-    color: '#ffffff',
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  starContainer: {
-    flexDirection: 'row',
-    marginRight: 8,
-  },
-  starImage: {
-    width: 20,
-    height: 20,
-  },
-  ratingTextContainer: {
-    justifyContent: 'center',
-  },
-  ratingText: {
-    color: '#ffffff',
-    fontSize: 16,
-  },
-  reviewScrollView: {
-    flex: 1,
-  },
-  reviewContainer: {
-    flex: 1,
-    gap: height * 0.03,
-  },
-  reviewButtonContainer: {
-    marginTop: 16,
-  },
-});
+export const SafeContainer = styled.SafeAreaView`
+  flex: 1;
+  background-color: #191919;
+`;
 
-export default styles;
+export const Container = styled.View`
+  flex: 1;
+  padding: 16px;
+`;
+
+export const Title = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+`;
+
+export const TitleTextContainer = styled.View`
+  flex: 1;
+`;
+
+export const TitleText = styled.Text`
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+`;
+
+export const RatingContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const StarContainer = styled.View`
+  flex-direction: row;
+  margin-right: 8px;
+`;
+
+export const StarImage = styled.Image`
+  width: 20px;
+  height: 20px;
+`;
+
+export const RatingTextContainer = styled.View`
+  justify-content: center;
+`;
+
+export const RatingText = styled.Text`
+  color: #ffffff;
+  font-size: 16px;
+`;
+
+export const ReviewScrollView = styled.ScrollView`
+  flex: 1;
+`;
+
+export const ReviewContainerStyled = styled.View`
+  flex: 1;
+  gap: ${height * 0.03}px;
+`;
+
+export const ReviewButtonContainer = styled.View`
+  margin-top: 16px;
+`;

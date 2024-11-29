@@ -1,27 +1,29 @@
-import { StyleSheet, Dimensions } from "react-native";
-const { width, height } = Dimensions.get('window');
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#191919',
-  },
-  fixedContainer: {
-    height: height * 0.6,
-  },
-  imageContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 30,
-  },
-  lightImage: {
-    width: 250,
-    height: 150,
-  },
-  animationImage: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
- 
-});
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
-export default styles;
+const { width, height } = Dimensions.get('window');
+
+export const Container = styled.View`
+  flex: 1;
+  background-color: #191919;
+`;
+
+export const FixedContainer = styled.View`
+  height: ${height * 0.6}px;
+`;
+
+export const ImageContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+`;
+
+export const LightImage = styled.Image`
+  width: 250px;
+  height: 150px;
+`;
+
+export const AnimationImage = styled.View`
+  align-items: center;
+  justify-content: center;
+`;

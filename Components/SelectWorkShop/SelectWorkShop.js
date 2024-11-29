@@ -6,7 +6,18 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import styles from './Styles';
+import {
+  Container,
+  ImageStyled,
+  Overlay,
+  Header,
+  WorkshopName,
+  WorkshopLocation,
+  Footer,
+  Button,
+  ButtonText,
+  Icon,
+} from './Styles';
 
 const SelectWorkShop = ({
   workshopName,
@@ -15,40 +26,28 @@ const SelectWorkShop = ({
   onChatWithWorkshop,
 }) => {
   return (
-    <View style={styles.container}>
+    <Container>
       <ImageBackground
         source={require('../../assets/images/longworkshop.png')}
-        style={styles.image}>
-        <View style={styles.overlay}>
-          <View style={styles.header}>
-            <Text style={styles.workshopName}>{workshopName}</Text>
-            <Text style={styles.workshopLocation}>{workshopLocation}</Text>
-          </View>
-          <View style={styles.footer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={onCheckEstimate}
-              activeOpacity={0.8}>
-              <Text style={styles.buttonText}>견적서 확인</Text>
-                <Image
-                  source={require('../../assets/images/estimate.png')}
-                  style={styles.icon}
-                />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={onChatWithWorkshop}
-              activeOpacity={0.8}>
-              <Text style={styles.buttonText}>공방과 대화</Text>
-              <Image
-                  source={require('../../assets/images/chat.png')}
-                  style={styles.icon}
-                />
-            </TouchableOpacity>
-          </View>
-        </View>
+        style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+        <Overlay>
+          <Header>
+            <WorkshopName>{workshopName}</WorkshopName>
+            <WorkshopLocation>{workshopLocation}</WorkshopLocation>
+          </Header>
+          <Footer>
+            <Button onPress={onCheckEstimate} activeOpacity={0.8}>
+              <ButtonText>견적서 확인</ButtonText>
+              <Icon source={require('../../assets/images/estimate.png')} />
+            </Button>
+            <Button onPress={onChatWithWorkshop} activeOpacity={0.8}>
+              <ButtonText>공방과 대화</ButtonText>
+              <Icon source={require('../../assets/images/chat.png')} />
+            </Button>
+          </Footer>
+        </Overlay>
       </ImageBackground>
-    </View>
+    </Container>
   );
 };
 

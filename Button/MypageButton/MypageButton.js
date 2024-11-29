@@ -1,24 +1,29 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import styles from './Styles';
+import { View } from 'react-native';
+import {
+  Container,
+  ImageContainer,
+  Image,
+  Text,
+} from './Styles';
 
 const MypageButton = ({ image, text, style, imagecontainerStyle, imageStyle, onPress }) => {
   return (
-    <TouchableOpacity
-      style={[styles.container, style]}
+    <Container
+      style={style}
       activeOpacity={0.7}
       onPress={onPress}
-      >
-      <View style={[styles.imageContainer, imagecontainerStyle]}>
+    >
+      <ImageContainer style={imagecontainerStyle}>
         <Image
           source={image}
-          style={[styles.image, imageStyle]}
+          style={imageStyle}
         />
-      </View>
+      </ImageContainer>
       <View>
-        <Text style={styles.text}>{text}</Text>
+        <Text>{text}</Text>
       </View>
-    </TouchableOpacity>
+    </Container>
   );
 };
 

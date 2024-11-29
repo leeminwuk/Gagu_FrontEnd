@@ -1,19 +1,20 @@
-import { StyleSheet, Dimensions } from "react-native";
-const { width, height } = Dimensions.get('window');
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#191919',
-    paddingHorizontal: 22,
-  },
-  fixedContainer: {
-    height: height * 0.8,
-  },
-  mainText: {
-    color: 'white',
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-});
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
-export default styles;
+const { height } = Dimensions.get('window');
+
+export const Container = styled.View`
+  flex: 1;
+  background-color: #191919;
+  padding-horizontal: 22px;
+`;
+
+export const FixedContainer = styled.View`
+  height: ${height * 0.8}px;
+`;
+
+export const MainText = styled.Text`
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+`;

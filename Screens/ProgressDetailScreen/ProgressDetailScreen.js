@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, SafeAreaView, FlatList } from 'react-native';
+import { View, Text, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import styles from './Styles';
 import BackButton from '../../Components/BackButton/BackButton';
 import { getToken } from '../../utils/storage';
 import { UserInfo } from '../../api/userInfo';
@@ -10,11 +9,24 @@ import { checkWorkshop } from '../../api/checkWorkshop';
 import { getEstimates } from '../../api/returnEstimates';
 import { chatroomNumber } from '../../api/chatroomNumber';
 import SelectWorkShop from '../../Components/SelectWorkShop/SelectWorkShop';
+import {
+  Container,
+  Title,
+  UserProgress,
+  UserProgressText,
+  ChoiceWorkshopContainer,
+  ChoiceTitle,
+  ChoiceText,
+  SelectContainer,
+  NoSelectTextContainer,
+  NoSelectText,
+} from './Styles';
 
-const ProgressDetailScreen = ({ navigation }) => {
+const ProgressDetailScreen = () => {
   const [name, setName] = useState('');
   const [workshopProfile, setWorkshopProfile] = useState(null);
   const [estimates, setEstimates] = useState([]);
+  const navigation = useNavigation();
 
   const mockData = {
     noneselecttext:
@@ -82,21 +94,21 @@ const ProgressDetailScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
-        <BackButton navigation={navigation} />
-      <View style={styles.container}>
-        <View style={styles.title}>
-          <View style={styles.userProgress}>
-            <Text style={styles.userProgressText}>
+      <BackButton navigation={navigation} />
+      <Container>
+        <Title>
+          <UserProgress>
+            <UserProgressText>
               {name}님의 {'\n'}진행상황입니다
-            </Text>
-          </View>
-        </View>
+            </UserProgressText>
+          </UserProgress>
+        </Title>
 
-        <View style={styles.choiceworkshopContainer}>
-          <View style={styles.choiceTitle}>
-            <Text style={styles.choiceText}>저장한 견적서</Text>
-          </View>
-          <View style={styles.selectContainer}>
+        <ChoiceWorkshopContainer>
+          <ChoiceTitle>
+            <ChoiceText>저장한 견적서</ChoiceText>
+          </ChoiceTitle>
+          <SelectContainer>
             {estimates.length > 0 ? (
               <SelectWorkShop
                 workshopName={workshopProfile.workshopName}
@@ -105,13 +117,13 @@ const ProgressDetailScreen = ({ navigation }) => {
                 onChatWithWorkshop={handleChatWithWorkshop}
               />
             ) : (
-              <View style={styles.noselectTextContainer}>
-                <Text style={styles.noselectText}>{noneselecttext}</Text>
-              </View>
+              <NoSelectTextContainer>
+                <NoSelectText>{noneselecttext}</NoSelectText>
+              </NoSelectTextContainer>
             )}
-          </View>
-        </View>
-      </View>
+          </SelectContainer>
+        </ChoiceWorkshopContainer>
+      </Container>
     </SafeAreaView>
   );
 };

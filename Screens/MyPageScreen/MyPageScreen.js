@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image } from 'react-native';
-import styles from './Styles';
+import { Image } from 'react-native';
 import MainHeader from '../../Components/MainHeader/MainHeader';
 import { useNavigation } from '@react-navigation/native';
 import CommonButton from '../../Button/CommonButton';
@@ -8,6 +7,21 @@ import logOut from '../../api/logOut';
 import MypageButton from '../../Button/MypageButton/MypageButton';
 import { getToken } from '../../utils/storage';
 import { UserInfo } from '../../api/userInfo';
+import {
+  MyPageContainer,
+  Container,
+  ProfileContainer,
+  ProfileImage,
+  ProfileDetailContainer,
+  ProfileText,
+  UserEmailContainer,
+  EmailText,
+  ButtonContainer,
+  LogoImage,
+  BarButtonContainer,
+  LogoStyle,
+  LogoContainer,
+} from './Styles';
 
 const MyPageScreen = () => {
   const [profileUrl, setProfileUrl] = useState('');
@@ -53,29 +67,28 @@ const MyPageScreen = () => {
   };
 
   return (
-    <View style={styles.mypageContainer}>
+    <MyPageContainer>
       <MainHeader />
-      <View style={styles.container}>
-        <View style={styles.profileContainer}>
-          <Image
+      <Container>
+        <ProfileContainer>
+          <ProfileImage
             source={
               profileUrl
                 ? { uri: profileUrl }
                 : require('../../assets/images/profile.png')
             }
-            style={styles.profileImage}
           />
-        </View>
-        <View style={styles.profileDetailContainer}>
-          <Text style={styles.profileText}>{nickname} 님</Text> 
-          <View style={styles.userEmailContainer}>
+        </ProfileContainer>
+        <ProfileDetailContainer>
+          <ProfileText>{nickname} 님</ProfileText> 
+          <UserEmailContainer>
             {loginTypeLogo && (
-              <Image source={{ uri: loginTypeLogo }} style={styles.logoImage} />
+              <LogoImage source={{ uri: loginTypeLogo }} />
             )}
-            <Text style={styles.emailText}>{email}</Text>
-          </View>
-        </View>
-        <View style={styles.barButtonContainer}>
+            <EmailText>{email}</EmailText>
+          </UserEmailContainer>
+        </ProfileDetailContainer>
+        <BarButtonContainer>
           <MypageButton
             image={require('../../assets/images/profile.png')}
             text="개인정보 수정"
@@ -84,11 +97,11 @@ const MyPageScreen = () => {
           <MypageButton
             image={require('../../assets/images/miniLogo.png')}
             text="APP 설정"
-            imagecontainerStyle={styles.logoContainer}
-            imageStyle={styles.logoStyle}
+            imagecontainerStyle={LogoContainer}
+            imageStyle={LogoStyle}
           />
-        </View>
-        <View style={styles.buttonContainer}>
+        </BarButtonContainer>
+        <ButtonContainer>
           <CommonButton
             buttonText="로그아웃"
             buttonColor="#ffffff"
@@ -96,9 +109,9 @@ const MyPageScreen = () => {
             onPress={handleLogoutPress}
           />
           <CommonButton buttonText="가구 탈퇴하기" textColor="#585858" />
-        </View>
-      </View>
-    </View>
+        </ButtonContainer>
+      </Container>
+    </MyPageContainer>
   );
 };
 

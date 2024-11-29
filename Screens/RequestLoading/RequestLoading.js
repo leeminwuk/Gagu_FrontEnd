@@ -1,10 +1,14 @@
-import React, {useEffect} from 'react';
-import {Animated, View, Text, SafeAreaView} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { View, Text, SafeAreaView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import BackButton from '../../Components/BackButton/BackButton';
 import RequestLoadingAnimation from '../../Components/RequestLoadingAnimation/RequestLoadingAnimation';
-import styles from './Styles';
 import ProgressBar from '../../Components/ProgressBar/ProgressBar';
+import {
+  Container,
+  FixedContainer,
+  MainText,
+} from './Styles';
 
 const RequestLoading = (props) => {
   const navigation = useNavigation();
@@ -19,20 +23,18 @@ const RequestLoading = (props) => {
   }, []);
   
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#191919'}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
       <BackButton navigation={navigation} />
-      <View style={styles.container}>
-        <View style={styles.fixedContainer}>
-          <View style={styles.textContainer}>
-            <Text style={styles.mainText}>
+      <Container>
+        <FixedContainer>
+            <MainText>
               공방을 찾고 있습니다{'\n'}
               잠시 기달려 주세요
-            </Text>
-          </View>
+            </MainText>
           <RequestLoadingAnimation />
           <ProgressBar />
-        </View>
-      </View>
+        </FixedContainer>
+      </Container>
     </SafeAreaView>
   );
 };

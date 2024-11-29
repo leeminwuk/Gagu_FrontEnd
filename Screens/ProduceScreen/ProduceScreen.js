@@ -1,15 +1,21 @@
-import React, {useEffect} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  Image,
-} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import styles from './Styles';
+import React from 'react';
+import { View, Text, TouchableOpacity, ImageBackground, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import MainHeader from '../../Components/MainHeader/MainHeader';
 import Notice from '../../Components/Notice/Notice';
+import {
+  MainContainer,
+  BackgroundImage,
+  TextContainer,
+  OverlayText,
+  StartButton,
+  StartText,
+  StartArrowContainer,
+  StartArrow,
+  RightArrow,
+  RightArrowImage,
+  ArrowCircle,
+} from './Styles';
 
 const ProduceScreen = () => {
   const navigation = useNavigation();
@@ -19,37 +25,30 @@ const ProduceScreen = () => {
   };
 
   return (
-    <View style={styles.mainContainer}>
-      <ImageBackground
-        source={require('../../assets/images/produce.png')}
-        style={styles.backgroundImage}>
+    <MainContainer>
+      <BackgroundImage source={require('../../assets/images/produce.png')}>
         <MainHeader />
         <Notice />
-        <View style={styles.textContainer}>
-          <Text style={styles.overlayText}>
+        <TextContainer>
+          <OverlayText>
             원하는 가구를 입력하면{'\n'}도면 제작 해드립니다.
-          </Text>
-        </View>
-        <View style={styles.startButton}>
-          <TouchableOpacity
-            onPress={handleProduceButtonPress}
-            activeOpacity={0.8}>
-            <Text style={styles.startText}>가구 제작 하러가기</Text>
-            <View style={styles.startArrowContainer}>
-              <View style={styles.startArrow}></View>
-              <View style={styles.arrowCircle}>
-                <View style={styles.rightArrow}>
-                  <Image
-                    source={require('../../assets/images/rightArrow.png')}
-                    style={styles.rightArrowImage}
-                  />
-                </View>
-              </View>
-            </View>
+          </OverlayText>
+        </TextContainer>
+        <StartButton>
+          <TouchableOpacity onPress={handleProduceButtonPress} activeOpacity={0.8}>
+            <StartText>가구 제작 하러가기</StartText>
+            <StartArrowContainer>
+              <StartArrow />
+              <ArrowCircle>
+                <RightArrow>
+                  <RightArrowImage source={require('../../assets/images/rightArrow.png')} />
+                </RightArrow>
+              </ArrowCircle>
+            </StartArrowContainer>
           </TouchableOpacity>
-        </View>
-      </ImageBackground>
-    </View>
+        </StartButton>
+      </BackgroundImage>
+    </MainContainer>
   );
 };
 

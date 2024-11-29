@@ -1,6 +1,11 @@
-import React, {useState} from 'react';
-import {View, Text, Image} from 'react-native';
-import styles from './Styles';
+import React, { useState } from 'react';
+import {
+  NearLocationContainer,
+  LocationImageContainer,
+  LocationImage,
+  LocationTextContainer,
+  NearLocationText,
+} from './Styles';
 
 const NearLocation = () => {
   const locations = [
@@ -12,17 +17,16 @@ const NearLocation = () => {
   const [nearLocationText, setNearLocationText] = useState(locations[0]);
 
   return (
-      <View style={styles.nearLocationContainer}>
-        <View style={styles.locationImageContainer}>
-          <Image
-            source={require('../../assets/images/location.png')}
-            style={styles.locationImage}
-          />
-        </View>
-        <View style={styles.locationTextContainer}>
-          <Text style={styles.nearLocationText}>{nearLocationText}</Text>
-        </View>
-      </View>
+    <NearLocationContainer>
+      <LocationImageContainer>
+        <LocationImage
+          source={require('../../assets/images/location.png')}
+        />
+      </LocationImageContainer>
+      <LocationTextContainer>
+        <NearLocationText>{nearLocationText}</NearLocationText>
+      </LocationTextContainer>
+    </NearLocationContainer>
   );
 };
 

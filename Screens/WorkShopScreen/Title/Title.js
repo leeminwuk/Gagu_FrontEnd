@@ -1,43 +1,60 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
-import styles from './Styles';
+import { View, Text, Image } from 'react-native';
+import {
+  TitleContainer,
+  LeftContainer,
+  NameLocationContainer,
+  NameContainer,
+  NameText,
+  LocationContainer,
+  ImageContainer,
+  LocationImage,
+  LocationTextContainer,
+  LocationText,
+  AuthContainer,
+  AuthImage,
+  ExpectedCostContainer,
+  ExpectedContainer,
+  ExpectedText,
+  CostContainer,
+  CostText,
+} from './Styles';
 
-const title = ({nameText, locationText, costText}) => {
+const Title = ({ nameText, locationText, costText }) => {
   return (
-    <View style={styles.titleContainer}>
-      <View style={styles.leftContainer}>
-      <View style={styles.namelocationContainer}>
-        <View style={styles.nameContainer}>
-          <Text style={styles.nameText}>{nameText}</Text>
-        </View>
-        <View style={styles.locationContainer}>
-          <View style={styles.imageContainer}>
-            <Image
-              source={require('../../../assets/images/whitelocation.png')}
-              style={styles.locationimage}
-            />
-          </View>
-          <View style={styles.locationTextContainer}>
-            <Text style={styles.locationText}>{locationText}</Text>
-          </View>
-        </View>
-        </View>
-        <View style={styles.authContainer}>
-          <Image
+    <TitleContainer>
+      <LeftContainer>
+        <NameLocationContainer>
+          <NameContainer>
+            <NameText>{nameText}</NameText>
+          </NameContainer>
+          <LocationContainer>
+            <ImageContainer>
+              <LocationImage
+                source={require('../../../assets/images/whitelocation.png')}
+              />
+            </ImageContainer>
+            <LocationTextContainer>
+              <LocationText>{locationText}</LocationText>
+            </LocationTextContainer>
+          </LocationContainer>
+        </NameLocationContainer>
+        <AuthContainer>
+          <AuthImage
             source={require('../../../assets/images/auth.png')}
-            style={styles.authimage}
           />
-        </View>
-      </View>
-      <View style={styles.expactedcostContainer}>
-        <View style={styles.expactedContainer}>
-          <Text style={styles.expactedText}>예상 가격</Text>
-        </View>
-        <View style={styles.costContainer}>
-          <Text style={styles.costText}>{costText}</Text>
-        </View>
-      </View>
-      </View>
+        </AuthContainer>
+      </LeftContainer>
+      <ExpectedCostContainer>
+        <ExpectedContainer>
+          <ExpectedText>예상 가격</ExpectedText>
+        </ExpectedContainer>
+        <CostContainer>
+          <CostText>{costText}</CostText>
+        </CostContainer>
+      </ExpectedCostContainer>
+    </TitleContainer>
   );
 };
-export default title;
+
+export default Title;

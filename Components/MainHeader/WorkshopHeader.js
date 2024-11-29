@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, Alert } from 'react-native';
-import styles from './Styles';
+import { Alert } from 'react-native';
 import { UserInfo } from '../../api/userInfo';
 import { getToken } from '../../utils/storage';
+import {
+  Container,
+  LogoContainer,
+  MiniLogo,
+  ProfileContainer,
+  NicknameText,
+  ProfileImage,
+} from './Styles';
 
 const WorkshopHeader = () => {
   const [nickname, setNickname] = useState('');
   const [profileImage, setProfileImage] = useState(null);
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -16,7 +24,7 @@ const WorkshopHeader = () => {
           if (userInfo && userInfo.name) {
             setNickname(userInfo.name);
             if (userInfo.profileUrl) {
-              setProfileImage({uri: userInfo.profileUrl});
+              setProfileImage({ uri: userInfo.profileUrl });
             }
           } else {
             Alert.alert('오류', '사용자 정보를 가져오는데 실패했습니다.');
@@ -33,21 +41,19 @@ const WorkshopHeader = () => {
   }, []);
 
   return (
-    <View style={styles.header}>
-      <View style={styles.logoContainer}>
-        <Image
+    <Container>
+      <LogoContainer>
+        <MiniLogo
           source={require('../../assets/images/miniLogo.png')}
-          style={styles.miniLogo}
         />
-      </View>
-      <View style={styles.profileContainer}>
-        <Text style={styles.nicknameText}>{nickname} 님</Text>
-          <Image
-            source={profileImage}
-            style={styles.profileImage}
-          />
-      </View>
-    </View>
+      </LogoContainer>
+      <ProfileContainer>
+        <NicknameText>{nickname} 님</NicknameText>
+        <ProfileImage
+          source={profileImage}
+        />
+      </ProfileContainer>
+    </Container>
   );
 };
 

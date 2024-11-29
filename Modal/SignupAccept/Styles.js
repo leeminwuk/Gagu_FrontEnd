@@ -1,62 +1,77 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
-const styles = StyleSheet.create({
-  textContainer: {
-    flex: 1,
-    paddingHorizontal: 22,
-    marginTop: 180,
-  },
-  mainText: {
-    fontWeight: '900',
-    fontSize: 30,
-    color: '#ffffff',
-  },
-  sideTextBox: {
-    marginTop: 40,
-  },
-  sideText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#ffffff',
-    marginTop: 14,
-    lineHeight: 24,
-  },
-  startButton: {
-    marginTop: height * 0.3,
-  },
-  startText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#ffffff',
-    letterSpacing: -0.5,
-    marginLeft: 8,
-  },
-  startArrow: {
-    width: width * 0.8,
-    height: 2,
-    backgroundColor: '#ffffff',
-    marginBottom: 20,
-  },
-  startArrowContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  rightArrow: {
-    marginLeft: -60,
-    marginTop: -20,
-  },
-  rightArrowImage: {
-    width: 40,
-    height: 40,
-    resizeMode: 'contain',
-  },
-  arrowCircle: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#ffffff',
-    marginTop: -20,
-    marginLeft: -30,
-  },
-});
-export default styles;
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
+export const Container = styled.View`
+  flex: 1;
+  background-color: #191919;
+`;
+
+export const TextContainer = styled.View`
+  flex: 1;
+  padding-horizontal: 22px;
+  margin-top: 180px;
+`;
+
+export const MainText = styled.Text`
+  font-weight: 900;
+  font-size: 30px;
+  color: #ffffff;
+`;
+
+export const SideTextBox = styled.View`
+  margin-top: 40px;
+`;
+
+export const SideText = styled.Text`
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 14px;
+  line-height: 24px;
+`;
+
+export const StartButton = styled.View`
+  margin-top: ${height * 0.3}px;
+`;
+
+export const StartText = styled.Text`
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  margin-left: 8px;
+`;
+
+export const StartArrow = styled.View`
+  width: ${width * 0.8}px;
+  height: 2px;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+`;
+
+export const StartArrowContainer = styled.View`
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const RightArrow = styled.View`
+  margin-left: -60px;
+  margin-top: -20px;
+`;
+
+export const RightArrowImage = styled.Image`
+  width: 40px;
+  height: 40px;
+  resize-mode: contain;
+`;
+
+export const ArrowCircle = styled.View`
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: #ffffff;
+  margin-top: -20px;
+  margin-left: -30px;
+`;

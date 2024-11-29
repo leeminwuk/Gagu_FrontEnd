@@ -2,10 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Alert, ScrollView, SafeAreaView } from 'react-native';
 import BackButton from '../../Components/BackButton/BackButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import styles from './Styles';
 import ReviewContainer from '../../Components/ReviewContainer/ReviewContainer';
 import CommonButton from '../../Button/CommonButton'; 
 import { checkReview } from '../../api/checkReview';
+import {
+  SafeContainer,
+  Container,
+  Title,
+  TitleTextContainer,
+  TitleText,
+  RatingContainer,
+  StarContainer,
+  StarImage,
+  RatingTextContainer,
+  RatingText,
+  ReviewScrollView,
+  ReviewContainerStyled,
+  ReviewButtonContainer,
+} from './Styles';
 
 const ReviewScreen = () => {
   const navigation = useNavigation();
@@ -43,35 +57,34 @@ const ReviewScreen = () => {
   const renderStars = () => {
     const starCount = Math.floor(averageRating);
     return (
-      <View style={styles.starContainer}>
+      <StarContainer>
         {[...Array(starCount)].map((_, index) => (
-          <Image
+          <StarImage
             key={index}
             source={require('../../assets/images/filedstar.png')}
-            style={styles.starImage}
           />
         ))}
-      </View>
+      </StarContainer>
     );
   };
 
   return (
-    <SafeAreaView style={styles.SafeAreaView}>
+    <SafeContainer>
       <BackButton navigation={navigation} />
-      <View style={styles.container}>
-        <View style={styles.title}>
-          <View style={styles.titleTextContainer}>
-            <Text style={styles.titleText}>{workshopName} 리뷰</Text>
-          </View>
-          <View style={styles.ratingContainer}>
+      <Container>
+        <Title>
+          <TitleTextContainer>
+            <TitleText>{workshopName} 리뷰</TitleText>
+          </TitleTextContainer>
+          <RatingContainer>
             {renderStars()}
-            <View style={styles.ratingTextContainer}>
-              <Text style={styles.ratingText}>{averageRating} ({reviewCount})</Text>
-            </View>
-          </View>
-        </View>
-        <ScrollView style={styles.reviewScrollView}>
-          <View style={styles.reviewContainer}>
+            <RatingTextContainer>
+              <RatingText>{averageRating} ({reviewCount})</RatingText>
+            </RatingTextContainer>
+          </RatingContainer>
+        </Title>
+        <ReviewScrollView>
+          <ReviewContainerStyled>
             {reviews.map((review, index) => {
               const dateOnly = review.date.split(' ')[0];
               return (
@@ -87,10 +100,10 @@ const ReviewScreen = () => {
                 />
               );
             })}
-          </View>
-        </ScrollView>
-      </View>
-    </SafeAreaView>
+          </ReviewContainerStyled>
+        </ReviewScrollView>
+      </Container>
+    </SafeContainer>
   );
 };
 

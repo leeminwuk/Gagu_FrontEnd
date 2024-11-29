@@ -1,6 +1,11 @@
-import React, {useState} from 'react';
-import {View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
-import styles from './Styles';
+import React, { useState } from 'react';
+import { FlatList } from 'react-native';
+import {
+  SelectDistancesContainer,
+  ListContainer,
+  SelectDistancesText,
+  SlideImage,
+} from './Styles';
 
 const SelectDistance = () => {
   const distances = ['3km 이내', '5km 이내', '10km 이내'];
@@ -14,28 +19,25 @@ const SelectDistance = () => {
   };
 
   return (
-    <TouchableOpacity onPress={() => setIsListVisible(!isListVisible)} activeOpacity={1} >
-      <View style={styles.selectDistancesContainer}>
-        <Text style={styles.selectDistancesText}>{selectDistancesText}</Text>
-        {isListVisible && (
-          <View style={styles.listContainer}>
-            <FlatList
-              data={distances}
-              keyExtractor={item => item}
-              renderItem={({item}) => (
-                <TouchableOpacity onPress={() => handleSelectDistance(item)}>
-                  <Text style={styles.selectDistancesText}>{item}</Text>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-        )}
-        <Image
-          source={require('../../assets/images/slidebutton.png')}
-          style={styles.slideImage}
-        />
-      </View>
-    </TouchableOpacity>
+    <SelectDistancesContainer onPress={() => setIsListVisible(!isListVisible)} activeOpacity={1}>
+      <SelectDistancesText>{selectDistancesText}</SelectDistancesText>
+      {isListVisible && (
+        <ListContainer>
+          <FlatList
+            data={distances}
+            keyExtractor={item => item}
+            renderItem={({ item }) => (
+              <SelectDistancesText onPress={() => handleSelectDistance(item)}>
+                {item}
+              </SelectDistancesText>
+            )}
+          />
+        </ListContainer>
+      )}
+      <SlideImage
+        source={require('../../assets/images/slidebutton.png')}
+      />
+    </SelectDistancesContainer>
   );
 };
 

@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import styles from './Styles';
+import { Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { getChatRooms } from '../../api/chatMyRoom';
 import { getChatContents } from '../../api/chatContents';
 import { getToken } from '../../utils/storage';
 import { UserInfo } from '../../api/userInfo'; // UserInfo 함수 추가
+import {
+  Container,
+  ListContainer,
+  UserImageContainer,
+  UserImage,
+  NameContainer,
+  NameText,
+  MessageText,
+  TimeCountContainer,
+  TimeContainer,
+} from './Styles';
 
 const ChatList = () => {
   const navigation = useNavigation();
@@ -87,7 +97,7 @@ const ChatList = () => {
   };
 
   return (
-    <View>
+    <Container>
       {chatRooms.map((room) => {
         const roomName = room.roomName.split('님과')[0];
         const lastMessage = room.lastMessage || '메시지가 없습니다';
@@ -95,28 +105,29 @@ const ChatList = () => {
         return (
           <TouchableOpacity
             key={room.id}
-            style={styles.listContainer}
             activeOpacity={0.8}
             onPress={() => handleChatPress(room.id, roomName)}
           >
-            <View style={styles.userImageContainer}>
-              <Image
-                source={require('../../assets/images/profile.png')}
-                style={styles.userImage}
-              />
-            </View>
-            <View style={styles.nameContainer}>
-              <Text style={styles.nameText}>{roomName}</Text>
-              <Text style={styles.messageText}>{lastMessage}</Text>
-            </View>
-            <View style={styles.timecountContainer}>
-              <View style={styles.timeContainer}>
-              </View>
-            </View>
+            <ListContainer>
+              <UserImageContainer>
+                <UserImage
+                  source={require('../../assets/images/profile.png')}
+                />
+              </UserImageContainer>
+              <NameContainer>
+                <NameText>{roomName}</NameText>
+                <MessageText>{lastMessage}</MessageText>
+              </NameContainer>
+              <TimeCountContainer>
+                <TimeContainer>
+                  <Text>{getTimeDifference(room.lastMessageTime)}</Text>
+                </TimeContainer>
+              </TimeCountContainer>
+            </ListContainer>
           </TouchableOpacity>
         );
       })}
-    </View>
+    </Container>
   );
 }
 

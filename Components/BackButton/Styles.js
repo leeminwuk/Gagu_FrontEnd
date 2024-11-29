@@ -1,43 +1,45 @@
-import {StyleSheet} from 'react-native';
+import styled from 'styled-components/native';
 
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    backgroundColor: '#191919',
-    flexDirection: 'row',
-    alignItems: 'center', 
-  },
-  backbuttonContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  backButton: {
-    width: 24,
-    height: 24,
-    resizeMode: 'contain',
-  },
-  titleContainer: {
-    flex: 1, 
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 30,
-  },
-  titleText: {
-    color: '#ffffff',
-    fontSize: 20,
-    fontWeight: '900',
-    textAlign: 'center',
-  },
-  hamburgerbarContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  hamburgerbar: {
-    width: 24,
-    height: 24,
-    resizeMode: 'contain',
-  },
-});
+export const Container = styled.View`
+  padding-horizontal: 20px;
+  padding-vertical: 20px;
+  background-color: #191919;
+  flex-direction: row;
+  align-items: center;
+`;
 
-export default styles;
+export const BackButtonContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const BackButtonImage = styled.Image`
+  width: 24px;
+  height: 24px;
+  resize-mode: contain;
+`;
+
+export const TitleContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30px;
+`;
+
+export const TitleText = styled.Text`
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 900;
+  text-align: center;
+`;
+
+export const HamburgerBarContainer = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const HamburgerBarImage = styled.Image`
+  width: 24px;
+  height: 24px;
+  resize-mode: contain;
+`;

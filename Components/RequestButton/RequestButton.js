@@ -1,21 +1,16 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
-import styles from './Styles';
+import {
+  RequestButtonContainer,
+  RequestButtonText,
+  RequestImage,
+} from './Styles';
 
-const RequestButton = ({onPress, requestText, requestImage}) => {
+const RequestButton = ({ onPress, requestText, requestImage }) => {
   return (
-    <TouchableOpacity
-      style={styles.requestButton}
-      onPress={onPress}
-      activeOpacity={0.8}>
-      <View>
-        <Image
-          source={requestImage}
-          style={styles.requestImage}
-        />
-      </View>
-      <Text style={styles.requestButtonText}>{requestText}</Text>
-    </TouchableOpacity>
+    <RequestButtonContainer onPress={onPress} activeOpacity={0.8}>
+      <RequestImage source={requestImage} />
+      <RequestButtonText>{requestText}</RequestButtonText>
+    </RequestButtonContainer>
   );
 };
 

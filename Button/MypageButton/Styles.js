@@ -1,31 +1,33 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    width: width * 0.887,
-    height: height * 0.065,
-    borderRadius: 16,
-    borderColor: '#ffffff',
-    borderWidth: 1,
-  },
-  imageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 40,
-  },
-  image: {
-    width: 20,
-    height: 20,
-    resizeMode: 'contain',
-  },
-  text: {
-    fontSize: 16,
-    color: '#ffffff',
-    fontWeight: '800',
-  },
-});
-export default styles;
+const { width, height } = Dimensions.get('window');
+
+export const Container = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  padding-horizontal: 20px;
+  width: ${width * 0.887}px;
+  height: ${height * 0.065}px;
+  border-radius: 16px;
+  border-color: #ffffff;
+  border-width: 1px;
+`;
+
+export const ImageContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+`;
+
+export const Image = styled.Image`
+  width: 20px;
+  height: 20px;
+  resize-mode: contain;
+`;
+
+export const Text = styled.Text`
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 800;
+`;

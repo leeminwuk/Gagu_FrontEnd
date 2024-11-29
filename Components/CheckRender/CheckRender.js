@@ -1,13 +1,11 @@
 import 'react-native-url-polyfill/auto';
-import React, {useRef, Suspense, useEffect, useState} from 'react';
-import {View, Text} from 'react-native';
+import React, {Suspense, useEffect} from 'react';
 import {Canvas} from '@react-three/fiber/native';
 import {OrbitControls, useGLTF} from '@react-three/drei/native';
-import styles from './Styles';
+import {Container} from './Styles';
 import {events} from '@react-three/fiber/native';
 
 const CheckRender = ({gltfUrl}) => {
-
   const Model = ({gltfUrl}) => {
     const {nodes, materials} = useGLTF(gltfUrl);
     return (
@@ -27,8 +25,8 @@ const CheckRender = ({gltfUrl}) => {
     useGLTF.preload(gltfUrl);
   }, [gltfUrl]);
   return (
-    <View style={{flex: 1}} {...events}>
-      <Canvas style={{flex: 1}}>
+    <Container {...events}>
+      <Canvas>
         <OrbitControls enablePan={true} />
         <ambientLight intensity={0.5} />
         <directionalLight position={[1, 0, 0]} args={['white', 2]} />
@@ -41,7 +39,7 @@ const CheckRender = ({gltfUrl}) => {
           <Model gltfUrl={gltfUrl} />
         </Suspense>
       </Canvas>
-    </View>
+    </Container>
   );
 };
 

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, Image, View } from 'react-native';
-import styles from './Styles';
 import { useNavigation } from '@react-navigation/native';
 import { onPressGoogleBtn } from '../../api/googleSignup';
+import {
+  GoogleButton,
+  GoogleIcon,
+  GoogleText,
+  TextContainer,
+} from './Styles';
 
 const GoogleSignupButton = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -29,18 +33,14 @@ const GoogleSignupButton = () => {
 
   return (
     <>
-      <TouchableOpacity
-        onPress={handleSignup}
-        style={styles.googleButton}
-        activeOpacity={0.9}>
-        <Image
+      <GoogleButton onPress={handleSignup} activeOpacity={0.9}>
+        <GoogleIcon
           source={require('../../assets/images/GoogleLogo.png')}
-          style={styles.googleIcon}
         />
-        <View style={styles.textContainer}>
-        <Text style={styles.googleText}>Google 계정으로 가입</Text>
-        </View>
-      </TouchableOpacity>
+        <TextContainer>
+          <GoogleText>Google 계정으로 가입</GoogleText>
+        </TextContainer>
+      </GoogleButton>
     </>
   );
 };

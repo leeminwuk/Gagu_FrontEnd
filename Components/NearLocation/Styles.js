@@ -1,27 +1,31 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
-const styles = StyleSheet.create({
-  nearLocationContainer: {
-    width: width * 0.4,
-    height: 30,
-    backgroundColor: '#FFffff',
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  locationImageContainer: {},
-  locationImage: {
-    width: 18,
-    height: 18,
-  },
-  locationTextContainer: {
-    marginRight: 10,
-  },
-  nearLocationText: {
-    color: '#000000',
-    fontSize: 10,
-    fontWeight: '400',
-  },
-});
-export default styles;
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
+
+export const NearLocationContainer = styled.View`
+  width: ${width * 0.4}px;
+  height: 30px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const LocationImageContainer = styled.View``;
+
+export const LocationImage = styled.Image`
+  width: 18px;
+  height: 18px;
+`;
+
+export const LocationTextContainer = styled.View`
+  margin-right: 10px;
+`;
+
+export const NearLocationText = styled.Text`
+  color: #000000;
+  font-size: 10px;
+  font-weight: 400;
+`;

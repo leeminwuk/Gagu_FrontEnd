@@ -1,54 +1,55 @@
-import React, {useEffect} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  Image,
-} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import styles from './Styles';
+import React from 'react';
+import { View, Text, TouchableOpacity, ImageBackground, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import MainHeader from '../../Components/MainHeader/MainHeader';
+import {
+  Container,
+  MainContainer,
+  BackgroundImage,
+  TextContainer,
+  OverlayText,
+  StartButton,
+  StartText,
+  StartArrowContainer,
+  StartArrow,
+  RightArrow,
+  RightArrowImage,
+  ArrowCircle,
+} from './Styles';
 
 const ProduceScreen = () => {
+  const navigation = useNavigation();
+
   const handleProduceButtonPress = () => {
     navigation.navigate('ProgressDetailScreen');
   };
-  const navigation = useNavigation();
-  return (
-    <View style={styles.container}>
-      <View style={styles.mainContainer}>
-        <ImageBackground
-          source={require('../../assets/images/progress.png')}
-          style={styles.backgroundImage}>
-          <MainHeader />
 
-          <View style={styles.textContainer}>
-            <Text style={styles.overlayText}>
+  return (
+    <Container>
+      <MainContainer>
+        <BackgroundImage source={require('../../assets/images/progress.png')}>
+          <MainHeader />
+          <TextContainer>
+            <OverlayText>
               의뢰한 가구의{'\n'}진행사항을 알려드립니다.
-            </Text>
-          </View>
-          <View style={styles.startButton}>
-            <TouchableOpacity
-              onPress={handleProduceButtonPress}
-              activeOpacity={0.8}>
-              <Text style={styles.startText}>진행사항 보러가기</Text>
-              <View style={styles.startArrowContainer}>
-                <View style={styles.startArrow}></View>
-                <View style={styles.arrowCircle}>
-                  <View style={styles.rightArrow}>
-                    <Image
-                      source={require('../../assets/images/rightArrow.png')}
-                      style={styles.rightArrowImage}
-                    />
-                  </View>
-                </View>
-              </View>
+            </OverlayText>
+          </TextContainer>
+          <StartButton>
+            <TouchableOpacity onPress={handleProduceButtonPress} activeOpacity={0.8}>
+              <StartText>진행사항 보러가기</StartText>
+              <StartArrowContainer>
+                <StartArrow />
+                <ArrowCircle>
+                  <RightArrow>
+                    <RightArrowImage source={require('../../assets/images/rightArrow.png')} />
+                  </RightArrow>
+                </ArrowCircle>
+              </StartArrowContainer>
             </TouchableOpacity>
-          </View>
-        </ImageBackground>
-      </View>
-    </View>
+          </StartButton>
+        </BackgroundImage>
+      </MainContainer>
+    </Container>
   );
 };
 

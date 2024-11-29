@@ -1,9 +1,21 @@
-import React, {useState, useRef} from 'react';
-import {View, Text, Image, TouchableOpacity, Animated, SafeAreaView} from 'react-native';
-import styles from './Styles';
+import React, { useState, useRef } from 'react';
+import { View, Text, TouchableOpacity, Animated } from 'react-native';
 import BackButton from '../../Components/BackButton/BackButton';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import NoticeContent from '../../Components/Notice/NoticeContent';
+import {
+  SafeContainer,
+  Container,
+  Title,
+  TitleText,
+  NoticeBox,
+  NoticeCategory,
+  NoticeCategoryText,
+  ActiveTabText,
+  InactiveTabText,
+  AnimatedLine,
+  NoticeContentContainer,
+} from './Styles';
 
 const NoticeScreen = () => {
   const navigation = useNavigation();
@@ -13,52 +25,40 @@ const NoticeScreen = () => {
   const handleTabPress = tab => {
     setActiveTab(tab);
     Animated.spring(translateX, {
-      toValue: tab === '공지사항' ? 0 : styles.noticeCategory.width / 1.8,
+      toValue: tab === '공지사항' ? 0 : 90, // Adjusted value for translation
       useNativeDriver: true,
     }).start();
   };
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    <SafeContainer>
       <BackButton navigation={navigation} />
-      <View style={styles.container}>
-        <View style={styles.title}>
-          <Text style={styles.titleText}>알림</Text>
-        </View>
-        <View style={styles.noticeBox}>
-          <View style={styles.noticeCategory}>
+      <Container>
+        <Title>
+          <TitleText>알림</TitleText>
+        </Title>
+        <NoticeBox>
+          <NoticeCategory>
             <TouchableOpacity
               onPress={() => handleTabPress('공지사항')}
               activeOpacity={0.8}>
-              <Text
-                style={[
-                  styles.noticeCategoryText,
-                  activeTab === '공지사항'
-                    ? styles.activeTabText
-                    : styles.inactiveTabText,
-                ]}>
+              <NoticeCategoryText
+                style={activeTab === '공지사항' ? ActiveTabText : InactiveTabText}>
                 공지사항
-              </Text>
+              </NoticeCategoryText>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => handleTabPress('개인알림')}
               activeOpacity={0.8}>
-              <Text
-                style={[
-                  styles.noticeCategoryText,
-                  activeTab === '개인알림'
-                    ? styles.activeTabText
-                    : styles.inactiveTabText,
-                ]}>
+              <NoticeCategoryText
+                style={activeTab === '개인알림' ? ActiveTabText : InactiveTabText}>
                 개인알림
-              </Text>
+              </NoticeCategoryText>
             </TouchableOpacity>
-          </View>
-          <Animated.View
-            style={[styles.animatedLine, {transform: [{translateX}]}]}
-          />
-        </View>
-        <View style={styles.noticeContent}>
+          </NoticeCategory>
+          <AnimatedLine style={{ transform: [{ translateX }] }} />
+        </NoticeBox>
+        <NoticeContentContainer>
           {activeTab === '공지사항' ? (
             <>
               <NoticeContent
@@ -86,9 +86,9 @@ const NoticeScreen = () => {
               />
             </>
           )}
-        </View>
-      </View>
-    </SafeAreaView>
+        </NoticeContentContainer>
+      </Container>
+    </SafeContainer>
   );
 };
 

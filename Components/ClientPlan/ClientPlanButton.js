@@ -1,9 +1,35 @@
 import React, { useState } from 'react';
-import { View, Text, Image } from 'react-native';
-import styles from './Styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import CommonModal from '../../Modal/CommonModal';
+import {
+  Container,
+  ImageContainer,
+  ProduceImage,
+  Title,
+  SemiContainer,
+  TitleContainer,
+  UserImageContainer,
+  UserImage,
+  LocationProduceContainer,
+  LocationContainer,
+  LocationImage,
+  LocationIcon,
+  LocationTextContainer,
+  LocationText,
+  WhoProduceContainer,
+  WhoProduceText,
+  DateContainer,
+  DateText,
+  NameButtonContainer,
+  ProduceNameContainer,
+  ProduceNameText,
+  ButtonContainer,
+  DeleteButton,
+  DeleteButtonText,
+  DetailButton,
+  DetailButtonText,
+  DeleteButtonImage,
+} from './Styles';
 
 const ClientPlanButton = ({ image, location }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -26,71 +52,63 @@ const ClientPlanButton = ({ image, location }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image
+    <Container>
+      <ImageContainer>
+        <ProduceImage
           source={require('../../assets/images/fake3dimage.png')}
-          style={styles.produceImage}
         />
-      </View>
-      <View style={styles.title}>
-        <View style={styles.semiContainer}>
-          <View style={styles.titleContainer}>
-            <View style={styles.userImageContainer}>
-              <Image
+      </ImageContainer>
+      <Title>
+        <SemiContainer>
+          <TitleContainer>
+            <UserImageContainer>
+              <UserImage
                 source={require('../../assets/images/profile.png')}
-                style={styles.userImage}
               />
-            </View>
-            <View style={styles.locationproduceContainer}>
-              <View style={styles.locationContainer}>
-                <View style={styles.locationImage}>
-                  <Image
+            </UserImageContainer>
+            <LocationProduceContainer>
+              <LocationContainer>
+                <LocationImage>
+                  <LocationIcon
                     source={require('../../assets/images/whitelocation.png')}
-                    style={styles.locationIcon}
                   />
-                </View>
-                <View style={styles.locationTextContainer}>
-                  <Text style={styles.locationText}>경기도 화성시</Text>
-                </View>
-              </View>
-              <View style={styles.whoProduceContainer}>
-                <Text style={styles.whoProduceText}>
+                </LocationImage>
+                <LocationTextContainer>
+                  <LocationText>경기도 화성시</LocationText>
+                </LocationTextContainer>
+              </LocationContainer>
+              <WhoProduceContainer>
+                <WhoProduceText>
                   손민기님이 제작한 가구 도면
-                </Text>
-              </View>
-            </View>
-            <View style={styles.dateContainer}>
-              <Text style={styles.dateText}>한달 전 제작</Text>
-            </View>
-          </View>
-          <View style={styles.nameButtonContainer}>
-            <View style={styles.produceNameContainer}>
-              <Text style={styles.produceNameText}>나무 의자</Text>
-            </View>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.deleteButton}
+                </WhoProduceText>
+              </WhoProduceContainer>
+            </LocationProduceContainer>
+            <DateContainer>
+              <DateText>한달 전 제작</DateText>
+            </DateContainer>
+          </TitleContainer>
+          <NameButtonContainer>
+            <ProduceNameContainer>
+              <ProduceNameText>나무 의자</ProduceNameText>
+            </ProduceNameContainer>
+            <ButtonContainer>
+              <DeleteButton
                 activeOpacity={0.8}
                 onPress={handleDeletePress}>
-                <View>
-                  <Image
-                    source={require('../../assets/images/wastebasket.png')}
-                    style={styles.deleteButtonImage}
-                  />
-                </View>
-                <Text style={styles.deleteButtonText}>삭제</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.detailButton}
+                <DeleteButtonImage
+                  source={require('../../assets/images/wastebasket.png')}
+                />
+                <DeleteButtonText>삭제</DeleteButtonText>
+              </DeleteButton>
+              <DetailButton
                 activeOpacity={0.8}
                 onPress={handleDetailPress}>
-                <Text style={styles.detailButtonText}>{'자세히\n보기'}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </View>
+                <DetailButtonText>{'자세히\n보기'}</DetailButtonText>
+              </DetailButton>
+            </ButtonContainer>
+          </NameButtonContainer>
+        </SemiContainer>
+      </Title>
       <CommonModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
@@ -108,7 +126,7 @@ const ClientPlanButton = ({ image, location }) => {
         onFirstButtonPress={handleFinishButtonPress1}
         onSecondButtonPress={handleFinishButtonPress2}
       />
-    </View>
+    </Container>
   );
 };
 

@@ -1,36 +1,39 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
-const styles = StyleSheet.create({
-  selectDistancesContainer: {
-    width: width * 0.35,
-    height: 30,
-    backgroundColor: '#FFffff',
-    borderRadius: 30,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-  },
-  listContainer: {
-    position: 'absolute',
-    width: width * 0.35,
-    height: 90,
-    backgroundColor: '#FFffff',
-    borderRadius: 30,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-  },
-  selectDistancesText: {
-    color: '#000000',
-    fontSize: 12,
-    fontWeight: '400',
-  },
-  slideImage: {
-    marginTop: 2,
-    width: 16,
-    height: 10,
-  },
-});
-export default styles;
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
+
+export const SelectDistancesContainer = styled.TouchableOpacity`
+  width: ${width * 0.35}px;
+  height: 30px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding-horizontal: 20px;
+`;
+
+export const ListContainer = styled.View`
+  position: absolute;
+  width: ${width * 0.35}px;
+  height: 90px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding-horizontal: 20px;
+`;
+
+export const SelectDistancesText = styled.Text`
+  color: #000000;
+  font-size: 12px;
+  font-weight: 400;
+`;
+
+export const SlideImage = styled.Image`
+  margin-top: 2px;
+  width: 16px;
+  height: 10px;
+`;

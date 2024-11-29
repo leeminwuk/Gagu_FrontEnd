@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+import { Text, SafeAreaView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import styles from './Styles';
 import BackButton from '../../Components/BackButton/BackButton';
 import CommonButton from '../../Button/CommonButton';
 import CommonModal from '../../Modal/CommonModal';
@@ -9,6 +8,17 @@ import CheckRender from '../../Components/CheckRender/CheckRender';
 import { getFurnitureName } from '../../utils/storage';
 import { saveFurniture } from '../../api/saveFurniture';
 import { disconnectWebSocket } from '../../api/chat2d';
+import {
+  Container,
+  FixedContainer,
+  MainText,
+  RotateContainer,
+  RotateButton,
+  RotateText,
+  TextWrapper,
+  ARContainer,
+  ButtonWrapper,
+} from './Styles';
 
 const FinishScreen = ({ navigation }) => {
   const [modalVisible1, setModalVisible1] = useState(false);
@@ -75,45 +85,37 @@ const FinishScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
       <BackButton navigation={navigation} />
-      <View style={styles.container}>
-        <View style={styles.fixedContainer}>
-          <View style={styles.textContainer}>
-            <Text style={styles.mainText}>
+      <Container>
+        <FixedContainer>
+          <TextWrapper>
+            <MainText>
               제작이 완료되었어요{'\n'}
               돌려서 확인해보세요!
-            </Text>
-          </View>
-          <View style={styles.arContainer}>
-            <TouchableOpacity
-              style={styles.rotateContainer}
-              onPress={handleARViewer}
-              activeOpacity={0.7}>
-              <Image
-                source={require('../../assets/images/rotate.png')}
-                style={styles.rotateButton}
-              />
-              <Text style={styles.rotateText}>공간에서 보기</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ height: 400 }}>
-            {gltfUrl && <CheckRender gltfUrl={gltfUrl} />}
-          </View>
-          <View>
+            </MainText>
+          </TextWrapper>
+          <ARContainer>
+            <RotateContainer onPress={handleARViewer} activeOpacity={0.7}>
+              <RotateButton source={require('../../assets/images/rotate.png')} />
+              <RotateText>공간에서 보기</RotateText>
+            </RotateContainer>
+          </ARContainer>
+          <CheckRender gltfUrl={gltfUrl} style={{ height: 400 }} />
+          <ButtonWrapper>
             <CommonButton
               buttonText="제작완료"
               buttonColor="#ffffff"
               textColor="#000000"
               onPress={handleButtonPress1}
             />
-          </View>
-          <View style={{ marginTop: 20 }}>
+          </ButtonWrapper>
+          <ButtonWrapper>
             <CommonButton
               buttonText="다시 제작해주세요"
               buttonColor="#696969"
               textColor="#ffffff"
               onPress={handleButtonPress2}
             />
-          </View>
+          </ButtonWrapper>
           <CommonModal
             modalVisible={modalVisible1}
             navigation={navigation}
@@ -147,8 +149,8 @@ const FinishScreen = ({ navigation }) => {
             onFirstButtonPress={handleProgressButtonPress}
             onSecondButtonPress={handleFinishButtonPress2}
           />
-        </View>
-      </View>
+        </FixedContainer>
+      </Container>
     </SafeAreaView>
   );
 };

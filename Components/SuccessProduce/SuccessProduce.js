@@ -1,7 +1,15 @@
 import React, { useEffect } from 'react';
-import {View, Text, Image, ImageBackground, SafeAreaView} from 'react-native';
+import { Image, ImageBackground, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import styles from './Styles';
+import {
+  Container,
+  FixedContainer,
+  ImageContainer,
+  LightImage,
+  BigLight,
+  TextContainer,
+  SuccessText,
+} from './Styles';
 
 const SuccessProduce = () => {
   const navigation = useNavigation();
@@ -15,27 +23,24 @@ const SuccessProduce = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1,  backgroundColor:"#191919"}}>
-
-    <View style={styles.container}>
-      <View style={styles.fixedContainer}>
-        <View style={styles.imageContainer}>
-          <Image
-            source={require('../../assets/images/light.png')}
-            style={styles.lightImgae}
-          />
-        </View>
-        <View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#191919" }}>
+      <Container>
+        <FixedContainer>
+          <ImageContainer>
+            <LightImage
+              source={require('../../assets/images/light.png')}
+            />
+          </ImageContainer>
           <ImageBackground
             source={require('../../assets/images/biglight.png')}
-            style={styles.bigLight}>
-              <View style={styles.textContainer}>
-                <Text style={styles.successText}>제작완료!</Text>
-              </View>
+            style={{ width: 350, height: 200, alignSelf: 'center' }}
+          >
+            <TextContainer>
+              <SuccessText>제작완료!</SuccessText>
+            </TextContainer>
           </ImageBackground>
-        </View>
-      </View>
-    </View>
+        </FixedContainer>
+      </Container>
     </SafeAreaView>
   );
 };

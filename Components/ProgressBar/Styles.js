@@ -1,19 +1,20 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
-const styles = StyleSheet.create({
-  fixedBar: {
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: width * 0.6,
-    height: height * 0.03,
-    backgroundColor: '#385682',
-    borderRadius: 10,
-  },
-  loadingBar: {
-    height: height * 0.03,
-    backgroundColor: '#CADFFF',
-    borderRadius: 10,
-  },
-});
-export default styles;
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
+export const FixedBar = styled.View`
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  width: ${width * 0.6}px;
+  height: ${height * 0.03}px;
+  background-color: #385682;
+  border-radius: 10px;
+`;
+
+export const LoadingBar = styled.View`
+  height: ${height * 0.03}px;
+  background-color: #cadfff;
+  border-radius: 10px;
+`;

@@ -1,95 +1,78 @@
-import { StyleSheet, Dimensions } from "react-native";
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
 const { width, height } = Dimensions.get("window");
 
-const styles = StyleSheet.create({
-    paymentRequestMessage: {
-        alignSelf: 'flex-end',
-        backgroundColor: '#ffffff',
-        padding: 20,
-        marginBottom: 10,
-        width: width * 0.65,
-        maxWidth: '80%',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 2,
-      },
-      paymentTitle: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      },
-      logoImage: {
-        width: 44,
-        height: 14,
-        resizeMode: 'contain',
-      },
-      paymentRequestText: {
-        fontSize: 12,
-        fontWeight: '600',
-        color: '#000000',
-        lineHeight: 20,
-        letterSpacing: -0.5,
-      },
-      productContainer: {
-        marginTop: 10,
-        flexDirection: 'row',
-        width: width * 0.55,
-        height: height * 0.15,
-        backgroundColor: '#F2F2F2',
-        borderRadius: 8,
-        padding: 10,
-        flexDirection: 'row',
-      },
-      productInfoContainer: {
-        flexDirection: 'column',
-      },
-      paymentButton: {
-        backgroundColor: '#ffffff',
-        padding: 10,
-        borderRadius: 10,
-        marginTop: 20,
-      },
-      paymentButtonText: {
-        color: '#000000',
-        fontSize: 12,
-        fontWeight: '400',
-        alignSelf: 'center',
-      },
-      cancelButton: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        padding: 10,
-        borderRadius: 10,
-        marginTop: 10,
-      },
-      cancelButtonText: {
-        color: '#ffffff',
-        fontSize: 12,
-        fontWeight: '400',
-        alignSelf: 'center',
-      },
-      productImage: {
-        width: 70,
-        height: 110,
-        resizeMode: 'contain',
-      },
-      productName: {
-        fontSize: 16,
-        fontWeight: '600',
-        marginTop: 12,
-        color: '#000000',
-      },
-      productDate: {
-        fontSize: 10,
-        fontWeight: '400',
-        marginTop: 4,
-        color: '#575757',
-      },
-      productPrice: {
-        fontSize: 22,
-        marginTop: 14,
-        color: '#494949',
-        fontWeight: '600',
-      },
-});
-export default styles;
+export const PaymentRequestMessage = styled.View`
+  align-self: flex-end;
+  background-color: #ffffff;
+  padding: 20px;
+  margin-bottom: 10px;
+  width: ${width * 0.65}px;
+  max-width: 80%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 2px;
+`;
+
+export const PaymentTitle = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const LogoImage = styled.Image`
+  width: 44px;
+  height: 14px;
+  resize-mode: contain;
+`;
+
+export const PaymentRequestText = styled.Text`
+  font-size: 12px;
+  font-weight: 600;
+  color: #000000;
+  line-height: 20px;
+  letter-spacing: -0.5px;
+`;
+
+export const ProductContainer = styled.View`
+  margin-top: 10px;
+  flex-direction: row;
+  width: ${width * 0.55}px;
+  height: ${height * 0.15}px;
+  background-color: #f2f2f2;
+  border-radius: 8px;
+  padding: 10px;
+`;
+
+export const ProductInfoContainer = styled.View`
+  flex-direction: column;
+`;
+
+export const ProductImage = styled.Image`
+  width: 70px;
+  height: 110px;
+  resize-mode: contain;
+`;
+
+export const ProductName = styled.Text`
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 12px;
+  color: #000000;
+`;
+
+export const ProductDate = styled.Text`
+  font-size: 10px;
+  font-weight: 400;
+  margin-top: 4px;
+  color: #575757;
+`;
+
+export const ProductPrice = styled.Text`
+  font-size: 22px;
+  margin-top: 14px;
+  color: #494949;
+  font-weight: 600;
+`;

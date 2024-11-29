@@ -1,136 +1,167 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
 const { width, height } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#191919',
-    flex: 1,
-  },
-  closeButtonContainer: {
-    position: 'absolute',
-    top: 20,
-    left: 20,
-    zIndex: 1,
-  },
-  closeButton: {
-    width: 14,
-    height: 20,
-  },
-  imageContainer: {
-    width: width,
-    height: height * 0.3,
-    alignItems: 'center',
-  },
-  image: {
-    width: width,
-    height: height * 0.3,
-  },
-  contentsContainer: {
-    width: width,
-    paddingHorizontal: 22,
-  },
-  opinionContainer: {},
-  opiniontitleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    height: 40,
-  },
-  opImageContainer: {
-    width: 24,
-    height: 24,
-  },
-  opinionImage: {
-    width: 24,
-    height: 24,
-  },
-  opnititleContainer: {
-    marginLeft: 6,
-  },
-  opinionTitle: {
-    color: '#ffffff',
-    fontSize: 14,
-    height: 24,
-  },
-  opinioncontentsContainer: {
-    backgroundColor: 'rgba(133, 133, 133, 0.12)',
-    borderRadius: 8,
-    padding: 12,
-  },
-  opinionContents: {
-    color: '#ffffff',
-    fontSize: 12,
-    fontWeight: '400',
-  },
-  reviewContainer: {
-    marginTop: 24,
-  },
-  reviewTitleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    height: 40,
-  },
-  reviewTextContainer: {
-    marginLeft: 6,
-  },
-  reviewIcon: {
-    width: 24,
-    height: 24,
-  },
-  reviewTitleText: {
-    color: '#ffffff',
-    fontSize: 14,
-    height: 24,
-  },
-  reviewRowContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: width * 0.04,
-    flexWrap: 'wrap',
-  },
-  noReviews: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: height * 0.1,
-    flex: 1,
-  },
-  reviewImage:{
-    width: width * 0.35 - 24,
-    height: height * 0.1,
-    borderRadius: 8,
-  },
-  moreContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-    marginLeft: 10,
-  },
-  moreIconContainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  moreIcon: {
-    width: 24,
-    height: 24,
-  },
-  moretextContainer: {
-    marginTop: 6,
-  },
-  moreText: {
-    color: '#ffffff',
-    fontSize: 12,
-  },
-  buttonContainer: {
-    marginTop: 20,
-  },
-  noReviewText: {
-    color: '#ffffff',
-    fontSize: 20,
-    textAlign: 'center',
-    fontWeight: '800',
-  },
-});
+export const Container = styled.View`
+  background-color: #191919;
+  flex: 1;
+`;
 
-export default styles;
+export const CloseButtonContainer = styled.TouchableOpacity`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+`;
+
+export const CloseButton = styled.Image`
+  width: 14px;
+  height: 20px;
+`;
+
+export const ImageContainer = styled.View`
+  width: ${width}px;
+  height: ${height * 0.3}px;
+  align-items: center;
+`;
+
+export const ImageStyled = styled.Image`
+  width: ${width}px;
+  height: ${height * 0.3}px;
+`;
+
+export const ContentsContainer = styled.View`
+  width: ${width}px;
+  padding-horizontal: 22px;
+`;
+
+export const OpinionContainer = styled.View``;
+
+export const OpinionTitleContainer = styled.View`
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+`;
+
+export const OpImageContainer = styled.View`
+  width: 24px;
+  height: 24px;
+`;
+
+export const OpinionImage = styled.Image`
+  width: 24px;
+  height: 24px;
+`;
+
+export const OpniTitleContainer = styled.View`
+  margin-left: 6px;
+`;
+
+export const OpinionTitle = styled.Text`
+  color: #ffffff;
+  font-size: 14px;
+  height: 24px;
+`;
+
+export const OpinionContentsContainer = styled.View`
+  background-color: rgba(133, 133, 133, 0.12);
+  border-radius: 8px;
+  padding: 12px;
+`;
+
+export const OpinionContents = styled.Text`
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+`;
+
+export const ReviewContainer = styled.View`
+  margin-top: 24px;
+`;
+
+export const ReviewTitleContainer = styled.View`
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+`;
+
+export const ReviewIconContainer = styled.View`
+  width: 24px;
+  height: 24px;
+`;
+
+export const ReviewIcon = styled.Image`
+  width: 24px;
+  height: 24px;
+`;
+
+export const ReviewTextContainer = styled.View`
+  margin-left: 6px;
+`;
+
+export const ReviewTitleText = styled.Text`
+  color: #ffffff;
+  font-size: 14px;
+  height: 24px;
+`;
+
+export const ReviewRowContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  gap: ${width * 0.04}px;
+  flex-wrap: wrap;
+`;
+
+export const NoReviews = styled.View`
+  justify-content: center;
+  align-items: center;
+  margin-top: ${height * 0.1}px;
+  flex: 1;
+`;
+
+export const ReviewImage = styled.Image`
+  width: ${width * 0.35 - 24}px;
+  height: ${height * 0.1}px;
+  border-radius: 8px;
+`;
+
+export const MoreContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: 10px;
+`;
+
+export const MoreIconContainer = styled.TouchableOpacity`
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const MoreIcon = styled.Image`
+  width: 24px;
+  height: 24px;
+`;
+
+export const MoreTextContainer = styled.View`
+  margin-top: 6px;
+`;
+
+export const MoreText = styled.Text`
+  color: #ffffff;
+  font-size: 12px;
+`;
+
+export const ButtonContainer = styled.View`
+  margin-top: 20px;
+`;
+
+export const NoReviewText = styled.Text`
+  color: #ffffff;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 800;
+`;

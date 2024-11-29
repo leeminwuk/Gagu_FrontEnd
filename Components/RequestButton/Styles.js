@@ -1,26 +1,27 @@
-import { StyleSheet, Dimensions } from "react-native";
-const { width, height } = Dimensions.get("window");
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
-const styles = StyleSheet.create({
-    requestButton: {
-        backgroundColor: '#dedede',
-        padding: 10,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 30,
-        gap: width * 0.02,
-      },
-      requestButtonText: {
-        color: '#585858',
-        fontSize: 10,
-        fontWeight: '600',
-        alignSelf: 'center',
-      },
-      requestImage: {
-        width: 14,
-        height: 14,
-        resizeMode: 'contain',
-      },
-});
-export default styles;
+const { width } = Dimensions.get('window');
+
+export const RequestButtonContainer = styled.TouchableOpacity`
+  background-color: #dedede;
+  padding: 10px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  gap: ${width * 0.02}px;
+`;
+
+export const RequestButtonText = styled.Text`
+  color: #585858;
+  font-size: 10px;
+  font-weight: 600;
+  align-self: center;
+`;
+
+export const RequestImage = styled.Image`
+  width: 14px;
+  height: 14px;
+  resize-mode: contain;
+`;

@@ -1,42 +1,39 @@
-import { StyleSheet, Dimensions } from "react-native";
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
 const { width, height } = Dimensions.get("window");
 
-const styles = StyleSheet.create({
-  reviewContents: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: height * 0.2,
-  },
-  reviewBox: {
-    backgroundColor: 'rgba(133, 133, 133, 0.12)',
-    borderRadius: 8,
-    padding: 12,
-    marginTop: 12,
-    width: width * 0.35,
-    height: height * 0.2,
-  },
-  reviewimageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#5c5c5c',
-    borderRadius: 8,
-    width: width * 0.35 - 24,
-    height: height * 0.1,
-  },
-  reviewImage: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 8,
-  },
-  reviewtextContainer: {
-    marginTop: 12,
-  },
-  reviewText: {
-    color: '#ffffff',
-    fontSize: 12,
-    fontWeight: '400',
-  },
-});
+export const ReviewContents = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: ${height * 0.2}px;
+`;
 
-export default styles;
+export const ReviewBox = styled.View`
+  background-color: rgba(133, 133, 133, 0.12);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 12px;
+  width: ${width * 0.35}px;
+  height: ${height * 0.2}px;
+`;
+
+export const ReviewImageContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  background-color: #5c5c5c;
+  border-radius: 8px;
+  width: ${width * 0.35 - 24}px;
+  height: ${height * 0.1}px;
+`;
+
+export const ReviewTextContainer = styled.View`
+  margin-top: 12px;
+`;
+
+export const ReviewText = styled.Text`
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+`;

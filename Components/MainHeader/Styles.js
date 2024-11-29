@@ -1,43 +1,46 @@
-import { StyleSheet, Dimensions} from "react-native";
-const { width, height } = Dimensions.get('window');
-const styles = StyleSheet.create({ 
-    header:{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: 20,
-        zIndex: 100,
-    },
-    logoContainer:{
-        alignItems: 'center',
-    },
-    miniLogo:{
-        width: 120,
-        height: 32,
-        marginTop: 10,
-    },
-    headerText:{
-        marginTop: 8,
-        color: '#fff',
-        fontSize: 10,
-        fontWeight: '600',
-    },
-    profileContainer:{
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: width * 0.03,
-    },
-    nicknameText:{
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: '600',
-    },
-    profileImage:{
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        resizeMode: 'contain',
-    },
-});
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
-export default styles;
+const { width } = Dimensions.get('window');
+
+export const Container = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  z-index: 100;
+`;
+
+export const LogoContainer = styled.View`
+  align-items: center;
+`;
+
+export const MiniLogo = styled.Image`
+  width: 120px;
+  height: 32px;
+  margin-top: 10px;
+`;
+
+export const ProfileContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  gap: ${width * 0.03}px;
+`;
+
+export const NicknameText = styled.Text`
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+`;
+
+export const ProfileCircle = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ProfileImage = styled.Image`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  resize-mode: contain;
+`;

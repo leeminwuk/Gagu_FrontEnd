@@ -1,18 +1,21 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import styles from './Styles';
+import {
+  ButtonContainer,
+  Button,
+  ButtonText,
+} from './Styles';
 
-const CommonButton = ({navigation, buttonText, buttonColor, textColor, onPress}) => {
+const CommonButton = ({ buttonText, buttonColor, textColor, onPress }) => {
   return (
-    <View style={styles.buttonContainer}>
-        <TouchableOpacity 
-            style={[styles.button, {backgroundColor: buttonColor}]}
-            onPress={onPress}
-            activeOpacity={0.8}
-        >
-            <Text style={[styles.buttonText, {color: textColor}]}>{buttonText}</Text>
-        </TouchableOpacity>
-    </View>
+    <ButtonContainer>
+      <Button
+        style={{ backgroundColor: buttonColor }}
+        onPress={onPress}
+        activeOpacity={0.8}
+      >
+        <ButtonText style={{ color: textColor }}>{buttonText}</ButtonText>
+      </Button>
+    </ButtonContainer>
   );
 };
 

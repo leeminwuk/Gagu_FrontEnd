@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Animated } from 'react-native';
-import styles from './Styles';
+import { Animated } from 'react-native';
+import { FixedBar, LoadingBar } from './Styles';
 
 const ProgressBar = () => {
   const [progress, setProgress] = useState(new Animated.Value(0));
@@ -21,17 +21,17 @@ const ProgressBar = () => {
   });
 
   return (
-    <View style={styles.fixedBar}>
+    <FixedBar>
       <Animated.View
-        style={[
-          styles.loadingBar,
-          {
-            width,
-            alignSelf: 'flex-start',
-          },
-        ]}
+        style={{
+          width,
+          height: '100%',
+          backgroundColor: '#cadfff',
+          borderRadius: 10,
+          alignSelf: 'flex-start',
+        }}
       />
-    </View>
+    </FixedBar>
   );
 };
 
