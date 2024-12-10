@@ -6,8 +6,9 @@ import {
   Image,
   Text,
 } from './Styles';
+import { MypageButtonProps } from './types';
 
-const MypageButton = ({ image, text, style, imagecontainerStyle, imageStyle, onPress }) => {
+const MypageButton: React.FC<MypageButtonProps> = ({ image, text, style, imagecontainerStyle, imageStyle, onPress }) => {
   return (
     <Container
       style={style}

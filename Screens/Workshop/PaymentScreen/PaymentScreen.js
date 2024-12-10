@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import styles from './Styles';
 import BackButton from '../../../Components/BackButton/BackButton';
-import CommonButton from '../../../Button/CommonButton';
+import CommonButton from '../../../Button/CommonButton/CommonButton';
 import CommonModal from '../../../Modal/CommonModal';
 import { saveEstimate } from '../../../api/estimateSave';
 

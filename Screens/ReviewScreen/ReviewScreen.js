@@ -3,7 +3,7 @@ import { View, Text, Image, Alert, ScrollView, SafeAreaView } from 'react-native
 import BackButton from '../../Components/BackButton/BackButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import ReviewContainer from '../../Components/ReviewContainer/ReviewContainer';
-import CommonButton from '../../Button/CommonButton'; 
+import CommonButton from '../../Button/CommonButton/CommonButton'; 
 import { checkReview } from '../../api/checkReview';
 import {
   SafeContainer,

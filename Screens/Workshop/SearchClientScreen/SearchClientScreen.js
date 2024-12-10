@@ -3,7 +3,7 @@ import {View, SafeAreaView} from 'react-native';
 import styles from './Styles';
 import BackButton from '../../../Components/BackButton/BackButton';
 import {useNavigation} from '@react-navigation/native';
-import ClientPlanButton from '../../../Components/ClientPlan/ClientPlanButton';
+import ClientPlanButton from '../../../Components/ClientPlan/ClientPlanButton.js';
 import TitleText from '../../../Components/TitleText/TitleText';
 const SearchClientScreen = () => {
   const mainText = '가구 의뢰자 찾기';

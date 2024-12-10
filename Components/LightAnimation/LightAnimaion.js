@@ -1,57 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import { Animated, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { Dimensions } from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedProps,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated';
+import Svg, { Polygon } from 'react-native-svg';
 import {
-  Container,
   FixedContainer,
   ImageContainer,
   LightImage,
-  AnimationImage,
 } from './Styles';
 
-const LightAnimation = () => {
-  const [size, setSize] = useState({ w: 100, h: 25 });
-  const [animation, setAnimation] = useState(new Animated.Value(0));
+// Animated SVG Polygon
+const AnimatedPolygon = Animated.createAnimatedComponent(Polygon);
 
-  const navigation = useNavigation();
+const LightAnimation = () => {
+  const scaleY = useSharedValue(0.5); // Y축 스케일 값
+  const opacity = useSharedValue(0.3); // 투명도 값
+  const { height } = Dimensions.get('window');
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setSize(prevSize => {
-        if (prevSize.w >= 180) {
-          return { w: 100, h: 25 };
-        } else {
-          return { w: prevSize.w + 20, h: prevSize.h + 10 };
-        }
-      });
-    }, 500);
+    // Y축 스케일 애니메이션 반복 설정
+    scaleY.value = withRepeat(
+      withTiming(0.7, { duration: 2000 }), // 커짐
+      -1, // 무한 반복
+      true // 역방향 실행 (작아짐)
+    );
 
-    Animated.loop(
-      Animated.timing(animation, {
-        toValue: 1,
-        duration: 2000,
-        useNativeDriver: true,
-      }),
-    ).start();
-
-    return () => {
-      clearInterval(intervalId);
-    };
+    // 투명도 애니메이션 반복 설정
+    opacity.value = withRepeat(
+      withTiming(0.7, { duration: 2000 }), // 투명도가 증가
+      -1, // 무한 반복
+      true // 역방향 실행 (투명도가 감소)
+    );
   }, []);
+
+  // Animated Props를 사용하여 SVG 속성에 애니메이션 값 전달
+  const animatedProps = useAnimatedProps(() => ({
+    points: `
+      ${80},0 
+      ${120},0 
+      ${200},${200 * scaleY.value} 
+      ${0},${200 * scaleY.value}
+    `,
+    fillOpacity: opacity.value, 
+  }));
 
   return (
     <FixedContainer>
       <ImageContainer>
-        <LightImage
-          source={require('../../assets/images/light.png')}
-        />
+        <LightImage source={require('../../assets/images/light.png')} />
+
+        <Svg height="400" width="200" style={{ position: 'absolute', bottom: height * -0.457 }}>
+          <AnimatedPolygon animatedProps={animatedProps} fill="gray" />
+        </Svg>
       </ImageContainer>
-      <AnimationImage>
-        <Image
-          source={require('../../assets/images/reallight.png')}
-          style={{ width: size.w, height: size.h }}
-        />
-      </AnimationImage>
     </FixedContainer>
   );
 };

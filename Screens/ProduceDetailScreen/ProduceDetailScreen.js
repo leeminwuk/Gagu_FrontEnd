@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, TouchableOpacity, Image, Alert, ScrollView, SafeAreaView } from 'react-native';
 import BackButton from '../../Components/BackButton/BackButton';
-import CommonButton from '../../Button/CommonButton';
+import CommonButton from '../../Button/CommonButton/CommonButton';
 import CommonModal from '../../Modal/CommonModal';
 import { getToken } from '../../utils/storage';
 import removeFurniture from '../../api/removeFuniture'; 

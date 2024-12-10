@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Image, TextInput, Text, Modal, TouchableOpacity} from 'react-native';
 import styles from './Styles';
-import CommonButton from '../../../Button/CommonButton';
+import CommonButton from '../../../Button/CommonButton/CommonButton';
 import SignupAccept from '../../../Modal/SignupAccept/SignupAccept';
 import {workshopSignin} from '../../../api/workshopSignin';
 const WorkshopLoginScreen = ({navigation}) => {

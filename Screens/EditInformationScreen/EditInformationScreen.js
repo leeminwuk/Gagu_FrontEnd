@@ -6,7 +6,7 @@ import InputContainer from '../../Components/InputContainer/InputContainer';
 import { getToken } from '../../utils/storage';
 import { UserInfo, UpdateUserInfo } from '../../api/userInfo';
 import { updateUserProfileImage } from '../../api/profileUpload';
-import CommonButton from '../../Button/CommonButton';
+import CommonButton from '../../Button/CommonButton/CommonButton';
 import { launchImageLibrary } from 'react-native-image-picker';
 import logOut from '../../api/logOut';
 import {

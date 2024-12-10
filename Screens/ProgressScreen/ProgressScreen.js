@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Notice from '../../Components/Notice/Notice';
 import MainHeader from '../../Components/MainHeader/MainHeader';
 import {
   Container,
@@ -29,6 +30,8 @@ const ProduceScreen = () => {
       <MainContainer>
         <BackgroundImage source={require('../../assets/images/progress.png')}>
           <MainHeader />
+          <Notice />
+
           <TextContainer>
             <OverlayText>
               의뢰한 가구의{'\n'}진행사항을 알려드립니다.

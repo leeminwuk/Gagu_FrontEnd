@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  View,
-  Text,
   Modal,
   TouchableOpacity,
   Animated,
@@ -10,11 +8,10 @@ import {
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Postcode from '@actbase/react-daum-postcode';
-import { TextInput } from 'react-native-gesture-handler';
-import CommonButton from '../../Button/CommonButton';
-import SignupAccept from '../../Modal/SignupAccept/SignupAccept'; // SignupAccept 컴포넌트 임포트
-import { postAddress } from '../../api/addressInput'; // postAddress 함수 임포트
-import { getToken } from '../../utils/storage'; // 토큰 가져오는 함수 임포트
+import CommonButton from '../../Button/CommonButton/CommonButton';
+import SignupAccept from '../../Modal/SignupAccept/SignupAccept';
+import { postAddress } from '../../api/addressInput';
+import { getToken } from '../../utils/storage';
 import {
   Container,
   TextContainer,
@@ -29,29 +26,30 @@ import {
   ButtonContainer,
   InvalidInput,
   ModalSafeArea,
+  TextInputStyled,
 } from './Styles';
 import BackButton from '../../Components/BackButton/BackButton';
 
 const AddressScreen = ({ navigation, onAddressSubmit }) => {
   const [address, setAddress] = useState('');
-  const [detailAddress, setDetailAddress] = useState(''); // 상세 주소 상태 변수 추가
+  const [detailAddress, setDetailAddress] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [showNewInput, setShowNewInput] = useState(false);
   const [showDetailInput, setShowDetailInput] = useState(false);
-  const [signupModalVisible, setSignupModalVisible] = useState(false); // SignupAccept 모달 상태 추가
+  const [signupModalVisible, setSignupModalVisible] = useState(false);
   const slideAnim = useRef(new Animated.Value(0)).current;
-  const shakeAnim = useRef(new Animated.Value(0)).current; // 흔들림 애니메이션 상태 변수 추가
+  const shakeAnim = useRef(new Animated.Value(0)).current;
   const [isValid, setIsValid] = useState(true);
   const theme = {
-    bgColor: "#191919", // 바탕 배경색
-    searchBgColor: "#333333", // 검색창 배경색
-    contentBgColor: "#444444", // 본문 배경색
-    pageBgColor: "#555555", // 페이지 배경색
-    textColor: "#FFFFFF", // 기본 글자색
-    queryTextColor: "#FFFFFF", // 검색창 글자색
-    postcodeTextColor: "#FFFFFF", // 우편번호 글자색
-    emphTextColor: "#FFFFFF", // 강조 글자색
-    outlineColor: "#FFFFFF" // 테두리 색상
+    bgColor: "#191919",
+    searchBgColor: "#333333",
+    contentBgColor: "#444444",
+    pageBgColor: "#555555",
+    textColor: "#FFFFFF",
+    queryTextColor: "#FFFFFF",
+    postcodeTextColor: "#FFFFFF",
+    emphTextColor: "#FFFFFF",
+    outlineColor: "#FFFFFF"
   };
   const mainText = showDetailInput
     ? '상세주소를 입력해주세요'
@@ -79,7 +77,7 @@ const AddressScreen = ({ navigation, onAddressSubmit }) => {
 
   const handleNext = async () => {
     if (!address || !detailAddress) {
-      setIsValid(false); // 유효하지 않은 경우 빨간색 테두리로 변경
+      setIsValid(false);
       Animated.sequence([
         Animated.timing(shakeAnim, {
           toValue: 10,
@@ -104,7 +102,7 @@ const AddressScreen = ({ navigation, onAddressSubmit }) => {
       ]).start();
       return;
     }
-    setIsValid(true); // 유효한 경우
+    setIsValid(true);
     console.log('주소:', address);
     console.log('상세주소:', detailAddress);
 
@@ -116,14 +114,13 @@ const AddressScreen = ({ navigation, onAddressSubmit }) => {
       console.error('주소 전송 중 오류 발생:', error);
     }
 
-    setSignupModalVisible(true); // SignupAccept 모달 표시
+    setSignupModalVisible(true);
   };
 
   const handleSkip = () => {
     setAddress('');
     setDetailAddress('');
     console.log('다음에 입력');
-    //onAddressSubmit({ address: '', detailAddress: '' });
     setSignupModalVisible(true);
   };
 
@@ -176,14 +173,14 @@ const AddressScreen = ({ navigation, onAddressSubmit }) => {
                   <InputContainer>
                     <HintText>상세주소</HintText>
                     <TextInputContainer style={!isValid && InvalidInput}>
-                      <TextInput
-                        style={AddressText}
+                      <TextInputStyled
                         placeholder="상세주소를 입력해주세요"
                         placeholderTextColor="#ffffff"
                         onChangeText={text => {
                           setDetailAddress(text);
-                          setIsValid(true); // 입력 중에는 유효성 검사를 하지 않음
+                          setIsValid(true);
                         }}
+                        value={detailAddress}
                       />
                     </TextInputContainer>
                   </InputContainer>
@@ -230,7 +227,7 @@ const AddressScreen = ({ navigation, onAddressSubmit }) => {
           onRequestClose={() => setSignupModalVisible(false)}
         >
           <SignupAccept
-            setModalVisible={setSignupModalVisible} // 여기서 setModalVisible을 setSignupModalVisible로 변경
+            setModalVisible={setSignupModalVisible}
             mainText="환영합니다!"
             sideText={"성공적으로 가입완료 되었습니다.\n원하는 가구를 제작하러 가볼까요?"}
             navigationTo="BottomTabNavigator"

@@ -49,11 +49,17 @@ export const TextInputContainer = styled.View`
   border-radius: 6px;
   border-color: #ffffff;
   border-width: 1px;
+  color: #ffffff;
   padding-horizontal: 10px;
   justify-content: center;
 `;
 
 export const AddressText = styled.Text`
+  font-size: 16px;
+  color: #ffffff;
+`;
+
+export const TextInputStyled = styled.TextInput`
   font-size: 16px;
   color: #ffffff;
 `;

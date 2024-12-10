@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute } from '@react-navigation/native';
-import CommonButton from '../../Button/CommonButton';
+import CommonButton from '../../Button/CommonButton/CommonButton';
 import SmallImagePickerButton from '../../Components/SmallImagePickerButton/SmallImagePickerButton';
 import { writeReview } from '../../api/writeReview';
 import { uploadFile } from '../../api/fileUpload';

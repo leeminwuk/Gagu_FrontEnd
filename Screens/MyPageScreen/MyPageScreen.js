@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Image } from 'react-native';
 import MainHeader from '../../Components/MainHeader/MainHeader';
 import { useNavigation } from '@react-navigation/native';
-import CommonButton from '../../Button/CommonButton';
+import CommonButton from '../../Button/CommonButton/CommonButton';
 import logOut from '../../api/logOut';
 import MypageButton from '../../Button/MypageButton/MypageButton';
 import { getToken } from '../../utils/storage';

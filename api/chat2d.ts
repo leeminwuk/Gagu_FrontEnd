@@ -3,11 +3,16 @@ import { getNickname, saveImageUrl } from '../utils/storage';
 import Config from 'react-native-config';
 
 const PROMPT_CHAT_URL = Config.PROMPT_CHAT_URL; 
-let stompClient = null;
-let messageQueue = []; 
+let stompClient: StompJs.Client | null = null;
+let messageQueue: { contents: string }[] = []; 
 let shouldReconnect = true; // 재연결 여부를 관리하는 플래그
 
-const connectWebSocket = async (authToken, onMessageReceived) => {
+interface Message {
+  type: string;
+  contents: string;
+}
+
+const connectWebSocket = async (authToken: string, onMessageReceived: (message: any) => void): Promise<void> => {
   if (stompClient && stompClient.connected) {
     //console.log('이미 연결된 WebSocket이 있습니다.');
     return;
@@ -36,7 +41,7 @@ const connectWebSocket = async (authToken, onMessageReceived) => {
       
       onConnect: (frame) => {
         console.log('Connected:', frame);
-        const subscription = stompClient.subscribe(`/user/${nickname}/sub`, async (message) => {
+        const subscription = stompClient!.subscribe(`/user/${nickname}/sub`, async (message) => {
           const receivedMessage = JSON.parse(message.body);
           await saveImageUrl(receivedMessage.image); // 수신한 이미지 URL 저장
           //console.log('Received message:', receivedMessage);
@@ -47,7 +52,9 @@ const connectWebSocket = async (authToken, onMessageReceived) => {
         // 연결이 성공하면 큐에 있는 메시지를 전송
         while (messageQueue.length > 0) {
           const message = messageQueue.shift();
-          sendMessage(message.contents);
+          if (message) {
+            sendMessage(message.contents);
+          }
         }
       },
       onStompError: (frame) => {
@@ -74,9 +81,9 @@ const connectWebSocket = async (authToken, onMessageReceived) => {
   }
 };
 
-const sendMessage = (contents) => {
+const sendMessage = (contents: string): void => {
   if (stompClient && stompClient.connected) {
-    const message = {
+    const message: Message = {
       type: "LLM",
       contents: contents,
     };
@@ -91,7 +98,7 @@ const sendMessage = (contents) => {
   }
 };
 
-const disconnectWebSocket = () => {
+const disconnectWebSocket = (): void => {
   if (stompClient) {
     shouldReconnect = false; // 재연결 시도하지 않도록 설정
     stompClient.deactivate();
@@ -99,7 +106,7 @@ const disconnectWebSocket = () => {
   }
 };
 
-const getWebSocketInstance = () => {
+const getWebSocketInstance = (): StompJs.Client | null => {
   return stompClient;
 };
 

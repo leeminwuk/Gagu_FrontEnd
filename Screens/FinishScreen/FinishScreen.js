@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, SafeAreaView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import BackButton from '../../Components/BackButton/BackButton';
-import CommonButton from '../../Button/CommonButton';
+import CommonButton from '../../Button/CommonButton/CommonButton';
 import CommonModal from '../../Modal/CommonModal';
 import CheckRender from '../../Components/CheckRender/CheckRender';
 import { getFurnitureName } from '../../utils/storage';

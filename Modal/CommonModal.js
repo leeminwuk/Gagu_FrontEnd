@@ -19,7 +19,7 @@ import {
   ButtonBox,
   ButtonContainer,
 } from './Styles';
-import CommonButton from '../Button/CommonButton';
+import CommonButton from '../Button/CommonButton/CommonButton';
 
 const CommonModal = ({
   modalVisible,

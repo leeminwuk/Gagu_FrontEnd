@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, ScrollView, SafeAreaView } from 'react-native';
 import BackButton from '../../../Components/BackButton/BackButton';
-import CommonButton from '../../../Button/CommonButton';
+import CommonButton from '../../../Button/CommonButton/CommonButton';
 import CheckRenderStorage from '../../../Components/CheckRender/CheckRenderStorage';
 import styles from './Styles';
 

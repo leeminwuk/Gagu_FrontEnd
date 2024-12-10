@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Alert } from 'react-native';
 import BackButton from '../../Components/BackButton/BackButton';
-import CommonButton from '../../Button/CommonButton';
+import CommonButton from '../../Button/CommonButton/CommonButton';
 import CommonModal from '../../Modal/CommonModal';
 import { getWebSocketInstance } from '../../api/chat2d';
 import { saveImageUrl, getImageUrl } from '../../utils/storage'; 

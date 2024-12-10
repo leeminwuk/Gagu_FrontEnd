@@ -1,27 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import RNFS from 'react-native-fs';
-import { ArViewerView } from 'react-native-ar-viewer';
 import { useRoute } from '@react-navigation/native';
+import { ArViewerView } from 'react-native-ar-viewer';
 import { Container } from './Styles';
+import { downloadModel } from './events';
+import { ArViewerProps, RouteParams } from './types';
 
-const ArViewer = () => {
+const ArViewer: React.FC<ArViewerProps> = () => {
   const route = useRoute();
-  const { modelUrl } = route.params; // modelUrl을 route.params에서 받아옴
-  const [localModelPath, setLocalModelPath] = useState(null);
+  const { modelUrl } = route.params as RouteParams; // modelUrl을 route.params에서 받아옴
+  const [localModelPath, setLocalModelPath] = useState<string | null>(null);
 
   useEffect(() => {
-    const downloadModel = async (url) => {
-      const fileName = url.split('/').pop();
-      const localPath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
-      const exists = await RNFS.exists(localPath);
-      if (!exists) {
-        await RNFS.downloadFile({ fromUrl: url, toFile: localPath }).promise;
-      }
-      setLocalModelPath(localPath);
-    };
-
     if (modelUrl) {
-      downloadModel(modelUrl);
+      downloadModel(modelUrl).then(setLocalModelPath);
     }
   }, [modelUrl]);
 

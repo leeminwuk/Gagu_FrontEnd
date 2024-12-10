@@ -3,7 +3,7 @@ import { View, Text, Image, Animated, TouchableOpacity, FlatList, TextInput, Saf
 import styles from './Styles';
 import BackButton from '../../../Components/BackButton/BackButton';
 import TitleText from '../../../Components/TitleText/TitleText';
-import CommonButton from '../../../Button/CommonButton';
+import CommonButton from '../../../Button/CommonButton/CommonButton';
 import CommonModal from '../../../Modal/CommonModal';
 
 const DeliveryScreen = ({ navigation }) => {

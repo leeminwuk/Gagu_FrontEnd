@@ -9,8 +9,9 @@ import {
   HamburgerBarContainer,
   HamburgerBarImage,
 } from './Styles';
+import { BackButtonProps } from './types';
 
-const BackButton = ({ navigation, titleText, image, onHamburgerPress, steps = 1 }) => {
+const BackButton: React.FC<BackButtonProps> = ({ navigation, titleText, image, onHamburgerPress, steps = 1 }) => {
   const handlerBack = () => {
     navigation.pop(steps);
   };

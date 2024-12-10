@@ -12,7 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import {UserInfo} from '../../../api/userInfo';
 import {getToken} from '../../../utils/storage';
 import MypageButton from '../../../Button/MypageButton/MypageButton';
-import CommonButton from '../../../Button/CommonButton';
+import CommonButton from '../../../Button/CommonButton/CommonButton';
 import WorkshopHeader from '../../../Components/MainHeader/WorkshopHeader';
 
 const WorkshopMypageScreen = () => {

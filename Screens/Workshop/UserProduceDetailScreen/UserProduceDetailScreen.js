@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Image, SafeAreaView} from 'react-native';
 import styles from './Styles';
 import BackButton from '../../../Components/BackButton/BackButton';
-import CommonButton from '../../../Button/CommonButton';
+import CommonButton from '../../../Button/CommonButton/CommonButton';
 import CheckRender from '../../../Components/CheckRender/CheckRender';
 import {ScrollView} from 'react-native-gesture-handler';
 const UserProduceDetailScreen = ({navigation}) => {

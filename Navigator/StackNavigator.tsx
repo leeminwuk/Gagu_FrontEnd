@@ -1,5 +1,5 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator, TransitionSpecs, CardStyleInterpolators } from '@react-navigation/stack';
 import StartScreen from '../Screens/StartScreen/StartScreen';
 import SignupScreen from '../Screens/SignupScreen/SignupScreen';
 import LoginScreen from '../Screens/LoginScreen/LoginScreen';
@@ -44,58 +44,67 @@ import SelectEstimateScreen from '../Screens/Workshop/SelectEstimateScreen/Selec
 import DetailEstimateScreen from '../Screens/Workshop/DetailEstimateScreen/DetailEstimateScreen';
 import ReviewScreen from '../Screens/ReviewScreen/ReviewScreen';
 import WriteReviewScreen from '../Screens/WriteReviewScreen/WriteReviewScreen';
+import { StackNavigatorProps } from './types';
+
 const Stack = createStackNavigator();
 
-const StackNavigator = () => {
+const StackNavigator: React.FC<StackNavigatorProps> = () => {
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-      }}>
+        animationEnabled: true,
+        transitionSpec: {
+          open: { animation: 'timing', config: { duration: 200 } },
+          close: { animation: 'timing', config: { duration: 200 } },
+        },
+        cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
+      }}
+    >
       <Stack.Screen name="StartScreen" component={StartScreen} />
       <Stack.Screen name="SignupScreen" component={SignupScreen} />
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
-      <Stack.Screen name='ProduceScreen' component={ProduceScreen} />
-      <Stack.Screen name='StorageScreen' component={StorageScreen} />
-      <Stack.Screen name='ProgressScreen' component={ProgressScreen} />
-      <Stack.Screen name='MyPageScreen' component={MyPageScreen} />
-      <Stack.Screen name='PromptScreen' component={PromptScreen} />
-      <Stack.Screen name='SuccessProduce' component={SuccessProduce} />
-      <Stack.Screen name='CheckScreen' component={CheckScreen} />
-      <Stack.Screen name='LoadingScreen' component={LoadingScreen} />
-      <Stack.Screen name='SolidLoadingScreen' component={SolidLoadingScreen} />
-      <Stack.Screen name='FinishScreen' component={FinishScreen} />
-      <Stack.Screen name='StorageDetailScreen' component={StorageDetailScreen} />
-      <Stack.Screen name='ProduceDetailScreen' component={ProduceDetailScreen} />
-      <Stack.Screen name='ArViewer' component={ArViewer} />
-      <Stack.Screen name='RequestLoading' component={RequestLoading} />
-      <Stack.Screen name='SearchWorkShopScreen' component={SearchWorkShopScreen} />
-      <Stack.Screen name='NumberAuthentication' component={NumberAuthentication} />
-      <Stack.Screen name='SendNumber' component={SendNumber} />
+      <Stack.Screen name="ProduceScreen" component={ProduceScreen} />
+      <Stack.Screen name="StorageScreen" component={StorageScreen} />
+      <Stack.Screen name="ProgressScreen" component={ProgressScreen} />
+      <Stack.Screen name="MyPageScreen" component={MyPageScreen} />
+      <Stack.Screen name="PromptScreen" component={PromptScreen} />
+      <Stack.Screen name="SuccessProduce" component={SuccessProduce} />
+      <Stack.Screen name="CheckScreen" component={CheckScreen} />
+      <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
+      <Stack.Screen name="SolidLoadingScreen" component={SolidLoadingScreen} />
+      <Stack.Screen name="FinishScreen" component={FinishScreen} />
+      <Stack.Screen name="StorageDetailScreen" component={StorageDetailScreen} />
+      <Stack.Screen name="ProduceDetailScreen" component={ProduceDetailScreen} />
+      <Stack.Screen name="ArViewer" component={ArViewer} />
+      <Stack.Screen name="RequestLoading" component={RequestLoading} />
+      <Stack.Screen name="SearchWorkShopScreen" component={SearchWorkShopScreen} />
+      <Stack.Screen name="NumberAuthentication" component={NumberAuthentication} />
+      <Stack.Screen name="SendNumber" component={SendNumber} />
       <Stack.Screen name="CreateId" component={CreateId} />
-      <Stack.Screen name='CreatePassword' component={CreatePassword} />
-      <Stack.Screen name='CreateWorkShop' component={CreateWorkShop} />
-      <Stack.Screen name='WorkshopLoginScreen' component={WorkShopLoginScreen} />
-      <Stack.Screen name='WorkshopMainScreen' component={WorkshopMainScreen} />
-      <Stack.Screen name='SearchClientScreen' component={SearchClientScreen} />
-      <Stack.Screen name='ChatListScreen' component={ChatListScreen} />
-      <Stack.Screen name='PaymentScreen' component={PaymentScreen} />
+      <Stack.Screen name="CreatePassword" component={CreatePassword} />
+      <Stack.Screen name="CreateWorkShop" component={CreateWorkShop} />
+      <Stack.Screen name="WorkshopLoginScreen" component={WorkShopLoginScreen} />
+      <Stack.Screen name="WorkshopMainScreen" component={WorkshopMainScreen} />
+      <Stack.Screen name="SearchClientScreen" component={SearchClientScreen} />
+      <Stack.Screen name="ChatListScreen" component={ChatListScreen} />
+      <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
       <Stack.Screen name="DeliveryScreen" component={DeliveryScreen} />
       <Stack.Screen name="WorkshopMypageScreen" component={WorkshopMypageScreen} />
       <Stack.Screen name="SendEstimateScreen" component={SendEstimateScreen} />
       <Stack.Screen name="UserProduceDetailScreen" component={UserProduceDetailScreen} />
-      <Stack.Screen name='WorkShopScreen' component={WorkShopScreen} />
-      <Stack.Screen name='ChatScreen' component={ChatScreen} />
-      <Stack.Screen name='NoticeScreen' component={NoticeScreen}/>
-      <Stack.Screen name='ProgressDetailScreen' component={ProgressDetailScreen}/>
-      <Stack.Screen name='EditInformationScreen' component={EditInformationScreen}/>
-      <Stack.Screen name='AddressScreen' component={AddressScreen}/>
-      <Stack.Screen name='EstimateDetailScreen' component={EstimateDetailScreen} />
-      <Stack.Screen name='SelectEstimateScreen' component={SelectEstimateScreen} />
-      <Stack.Screen name='DetailEstimateScreen' component={DetailEstimateScreen} />
-      <Stack.Screen name='ReviewScreen' component={ReviewScreen}/>
-      <Stack.Screen name='WriteReviewScreen' component={WriteReviewScreen}/>
+      <Stack.Screen name="WorkShopScreen" component={WorkShopScreen} />
+      <Stack.Screen name="ChatScreen" component={ChatScreen} />
+      <Stack.Screen name="NoticeScreen" component={NoticeScreen} />
+      <Stack.Screen name="ProgressDetailScreen" component={ProgressDetailScreen} />
+      <Stack.Screen name="EditInformationScreen" component={EditInformationScreen} />
+      <Stack.Screen name="AddressScreen" component={AddressScreen} />
+      <Stack.Screen name="EstimateDetailScreen" component={EstimateDetailScreen} />
+      <Stack.Screen name="SelectEstimateScreen" component={SelectEstimateScreen} />
+      <Stack.Screen name="DetailEstimateScreen" component={DetailEstimateScreen} />
+      <Stack.Screen name="ReviewScreen" component={ReviewScreen} />
+      <Stack.Screen name="WriteReviewScreen" component={WriteReviewScreen} />
     </Stack.Navigator>
   );
 };

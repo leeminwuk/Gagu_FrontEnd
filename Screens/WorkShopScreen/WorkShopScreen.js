@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, Alert, SafeAreaView, Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Title from './Title/Title';
-import CommonButton from '../../Button/CommonButton';
+import CommonButton from '../../Button/CommonButton/CommonButton';
 import CommonModal from '../../Modal/CommonModal';
 import { createChatRoom } from '../../api/createChat';
 import { getToken, saveNickname } from '../../utils/storage';
