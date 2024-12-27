@@ -10,11 +10,11 @@ import {
   SafeAreaView,
 } from 'react-native';
 import styles from './Styles';
-import BackButton from '../../../../Components/BackButton/BackButton';
+import BackButton from '../../Components/BackButton/BackButton';
 
-import {sendVerificationCode} from '../../../../api/authentication'; 
+import {sendVerificationCode} from '../../api/authentication'; 
 
-const WorkshopNumberAuthentication = ({navigation}) => {
+const NumberAuthentication = ({navigation}) => {
   const mainText = '먼저, 휴대폰 번호를\n입력해주세요';
   const sideText =
     '공방 관계자 회원가입 페이지 입니다.\n가구 일반 사용자는 뒤로가기를 눌러주세요 :)';
@@ -40,7 +40,7 @@ const WorkshopNumberAuthentication = ({navigation}) => {
         const response = await sendVerificationCode(phoneNumber);
         console.log('Server response:', response); 
         if (typeof response === 'string' && response.includes('정상 접수')) {
-          navigation.navigate('WorkshopSendNumber', {phoneNumber});
+          navigation.navigate('SendNumber', {phoneNumber});
         } else {
           Alert.alert('오류', response.msg || '인증번호 전송에 실패했습니다.');
         }
@@ -91,4 +91,4 @@ const WorkshopNumberAuthentication = ({navigation}) => {
   );
 };
 
-export default WorkshopNumberAuthentication;
+export default NumberAuthentication;

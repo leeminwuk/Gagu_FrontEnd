@@ -11,6 +11,7 @@ import {
   ProfileContainer,
   NicknameText,
   ProfileImage,
+  BackButtonImage,
 } from './Styles';
 
 const BackHeader = ({ navigation, titleText }) => {
@@ -50,9 +51,8 @@ const BackHeader = ({ navigation, titleText }) => {
     <Container>
       <BackButtonContainer>
         <BackButton onPress={handlerBack} activeOpacity={0.8}>
-          <Image
-            source={require('../../assets/images/backButton.png')}
-          />
+          <BackButtonImage
+            source={require('../../assets/images/backButton.png')}/>
         </BackButton>
         <TitleContainer>
           <TitleText>{titleText}</TitleText>

@@ -59,7 +59,7 @@ const PromptScreen = () => {
       Alert.alert('오류', '먼저 가구를 입력해주세요!');
     } else {
       await saveFurnitureName(inputValue);
-      sendMessage(inputValue);
+      sendMessage(inputValue, inputValue);
       navigation.navigate('LoadingScreen', { furnitureName: inputValue });
     }
   };

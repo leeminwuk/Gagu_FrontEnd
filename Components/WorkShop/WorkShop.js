@@ -82,12 +82,6 @@ const WorkShop = ({
           </ReviewTextContainer>
         </ReviewContainer>
         <ExpactedCostContainer>
-          <ExpactedTextContainer>
-            <ExpactedText>예상 가격</ExpactedText>
-          </ExpactedTextContainer>
-          <CostContainer>
-            <CostText>{costText}</CostText>
-          </CostContainer>
         </ExpactedCostContainer>
       </Container>
     </WorkShopContainer>

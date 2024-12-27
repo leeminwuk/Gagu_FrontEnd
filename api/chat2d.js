@@ -3,16 +3,11 @@ import { getNickname, saveImageUrl } from '../utils/storage';
 import Config from 'react-native-config';
 
 const PROMPT_CHAT_URL = Config.PROMPT_CHAT_URL; 
-let stompClient: StompJs.Client | null = null;
-let messageQueue: { contents: string }[] = []; 
+let stompClient = null;
+let messageQueue = []; 
 let shouldReconnect = true; // 재연결 여부를 관리하는 플래그
 
-interface Message {
-  type: string;
-  contents: string;
-}
-
-const connectWebSocket = async (authToken: string, onMessageReceived: (message: any) => void): Promise<void> => {
+const connectWebSocket = async (authToken, onMessageReceived) => {
   if (stompClient && stompClient.connected) {
     //console.log('이미 연결된 WebSocket이 있습니다.');
     return;
@@ -41,7 +36,7 @@ const connectWebSocket = async (authToken: string, onMessageReceived: (message: 
       
       onConnect: (frame) => {
         console.log('Connected:', frame);
-        const subscription = stompClient!.subscribe(`/user/${nickname}/sub`, async (message) => {
+        const subscription = stompClient.subscribe(`/user/${nickname}/sub`, async (message) => {
           const receivedMessage = JSON.parse(message.body);
           await saveImageUrl(receivedMessage.image); // 수신한 이미지 URL 저장
           //console.log('Received message:', receivedMessage);
@@ -52,9 +47,7 @@ const connectWebSocket = async (authToken: string, onMessageReceived: (message: 
         // 연결이 성공하면 큐에 있는 메시지를 전송
         while (messageQueue.length > 0) {
           const message = messageQueue.shift();
-          if (message) {
-            sendMessage(message.contents);
-          }
+          sendMessage(message.contents, message.prompt);
         }
       },
       onStompError: (frame) => {
@@ -81,11 +74,18 @@ const connectWebSocket = async (authToken: string, onMessageReceived: (message: 
   }
 };
 
-const sendMessage = (contents: string): void => {
+const sendMessage = (contents, prompt) => {
   if (stompClient && stompClient.connected) {
-    const message: Message = {
+    const message = {
       type: "LLM",
-      contents: contents,
+      prompt: prompt, // 사용자가 입력한 값을 넣습니다.
+      estimateInfo: {
+        template: null,
+        estimateId: null
+      },
+      chatContentsInfo: {
+        contents: contents
+      }
     };
     stompClient.publish({
       destination: "/pub/gagu-chat/2d",
@@ -94,11 +94,11 @@ const sendMessage = (contents: string): void => {
     //console.log('메시지가 성공적으로 전송되었습니다:', message);
   } else {
     //console.error('WebSocket Error');
-    messageQueue.push({ contents });
+    messageQueue.push({ contents, prompt });
   }
 };
 
-const disconnectWebSocket = (): void => {
+const disconnectWebSocket = () => {
   if (stompClient) {
     shouldReconnect = false; // 재연결 시도하지 않도록 설정
     stompClient.deactivate();
@@ -106,7 +106,7 @@ const disconnectWebSocket = (): void => {
   }
 };
 
-const getWebSocketInstance = (): StompJs.Client | null => {
+const getWebSocketInstance = () => {
   return stompClient;
 };
 

@@ -24,7 +24,11 @@ export const BackButton = styled.TouchableOpacity`
   height: 24px;
   resize-mode: contain;
 `;
-
+export const BackButtonImage = styled.Image`
+  width: 24px;
+  height: 24px;
+  resize-mode: contain;
+`;
 export const TitleContainer = styled.View`
   justify-content: center;
 `;

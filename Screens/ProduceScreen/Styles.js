@@ -66,3 +66,18 @@ export const ArrowCircle = styled.View`
   justify-content: flex-start;
   align-items: center;
 `;
+export const SearchText = styled.Text`
+  font-size: 16px;
+  font-weight: 700;
+  color: gray;
+  letter-spacing: -0.5px;
+  margin-top: 20px;
+  width: ${width * 0.3}px;
+  text-align: center;
+`;
+export const HR = styled.View`
+  width: 30%;
+  border: 1px solid gray;
+  margin-top: 10px;
+
+`;

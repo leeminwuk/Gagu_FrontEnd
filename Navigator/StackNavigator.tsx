@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator, TransitionSpecs, CardStyleInterpolators } from '@react-navigation/stack';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import StartScreen from '../Screens/StartScreen/StartScreen';
 import SignupScreen from '../Screens/SignupScreen/SignupScreen';
 import LoginScreen from '../Screens/LoginScreen/LoginScreen';
@@ -19,8 +19,8 @@ import ProduceDetailScreen from '../Screens/ProduceDetailScreen/ProduceDetailScr
 import ArViewer from '../Components/ArViewer/ArViewer';
 import RequestLoading from '../Screens/RequestLoading/RequestLoading';
 import SearchWorkShopScreen from '../Screens/SearchWorkShopScreen/SearchWorkShopScreen';
-import NumberAuthentication from '../Screens/Workshop/SignupScreen/NumberAuthentication/NumberAuthentication';
-import SendNumber from '../Screens/Workshop/SignupScreen/SendNumber/SendNumber';
+import NumberAuthentication from '../Screens/NumberAuthentication/NumberAuthentication';
+import SendNumber from '../Screens/SendNumber/SendNumber';
 import CreateId from '../Screens/Workshop/SignupScreen/CreateId/CreateId';
 import CreatePassword from '../Screens/Workshop/SignupScreen/CreatePassword/CreatePassword';
 import CreateWorkShop from '../Screens/Workshop/SignupScreen/CreateWorkshop/CreateWorkShop';
@@ -45,7 +45,11 @@ import DetailEstimateScreen from '../Screens/Workshop/DetailEstimateScreen/Detai
 import ReviewScreen from '../Screens/ReviewScreen/ReviewScreen';
 import WriteReviewScreen from '../Screens/WriteReviewScreen/WriteReviewScreen';
 import { StackNavigatorProps } from './types';
-
+import DoPayment from '../Components/DoPayment/DoPayment';
+import ResponsePaymentScreen from '../Screens/ResponsePaymentScreen/ResponsePaymentScreen';
+import PlusAddressScreen from '../Screens/PlusAddressScreen/PlusAddressScreen';
+import WorkshopNumberAuthentication from '../Screens/Workshop/SignupScreen/NumberAuthentication/NumberAuthentication';
+import WorkshopSendNumber from '../Screens/Workshop/SignupScreen/SendNumber/SendNumber';
 const Stack = createStackNavigator();
 
 const StackNavigator: React.FC<StackNavigatorProps> = () => {
@@ -55,10 +59,10 @@ const StackNavigator: React.FC<StackNavigatorProps> = () => {
         headerShown: false,
         animationEnabled: true,
         transitionSpec: {
-          open: { animation: 'timing', config: { duration: 200 } },
-          close: { animation: 'timing', config: { duration: 200 } },
+          open: { animation: 'timing', config: { duration: 100 } },
+          close: { animation: 'timing', config: { duration: 100 } },
         },
-        cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
+        cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
       }}
     >
       <Stack.Screen name="StartScreen" component={StartScreen} />
@@ -105,6 +109,12 @@ const StackNavigator: React.FC<StackNavigatorProps> = () => {
       <Stack.Screen name="DetailEstimateScreen" component={DetailEstimateScreen} />
       <Stack.Screen name="ReviewScreen" component={ReviewScreen} />
       <Stack.Screen name="WriteReviewScreen" component={WriteReviewScreen} />
+      <Stack.Screen name="DoPayment" component={DoPayment} />
+      <Stack.Screen name="ResponsePaymentScreen" component={ResponsePaymentScreen} />
+      <Stack.Screen name = "PlusAddressScreen" component = {PlusAddressScreen} />
+      <Stack.Screen name = "WorkshopNumberAuthentication" component = {WorkshopNumberAuthentication} />
+      <Stack.Screen name = "WorkshopSendNumber" component = {WorkshopSendNumber} />
+      
     </Stack.Navigator>
   );
 };

@@ -46,12 +46,6 @@ const Title = ({ nameText, locationText, costText }) => {
         </AuthContainer>
       </LeftContainer>
       <ExpectedCostContainer>
-        <ExpectedContainer>
-          <ExpectedText>예상 가격</ExpectedText>
-        </ExpectedContainer>
-        <CostContainer>
-          <CostText>{costText}</CostText>
-        </CostContainer>
       </ExpectedCostContainer>
     </TitleContainer>
   );

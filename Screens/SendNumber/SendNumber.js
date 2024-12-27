@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,15 +9,15 @@ import {
   Alert,
   SafeAreaView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {verifyVerificationCode} from '../../../../api/authentication';
+import { useNavigation } from '@react-navigation/native';
+import { verifyVerificationCode } from '../../api/authentication'; 
 import styles from './Styles';
-import BackButton from '../../../../Components/BackButton/BackButton';
-import OneButtonModal from '../../../../Modal/OneButtonMoadl/OneButtonModal';
+import BackButton from '../../Components/BackButton/BackButton';
+import OneButtonModal from '../../Modal/OneButtonMoadl/OneButtonModal';
 
-const WorkshopSendNumber = ({route}) => {
+const SendNumber = ({ route }) => {
   const navigation = useNavigation();
-  const {phoneNumber} = route.params;
+  const { phoneNumber } = route.params;
   const mainText = '작성하신 번호로\n인증 번호를 전송했어요';
   const sideText = '3분내로 인증번호를 입력해주세요.';
   const [timeLeft, setTimeLeft] = useState(180);
@@ -48,23 +48,14 @@ const WorkshopSendNumber = ({route}) => {
       Alert.alert('오류', '인증번호를 입력해주세요.');
       return;
     }
-
+  
     try {
-      console.log('Sending request with:', {
-        phoneNumber,
-        authorizationNumber: verificationCode,
-      });
-      const response = await verifyVerificationCode(
-        phoneNumber,
-        verificationCode,
-      );
-
+      console.log('Sending request with:', { phoneNumber, authorizationNumber: verificationCode });
+      const response = await verifyVerificationCode(phoneNumber, verificationCode);
+  
       console.log('Server response:', response);
-
-      if (
-        typeof response === 'string' &&
-        response.includes('인증에 성공하셨습니다')
-      ) {
+  
+      if (typeof response === 'string' && response.includes('인증에 성공하셨습니다')) {
         navigation.navigate('CreateId');
       } else {
         Alert.alert('오류', response.msg || '인증에 실패하셨습니다.');
@@ -77,9 +68,9 @@ const WorkshopSendNumber = ({route}) => {
 
   return (
     <KeyboardAvoidingView
-      style={{flex: 1}}
+      style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : null}>
-      <SafeAreaView style={{flex: 1, backgroundColor: '#191919'}}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
         <BackButton navigation={navigation} />
         <View style={styles.container}>
           <View style={styles.textContainer}>
@@ -105,7 +96,9 @@ const WorkshopSendNumber = ({route}) => {
               style={styles.button}
               activeOpacity={0.7}
               onPress={handleVerificationSubmit}>
-              <Text style={styles.buttonText}>인증 번호 확인</Text>
+              <Text style={styles.buttonText}>
+                인증 번호 확인
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.hintButton}
@@ -127,7 +120,7 @@ const WorkshopSendNumber = ({route}) => {
         </View>
         <OneButtonModal
           modalVisible={modalVisible}
-          imageSource={require('../../../../assets/images/warning.png')}
+          imageSource={require('../../assets/images/warning.png')}
           setModalVisible={setModalVisible}
           mainText="확인필요"
           sideText={
@@ -143,4 +136,4 @@ const WorkshopSendNumber = ({route}) => {
   );
 };
 
-export default WorkshopSendNumber;
+export default SendNumber;

@@ -34,7 +34,7 @@ const LoginScreen = ({ navigation }) => {
       </TextContainer>
 
       <ButtonContainer>
-        {/* <GoogleLoginButton /> */}
+        <GoogleLoginButton />
         <KakaoLoginButton />
         <ShopButton>
           <TouchableOpacity activeOpacity={0.7} onPress={handleShopSignup}>

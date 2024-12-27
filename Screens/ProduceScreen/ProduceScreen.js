@@ -23,7 +23,9 @@ const ProduceScreen = () => {
   const handleProduceButtonPress = () => {
     navigation.navigate('PromptScreen');
   };
-
+    const handleSearchButtonPress = () => {
+      navigation.navigate('SearchWorkShopScreen');
+    };
   return (
     <MainContainer>
       <BackgroundImage source={require('../../assets/images/produce.png')}>
@@ -37,6 +39,17 @@ const ProduceScreen = () => {
         <StartButton>
           <TouchableOpacity onPress={handleProduceButtonPress} activeOpacity={0.8}>
             <StartText>가구 제작 하러가기</StartText>
+            <StartArrowContainer>
+              <StartArrow />
+              <ArrowCircle>
+                <RightArrow>
+                  <RightArrowImage source={require('../../assets/images/rightArrow.png')} />
+                </RightArrow>
+              </ArrowCircle>
+            </StartArrowContainer>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleSearchButtonPress} activeOpacity={0.8}>
+            <StartText>제작 없이 공방 찾기</StartText>
             <StartArrowContainer>
               <StartArrow />
               <ArrowCircle>

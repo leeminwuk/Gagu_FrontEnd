@@ -65,7 +65,9 @@ const MyPageScreen = () => {
       console.error('로그아웃 중 오류 발생:', error);
     }
   };
-
+  const onPressPayment = () => {
+    navigation.navigate('ResponsePaymentScreen');
+  };
   return (
     <MyPageContainer>
       <MainHeader />
@@ -95,6 +97,7 @@ const MyPageScreen = () => {
             onPress={onPressEditInformation}
           />
           <MypageButton
+            onPress={onPressPayment}
             image={require('../../assets/images/miniLogo.png')}
             text="APP 설정"
             imagecontainerStyle={LogoContainer}

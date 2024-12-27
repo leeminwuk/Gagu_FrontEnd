@@ -10,156 +10,65 @@ import {
   Alert,
   ActivityIndicator,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Modal,
 } from 'react-native';
-import { Client } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
-import { getToken, getNickname } from '../../utils/storage';
-import { UserInfo } from '../../api/userInfo'; 
-import { getChatRooms } from '../../api/chatMyRoom'; 
-import { getChatContents } from '../../api/chatContents';
-import { getWorkshopEstimates } from '../../api/authWorkshop'; 
-import { outChat } from '../../api/outChat'; 
+import {
+  fetchUserInfo,
+  fetchChatRoomId,
+  fetchChatHistory,
+  connectWebSocket,
+  subscribeToMessages,
+  sendMessage,
+  handleOutButtonPress,
+  handleRequestFurniture,
+} from './events';
+import RequestModal from '../../Modal/RequestModal/RequestModal';
 import RequestButton from '../../Components/RequestButton/RequestButton';
-import RequestPayment from '../../Components/RequestPayment/RequestPayment';
 import BackButton from '../../Components/BackButton/BackButton';
-import CommonModal from '../../Modal/CommonModal'; 
+import CommonModal from '../../Modal/CommonModal';
+import EstimateContent from '../../Components/EstimateContent/EstimateContent';
 import styles from './Styles';
-import Config from 'react-native-config';
-
-const CHAT_URL = Config.CHAT_URL;
 
 const ChatScreen = ({ navigation, route }) => {
-  const [messages, setMessages] = useState([]);
-  const [currentMessage, setCurrentMessage] = useState('');
-  const [isConnected, setIsConnected] = useState(false);
-  const [chatRoomId, setChatRoomId] = useState(null); 
-  const [nickname, setNickname] = useState(''); 
-  const [modalVisible, setModalVisible] = useState(false); 
-  const [showExitButton, setShowExitButton] = useState(false); 
   const scrollViewRef = useRef();
   const client = useRef(null);
   const subscription = useRef(null);
+
+  const [messages, setMessages] = useState([]);
+  const [currentMessage, setCurrentMessage] = useState('');
+  const [isConnected, setIsConnected] = useState(false);
+  const [chatRoomId, setChatRoomId] = useState(null);
+  const [nickname, setNickname] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [requestModalVisible, setRequestModalVisible] = useState(false);
+  const [showExitButton, setShowExitButton] = useState(false);
+  const [furnitureModalVisible, setFurnitureModalVisible] = useState(false);
+  const [furnitureList, setFurnitureList] = useState([]);
+  const [selectedFurniture, setSelectedFurniture] = useState(null); // 선택된 가구 데이터
   const shopname = route?.params?.shopname || '가구 공방';
   const isWorkshop = route?.params?.isWorkshop || false;
 
   useEffect(() => {
-    console.log('shopname:', shopname); 
-    const fetchUserInfo = async () => {
-      try {
-        const token = await getToken();
-        if (!token) {
-         // console.error('Token is missing');
-          return;
-        }
-        const userInfo = await UserInfo(token);
-        if (userInfo) {
-          setNickname(userInfo.nickname); 
-          console.log('Fetched nickname:', userInfo.nickname);
-        } else {
-          //console.error('User info is missing');
-        }
-      } catch (error) {
-       // console.error('Error fetching user info:', error);
-      }
-    };
-
-    fetchUserInfo();
+    console.log('shopname:', shopname);
+    fetchUserInfo(setNickname);
   }, []);
 
   useEffect(() => {
-    const fetchChatRoomId = async () => {
-      const token = await getToken();
-      if (!token) {
-        //console.error('Token is missing');
-        return;
-      }
-
-      try {
-        const chatRooms = await getChatRooms(0, token);
-        console.log('chatRooms:', chatRooms);
-
-        if (chatRooms && chatRooms.content.length > 0) {
-          const room = chatRooms.content.find(room => room.roomName.includes(shopname));
-          if (room) {
-            setChatRoomId(room.id);
-            //console.log('Fetched chatRoomId:', room.id); 
-          } else {
-           // console.error('No chat room found for the given shop name.');
-          }
-        } else {
-          //console.error('No chat rooms found.');
-        }
-      } catch (error) {
-       // console.error('Error fetching chat rooms:', error);
-      }
-    };
-
-    fetchChatRoomId();
+    fetchChatRoomId(shopname, setChatRoomId);
   }, [shopname]);
 
   useEffect(() => {
     if (chatRoomId) {
-      const fetchChatHistory = async () => {
-        const token = await getToken();
-        if (!token) {
-          console.error('Token is missing');
-          return;
-        }
+      fetchChatHistory(chatRoomId, setMessages);
 
-        try {
-          const chatHistory = await getChatContents(chatRoomId, 0, token);
-          //console.log('Fetched chat history:', chatHistory);
-          // setMessages(chatHistory.map(msg => ({ ...msg, sender: msg.nickName })));
-        } catch (error) {
-          console.error('Error fetching chat history:', error);
-        }
-      };
-
-      fetchChatHistory();
-
-      const connectWebSocket = async () => {
-        const authToken = await getToken();
-        if (!authToken) {
-          console.error('Token is missing');
-          return;
-        }
-
-        if (client.current) {
-          client.current.deactivate();
-        }
-
-        client.current = new Client({
-          webSocketFactory: () => new SockJS(CHAT_URL),
-          connectHeaders: {
-            Authorization: `Bearer ${authToken}`,
-          },
-          reconnectDelay: 5000,
-          heartbeatIncoming: 4000,
-          heartbeatOutgoing: 4000,
+      const connect = async () => {
+        client.current = await connectWebSocket(chatRoomId, setIsConnected, (client, chatRoomId) => {
+          subscription.current = subscribeToMessages(client, chatRoomId, setMessages);
         });
-
-        client.current.onConnect = (frame) => {
-          console.log('Connected: ' + frame);
-          setIsConnected(true);
-          subscribeToMessages();
-        };
-
-        client.current.onStompError = (frame) => {
-          console.error('Broker reported error: ' + frame.headers['message']);
-          console.error('Additional details: ' + frame.body);
-          setIsConnected(false);
-        };
-
-        // client.current.onWebSocketClose = (event) => {
-        //   console.error('WebSocket connection closed: ', event);
-        //   setIsConnected(false);
-        // };
-
-        client.current.activate();
       };
 
-      connectWebSocket();
+      connect();
     }
 
     return () => {
@@ -169,102 +78,55 @@ const ChatScreen = ({ navigation, route }) => {
     };
   }, [chatRoomId]);
 
-  const subscribeToMessages = () => {
-    if (!client.current || !client.current.connected) {
-      console.error('WebSocket client is not connected.');
-      return;
-    }
-
-    if (subscription.current) {
-      subscription.current.unsubscribe();
-    }
-
-    subscription.current = client.current.subscribe(`/sub/chatroom/${chatRoomId}`, (message) => {
-      const receivedMessage = JSON.parse(message.body);
-      console.log('Received message:', receivedMessage); 
-      setMessages((prevMessages) => [...prevMessages, { ...receivedMessage, sender: receivedMessage.nickName }]); 
-    });
-  };
-
   const handleSendMessage = () => {
     if (!currentMessage.trim()) {
       Alert.alert('오류', '메시지를 입력하세요!');
       return;
     }
-  
-    if (!client.current || !client.current.connected) {
-      //console.error('WebSocket client is not connected.');
-      return;
-    }
-  
-    const message = {
-      type: 'SEND',
-      contents: currentMessage,
-      sender: nickname,
-    };
-
-    console.log('Sending message:', message);
-  
-    client.current.publish({
-      destination: `/pub/gagu-chat/${chatRoomId}`,
-      body: JSON.stringify(message),
-    });
-  
-    setCurrentMessage('');
+    sendMessage(client.current, chatRoomId, 'SEND', currentMessage, null, null, setCurrentMessage);
   };
 
-  const handlePaymentRequest = async () => {
-    try {
-      const savedNickname = await getNickname();
-      const estimates = await getWorkshopEstimates(savedNickname);
-      console.log('Fetched workshop estimates:', estimates);
+  const handleSelectFurniture = (item) => {
+    setSelectedFurniture(item);
+    const template = `
+      import React from 'react';
+      import { Container, EstimateContainer, Icon, Title, TitleText, EstimateImage, EstimateName, EstimateDate, EstimateText, EstimateButton, ButtonText } from './Styles';
 
-      const filteredEstimates = estimates.content.filter(item => item !== null);
+      const EstimateContent = () => {
+        return (
+          <Container>
+            <Title>
+              <Icon source={require('../../assets/images/blackLogo.png')} />
+              <TitleText>제작 요청을 했어요!</TitleText>
+            </Title>
+            <EstimateContainer>
+              <EstimateImage source={{ uri: '${item.furniture2DUrl}' }} />
+              <EstimateText>
+                <EstimateName>${item.furnitureName}</EstimateName>
+                <EstimateDate>${item.createdDate}</EstimateDate>
+              </EstimateText>
+            </EstimateContainer>
+            <EstimateButton activeOpacity={0.8}>
+              <ButtonText>견적서 저장하기</ButtonText>
+            </EstimateButton>
+          </Container>
+        );
+      };
 
-      if (filteredEstimates.length === 0) {
-        Alert.alert('알림', '더이상 조회할 가구 데이터가 없습니다!');
-      } else {
-        navigation.navigate('SelectEstimateScreen', { estimates: filteredEstimates });
-      }
-    } catch (error) {
-      Alert.alert('오류', '결제 요청 중 오류가 발생했습니다.');
-    }
-  };
-
-  const handleDeliveryRequest = () => {
-    navigation.navigate('DeliveryScreen');
-  };
-
-  const handleOutModal = () => {
-    setModalVisible(true);
-  };
-
-  const handleHamburgerPress = () => {
-    setShowExitButton(!showExitButton);
-  };
-
-  const handleOutButtonPress = async () => {
-    const token = await getToken();
-    if (!token) {
-      console.error('토큰이 없습니다.');
-      Alert.alert('오류', '토큰이 없습니다.');
-      return;
-    }
-    const { success, message } = await outChat(chatRoomId, token);
-    if (success) {
-      if (client.current) {
-        client.current.deactivate();
-      }
-      navigation.navigate('WriteReviewScreen', { shopname }); // shopname 전달
-      setModalVisible(false);
-    } else {
-      console.error(message);
-    }
+      export default EstimateContent;
+    `;
+    sendMessage(client.current, chatRoomId, 'REQUEST_ESTIMATE', null, template, item.id, setCurrentMessage);
   };
 
   if (!isConnected) {
     return (
-      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#191919' }}>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#191919',
+        }}>
         <ActivityIndicator size="large" color="#ffffff" />
       </SafeAreaView>
     );
@@ -275,10 +137,13 @@ const ChatScreen = ({ navigation, route }) => {
       <BackButton
         navigation={navigation}
         image={require('../../assets/images/hamburgerbar.png')}
-        onHamburgerPress={handleHamburgerPress}
+        onHamburgerPress={() => setShowExitButton(!showExitButton)}
       />
       {showExitButton && (
-        <TouchableOpacity onPress={handleOutModal} style={styles.exitButton} activeOpacity={0.8}>
+        <TouchableOpacity
+          onPress={() => setModalVisible(true)}
+          style={styles.exitButton}
+          activeOpacity={0.8}>
           <Text style={styles.exitButtonText}>채팅 그만하기</Text>
         </TouchableOpacity>
       )}
@@ -296,35 +161,47 @@ const ChatScreen = ({ navigation, route }) => {
         </View>
       </View>
 
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}>
         <ScrollView
           ref={scrollViewRef}
-          onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
+          onContentSizeChange={() =>
+            scrollViewRef.current.scrollToEnd({ animated: true })
+          }
           contentContainerStyle={{ paddingBottom: 30 }}
-          style={styles.chatContainer}
-        >
+          style={styles.chatContainer}>
           {messages.map((message, index) => (
-            <View 
-              key={index} 
-              style={message.sender === nickname ? styles.senderMessage : styles.receiverMessage}
-            >
-              <Text 
-                style={message.sender === nickname ? styles.messageSenderText : styles.messageReceiverText} 
-              >
+            <View
+              key={index}
+              style={
+                message.sender === nickname
+                  ? styles.senderMessage
+                  : styles.receiverMessage
+              }>
+              <Text
+                style={
+                  message.sender === nickname
+                    ? styles.messageSenderText
+                    : styles.messageReceiverText
+                }>
                 {message.contents}
               </Text>
             </View>
           ))}
+          {selectedFurniture && (
+            <EstimateContent
+              image={selectedFurniture.furniture2DUrl}
+              name={selectedFurniture.furnitureName}
+              date={selectedFurniture.createdDate}
+            />
+          )}
         </ScrollView>
 
         <View style={styles.sendContainer}>
-          {isWorkshop && (
+          {isWorkshop ? (
             <View style={styles.requestContainer}>
-              <RequestButton
-                requestText="결제 요청"
-                requestImage={require('../../assets/images/cardicon.png')}
-                onPress={handlePaymentRequest}
-              />
+              {/* 
               <RequestButton
                 requestText="배 달"
                 requestImage={require('../../assets/images/deliveryicon.png')}
@@ -333,6 +210,14 @@ const ChatScreen = ({ navigation, route }) => {
               <RequestButton
                 requestText="거래 종료"
                 requestImage={require('../../assets/images/handsicon.png')}
+              /> */}
+            </View>
+          ) : (
+            <View style={styles.requestContainer}>
+              <RequestButton
+                requestText="제작 요청"
+                requestImage={require('../../assets/images/handsicon.png')}
+                onPress={() => handleRequestFurniture(setFurnitureList, setRequestModalVisible)}
               />
             </View>
           )}
@@ -344,7 +229,9 @@ const ChatScreen = ({ navigation, route }) => {
               placeholder="메시지를 입력하세요"
               placeholderTextColor="#9CA6AE"
             />
-            <TouchableOpacity onPress={handleSendMessage} style={styles.sendButton}>
+            <TouchableOpacity
+              onPress={handleSendMessage}
+              style={styles.sendButton}>
               <Image
                 source={require('../../assets/images/sendmessage.png')}
                 style={styles.sendImage}
@@ -365,9 +252,22 @@ const ChatScreen = ({ navigation, route }) => {
         secondButtonColor="#666666"
         firstButtonTextColor="#000000"
         secondButtonTextColor="#FFFFFF"
-        onFirstButtonPress={handleOutButtonPress}
+        onFirstButtonPress={() => handleOutButtonPress(chatRoomId, navigation, setModalVisible)}
         onSecondButtonPress={() => setModalVisible(false)}
       />
+      <RequestModal
+        modalVisible={requestModalVisible}
+        setModalVisible={setRequestModalVisible}
+        furnitureList={furnitureList}
+        onSelect={handleSelectFurniture}
+      />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={furnitureModalVisible}
+        onRequestClose={() => {
+          setFurnitureModalVisible(!furnitureModalVisible);
+        }}></Modal>
     </SafeAreaView>
   );
 };

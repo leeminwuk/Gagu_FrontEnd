@@ -23,6 +23,7 @@ const SearchWorkShopScreen = (props) => {
   const { item } = props.route.params;
 
   useEffect(() => {
+    console.log('item', item);
     const getWorkshops = async () => {
       const token = await getToken();
       if (token) {
@@ -67,7 +68,6 @@ const SearchWorkShopScreen = (props) => {
                 locationText={workshop.address}
                 starAverage={workshop.starAverage}
                 reviewText={`리뷰 ${workshop.count}건`}
-                costText={'10,000원'}
                 handleButtonPress={handleButtonPress}
               />
             </WorkshopWrapper>
