@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  ScrollView,
   SafeAreaView,
   Image,
   Alert,
@@ -12,6 +11,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Modal,
+  FlatList,
 } from 'react-native';
 import {
   fetchUserInfo,
@@ -31,11 +31,12 @@ import EstimateContent from '../../Components/EstimateContent/EstimateContent';
 import styles from './Styles';
 
 const ChatScreen = ({ navigation, route }) => {
-  const scrollViewRef = useRef();
+  const flatListRef = useRef(null);
   const client = useRef(null);
   const subscription = useRef(null);
 
   const [messages, setMessages] = useState([]);
+  const [previousMessages, setPreviousMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState('');
   const [isConnected, setIsConnected] = useState(false);
   const [chatRoomId, setChatRoomId] = useState(null);
@@ -45,7 +46,7 @@ const ChatScreen = ({ navigation, route }) => {
   const [showExitButton, setShowExitButton] = useState(false);
   const [furnitureModalVisible, setFurnitureModalVisible] = useState(false);
   const [furnitureList, setFurnitureList] = useState([]);
-  const [selectedFurniture, setSelectedFurniture] = useState(null); // 선택된 가구 데이터
+  const [selectedFurniture, setSelectedFurniture] = useState(null);  
   const shopname = route?.params?.shopname || '가구 공방';
   const isWorkshop = route?.params?.isWorkshop || false;
 
@@ -60,7 +61,7 @@ const ChatScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     if (chatRoomId) {
-      fetchChatHistory(chatRoomId, setMessages);
+      fetchChatHistory(chatRoomId, setPreviousMessages); // 이전 채팅 내역 불러오기
 
       const connect = async () => {
         client.current = await connectWebSocket(chatRoomId, setIsConnected, (client, chatRoomId) => {
@@ -78,6 +79,10 @@ const ChatScreen = ({ navigation, route }) => {
     };
   }, [chatRoomId]);
 
+  useEffect(() => {
+    console.log('Previous messages:', previousMessages); // 로그 추가
+  }, [previousMessages]);
+
   const handleSendMessage = () => {
     if (!currentMessage.trim()) {
       Alert.alert('오류', '메시지를 입력하세요!');
@@ -88,34 +93,15 @@ const ChatScreen = ({ navigation, route }) => {
 
   const handleSelectFurniture = (item) => {
     setSelectedFurniture(item);
-    const template = `
-      import React from 'react';
-      import { Container, EstimateContainer, Icon, Title, TitleText, EstimateImage, EstimateName, EstimateDate, EstimateText, EstimateButton, ButtonText } from './Styles';
-
-      const EstimateContent = () => {
-        return (
-          <Container>
-            <Title>
-              <Icon source={require('../../assets/images/blackLogo.png')} />
-              <TitleText>제작 요청을 했어요!</TitleText>
-            </Title>
-            <EstimateContainer>
-              <EstimateImage source={{ uri: '${item.furniture2DUrl}' }} />
-              <EstimateText>
-                <EstimateName>${item.furnitureName}</EstimateName>
-                <EstimateDate>${item.createdDate}</EstimateDate>
-              </EstimateText>
-            </EstimateContainer>
-            <EstimateButton activeOpacity={0.8}>
-              <ButtonText>견적서 저장하기</ButtonText>
-            </EstimateButton>
-          </Container>
-        );
-      };
-
-      export default EstimateContent;
-    `;
-    sendMessage(client.current, chatRoomId, 'REQUEST_ESTIMATE', null, template, item.id, setCurrentMessage);
+    const estimateInfo = {
+      estimateId: item.id,
+      furnitureName: item.furnitureName,
+      furniture2DUrl: item.furniture2DUrl,
+      furnitureGlbUrl: item.furnitureGlbUrl,
+      furnitureGltfUrl: item.furnitureGltfUrl,
+      createdDate: item.createdDate,
+    };
+    sendMessage(client.current, chatRoomId, 'REQUEST_ESTIMATE', null, estimateInfo, null, setCurrentMessage);
   };
 
   if (!isConnected) {
@@ -131,6 +117,87 @@ const ChatScreen = ({ navigation, route }) => {
       </SafeAreaView>
     );
   }
+
+  const renderItem = ({ item }) => {
+    if (item.type === 'SEND' && item.chatContentInfo) {
+      return (
+        <View
+          style={
+            item.sender === nickname
+              ? styles.senderMessage
+              : styles.receiverMessage
+          }>
+          <Text
+            style={
+              item.sender === nickname
+                ? styles.messageSenderText
+                : styles.messageReceiverText
+            }>
+            {item.chatContentInfo.contents}
+          </Text>
+        </View>
+      );
+    }
+
+    if (item.type === 'REQUEST_ESTIMATE' && item.estimateInfo) {
+      return (
+        <View
+          style={
+            item.sender === nickname
+              ? styles.senderMessage
+              : styles.receiverMessage
+          }>
+          <EstimateContent
+            image={item.estimateInfo.furniture2DUrl}
+            name={item.estimateInfo.furnitureName}
+            date={item.estimateInfo.createdDate}
+            isWorkshop={isWorkshop}
+            navigation={navigation}
+          />
+        </View>
+      );
+    }
+
+    if (item.type === 'RESPONSE_ESTIMATE' && item.estimateInfo) {
+      return (
+        <View
+          style={
+            item.sender === nickname
+              ? styles.senderMessage
+              : styles.receiverMessage
+          }>
+          <EstimateContent
+            image={item.estimateInfo.furniture2DUrl}
+            name={item.estimateInfo.furnitureName}
+            date={item.estimateInfo.createdDate}
+            description={item.estimateInfo.description}
+            price={item.estimateInfo.price}
+            makerName={item.estimateInfo.makerName}
+            isWorkshop={isWorkshop}
+            navigation={navigation}
+          />
+        </View>
+      );
+    }
+
+    return (
+      <View
+        style={
+          item.sender === nickname
+            ? styles.senderMessage
+            : styles.receiverMessage
+        }>
+        <Text
+          style={
+            item.sender === nickname
+              ? styles.messageSenderText
+              : styles.messageReceiverText
+          }>
+          {item.message}
+        </Text>
+      </View>
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -164,39 +231,15 @@ const ChatScreen = ({ navigation, route }) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}>
-        <ScrollView
-          ref={scrollViewRef}
-          onContentSizeChange={() =>
-            scrollViewRef.current.scrollToEnd({ animated: true })
-          }
+        <FlatList
+          ref={flatListRef}
+          data={[...previousMessages, ...messages]} // 이전 메시지와 현재 메시지를 함께 렌더링
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={{ paddingBottom: 30 }}
-          style={styles.chatContainer}>
-          {messages.map((message, index) => (
-            <View
-              key={index}
-              style={
-                message.sender === nickname
-                  ? styles.senderMessage
-                  : styles.receiverMessage
-              }>
-              <Text
-                style={
-                  message.sender === nickname
-                    ? styles.messageSenderText
-                    : styles.messageReceiverText
-                }>
-                {message.contents}
-              </Text>
-            </View>
-          ))}
-          {selectedFurniture && (
-            <EstimateContent
-              image={selectedFurniture.furniture2DUrl}
-              name={selectedFurniture.furnitureName}
-              date={selectedFurniture.createdDate}
-            />
-          )}
-        </ScrollView>
+          style={styles.chatContainer}
+          onContentSizeChange={() => flatListRef.current.scrollToEnd({ animated: true })}
+        />
 
         <View style={styles.sendContainer}>
           {isWorkshop ? (

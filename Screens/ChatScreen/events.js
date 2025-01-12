@@ -14,7 +14,7 @@ export const fetchUserInfo = async (setNickname) => {
   try {
     const token = await getToken();
     if (!token) {
-      // console.error('Token is missing');
+      console.error('Token is missing');
       return;
     }
     const userInfo = await UserInfo(token);
@@ -22,17 +22,17 @@ export const fetchUserInfo = async (setNickname) => {
       setNickname(userInfo.nickname);
       console.log('Fetched nickname:', userInfo.nickname);
     } else {
-      //console.error('User info is missing');
+      console.error('User info is missing');
     }
   } catch (error) {
-    // console.error('Error fetching user info:', error);
+    console.error('Error fetching user info:', error);
   }
 };
 
 export const fetchChatRoomId = async (shopname, setChatRoomId) => {
   const token = await getToken();
   if (!token) {
-    //console.error('Token is missing');
+    console.error('Token is missing');
     return;
   }
 
@@ -46,15 +46,15 @@ export const fetchChatRoomId = async (shopname, setChatRoomId) => {
       );
       if (room) {
         setChatRoomId(room.id);
-        //console.log('Fetched chatRoomId:', room.id);
+        console.log('Fetched chatRoomId:', room.id);
       } else {
-        // console.error('No chat room found for the given shop name.');
+        console.error('No chat room found for the given shop name.');
       }
     } else {
-      //console.error('No chat rooms found.');
+      console.error('No chat rooms found.');
     }
   } catch (error) {
-    // console.error('Error fetching chat rooms:', error);
+    console.error('Error fetching chat rooms:', error);
   }
 };
 
@@ -67,8 +67,8 @@ export const fetchChatHistory = async (chatRoomId, setMessages) => {
 
   try {
     const chatHistory = await getChatContents(chatRoomId, 0, token);
-    //console.log('Fetched chat history:', chatHistory);
-    // setMessages(chatHistory.map(msg => ({ ...msg, sender: msg.nickName })));
+    console.log('Fetched chat history:', chatHistory);
+    setMessages(chatHistory.map(msg => ({ ...msg, sender: msg.sender || msg.nickName })));
   } catch (error) {
     console.error('Error fetching chat history:', error);
   }
@@ -128,29 +128,48 @@ export const subscribeToMessages = (client, chatRoomId, setMessages) => {
   return subscription;
 };
 
-export const sendMessage = (client, chatRoomId, type, messageContent, template, estimateId, setCurrentMessage) => {
+export const sendMessage = async (client, chatRoomId, type, messageContent, estimateInfo, setCurrentMessage) => {
   if (!client || !client.connected) {
     console.error('WebSocket client is not connected.');
     return;
   }
 
-  const message = {
-    type: type,
-    prompt: null,
-    estimateInfo: {
-      template: template,
-      estimateId: estimateId,
-    },
-    chatContentsInfo: {
-      contents: messageContent,
-    },
-  };
+  const authToken = await getToken();
+  const nickname = await getNickname();
+  if (!authToken) {
+    console.error('Token is missing');
+    return;
+  }
+
+  let message;
+  if (type === 'SEND') {
+    message = {
+      type: type,
+      chatContentsInfo: {
+        contents: messageContent,
+      },
+      estimateInfo: null,
+      nickName: nickname,
+      time: new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
+    };
+  } else if (type === 'REQUEST_ESTIMATE') {
+    message = {
+      type: type,
+      chatContentsInfo: null,
+      estimateInfo: estimateInfo,
+      nickName: nickname,
+      time: new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
+    };
+  }
 
   console.log('Sending message:', message);
 
   client.publish({
     destination: `/pub/gagu-chat/${chatRoomId}`,
     body: JSON.stringify(message),
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
   });
 
   setCurrentMessage('');
