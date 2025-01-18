@@ -86,6 +86,12 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: '#ffffff',
   },
+  messageTimeText: {
+    fontSize: 10,
+    color: '#999999',
+    alignSelf: 'flex-end',
+    marginTop: 5,
+  },
   sendContainer: {
     color: '#ffffff',
     width: width,

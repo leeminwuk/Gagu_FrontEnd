@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   NearLocationContainer,
   LocationImageContainer,
   LocationImage,
   LocationTextContainer,
   NearLocationText,
-} from './Styles';
+} from './Styles.ts';
+import { fetchAddress } from './events';
 
-const NearLocation = () => {
-  const locations = [
-    '서울특별시 송파구',
-    '서울특별시 강남구',
-    '서울특별시 중구',
-  ];
+const NearLocation: React.FC = () => {
+  const [nearLocationText, setNearLocationText] = useState<string>('주소 조회 중...');
 
-  const [nearLocationText, setNearLocationText] = useState(locations[0]);
+  useEffect(() => {
+    fetchAddress(setNearLocationText);
+  }, []);
 
   return (
     <NearLocationContainer>

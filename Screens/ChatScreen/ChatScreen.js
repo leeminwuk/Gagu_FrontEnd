@@ -80,7 +80,7 @@ const ChatScreen = ({ navigation, route }) => {
   }, [chatRoomId]);
 
   useEffect(() => {
-    console.log('Previous messages:', previousMessages); // 로그 추가
+    console.log('Previous messages:', previousMessages);
   }, [previousMessages]);
 
   const handleSendMessage = () => {
@@ -237,7 +237,7 @@ const ChatScreen = ({ navigation, route }) => {
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={{ paddingBottom: 30 }}
-          style={styles.chatContainer}
+          style={[styles.chatContainer, { flexGrow: 1 }]} // flexGrow 추가
           onContentSizeChange={() => flatListRef.current.scrollToEnd({ animated: true })}
         />
 

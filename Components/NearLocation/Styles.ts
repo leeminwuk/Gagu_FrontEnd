@@ -4,13 +4,13 @@ import { Dimensions } from 'react-native';
 const { width } = Dimensions.get('window');
 
 export const NearLocationContainer = styled.View`
-  width: ${width * 0.4}px;
-  height: 30px;
   background-color: #ffffff;
   border-radius: 30px;
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  padding-horizontal: 20px;
+  padding-vertical: 8px;
 `;
 
 export const LocationImageContainer = styled.View``;

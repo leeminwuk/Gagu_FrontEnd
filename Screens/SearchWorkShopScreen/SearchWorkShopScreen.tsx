@@ -1,50 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, SafeAreaView } from 'react-native';
+import { ScrollView, SafeAreaView } from 'react-native';
 import BackButton from '../../Components/BackButton/BackButton';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import NearLocation from '../../Components/NearLocation/NearLocaion';
-import SelectDistance from '../../Components/SelectDistance/SelectDistance';
+import SelectCondition from '../../Components/SelectCondition/SelectCondition';
 import WorkShop from '../../Components/WorkShop/WorkShop';
-import { checkWorkshop } from '../../api/checkWorkshop';
-import { getToken } from '../../utils/storage';
 import {
   Container,
   MainText,
   SideTextContainer,
   SideText,
   LocationContainer,
-  WorkShopContainer,
   WorkshopWrapper,
 } from './Styles';
+import { WorkshopType, SearchWorkShopScreenProps } from './types';
+import { handleConditionChange, handleButtonPress, fetchWorkshops } from './events';
 
-const SearchWorkShopScreen = (props) => {
-  const [workshops, setWorkshops] = useState([]);
-  const navigation = useNavigation();
+const SearchWorkShopScreen: React.FC<SearchWorkShopScreenProps> = (props) => {
+  const [workshops, setWorkshops] = useState<WorkshopType[]>([]);
+  const [filterType, setFilterType] = useState<string>('POPULAR');
+  const navigation = useNavigation<NavigationProp<any>>();
   const { item } = props.route.params;
 
   useEffect(() => {
     console.log('item', item);
-    const getWorkshops = async () => {
-      const token = await getToken();
-      if (token) {
-        const data = await checkWorkshop(0, token);
-        if (data) {
-          setWorkshops(data);
-        }
-      }
-    };
-
-    getWorkshops();
-  }, []);
-
-  const handleButtonPress = (workshopId) => {
-    console.log(`Clicked workshop ID: ${workshopId}`);
-    navigation.navigate('WorkShopScreen', { workshopId, item });
-  };
+    fetchWorkshops(filterType, setWorkshops, navigation);
+  }, [filterType]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
-      <BackButton navigation={navigation} steps={2} />
+      <BackButton navigation={navigation} steps={2} titleText={''} image={0} onHamburgerPress={function (): void {
+        throw new Error('Function not implemented.');
+      } } />
       <Container>
         <MainText>근처 공방 찾기</MainText>
         <SideTextContainer>
@@ -54,22 +41,20 @@ const SearchWorkShopScreen = (props) => {
         </SideTextContainer>
         <LocationContainer>
           <NearLocation />
-          <SelectDistance />
+          <SelectCondition onConditionChange={(condition) => handleConditionChange(condition, setFilterType)} />
         </LocationContainer>
         <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
           {workshops.map((workshop, index) => (
             <WorkshopWrapper key={index}>
               <WorkShop
                 workshopId={workshop.id}
-                navigation={navigation}
                 workshopimage={require('../../assets/images/workshop.png')}
                 titleText={workshop.workshopName}
                 subText={workshop.description.length > 50 ? workshop.description.substring(0, 50) + '...' : workshop.description}
                 locationText={workshop.address}
                 starAverage={workshop.starAverage}
                 reviewText={`리뷰 ${workshop.count}건`}
-                handleButtonPress={handleButtonPress}
-              />
+                handleButtonPress={() => handleButtonPress(workshop.id, navigation, item)} costText={undefined}              />
             </WorkshopWrapper>
           ))}
         </ScrollView>

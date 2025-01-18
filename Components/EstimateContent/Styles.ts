@@ -4,7 +4,6 @@ import {Dimensions} from 'react-native';
 const {width, height} = Dimensions.get('window');
 
 export const Container = styled.View`
-  flex: 1;
   background-color: #ffffff;
   padding: 16px;
   height: ${height * 0.25}px;

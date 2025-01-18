@@ -56,11 +56,6 @@ const ChatList: React.FC<ChatListProps> = () => {
                 <NameText>{roomName}</NameText>
                 <MessageText>{lastMessage}</MessageText>
               </NameContainer>
-              <TimeCountContainer>
-                <TimeContainer>
-                  <TimeText>{getTimeDifference(room.lastMessageTime)}</TimeText>
-                </TimeContainer>
-              </TimeCountContainer>
             </ListContainer>
           </TouchableOpacity>
         );

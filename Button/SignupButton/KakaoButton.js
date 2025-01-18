@@ -15,7 +15,7 @@ const KakaoSignupButton = () => {
   const handleSignup = async () => {
     const success = await handleLogin();
     if (success) {
-      navigation.navigate('NumberAuthentication');
+      navigation.navigate('AddressScreen');
     } else {
       setModalVisible(true);
     }

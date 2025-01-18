@@ -5,7 +5,7 @@ const { width } = Dimensions.get('window');
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #191919;
+  background-color: #303030;
 `;
 
 export const ListContainer = styled.View`
