@@ -119,7 +119,25 @@ const ChatScreen = ({ navigation, route }) => {
   }
 
   const renderItem = ({ item }) => {
-    if (item.type === 'SEND' && item.chatContentInfo) {
+    if (item.estimateInfo) {
+      return (
+        <View
+          style={
+            item.sender === nickname
+              ? styles.senderMessage
+              : styles.receiverMessage
+          }>
+          <EstimateContent
+            image={item.estimateInfo.furniture2DUrl}
+            name={item.estimateInfo.furnitureName}
+            date={item.estimateInfo.createdDate}
+            estimateId={item.estimateInfo.estimateId} // estimateId 추가
+            isWorkshop={isWorkshop}
+            navigation={navigation}
+          />
+        </View>
+      );
+    } else {
       return (
         <View
           style={
@@ -133,70 +151,11 @@ const ChatScreen = ({ navigation, route }) => {
                 ? styles.messageSenderText
                 : styles.messageReceiverText
             }>
-            {item.chatContentInfo.contents}
+            {item.message}
           </Text>
         </View>
       );
     }
-
-    if (item.type === 'REQUEST_ESTIMATE' && item.estimateInfo) {
-      return (
-        <View
-          style={
-            item.sender === nickname
-              ? styles.senderMessage
-              : styles.receiverMessage
-          }>
-          <EstimateContent
-            image={item.estimateInfo.furniture2DUrl}
-            name={item.estimateInfo.furnitureName}
-            date={item.estimateInfo.createdDate}
-            isWorkshop={isWorkshop}
-            navigation={navigation}
-          />
-        </View>
-      );
-    }
-
-    if (item.type === 'RESPONSE_ESTIMATE' && item.estimateInfo) {
-      return (
-        <View
-          style={
-            item.sender === nickname
-              ? styles.senderMessage
-              : styles.receiverMessage
-          }>
-          <EstimateContent
-            image={item.estimateInfo.furniture2DUrl}
-            name={item.estimateInfo.furnitureName}
-            date={item.estimateInfo.createdDate}
-            description={item.estimateInfo.description}
-            price={item.estimateInfo.price}
-            makerName={item.estimateInfo.makerName}
-            isWorkshop={isWorkshop}
-            navigation={navigation}
-          />
-        </View>
-      );
-    }
-
-    return (
-      <View
-        style={
-          item.sender === nickname
-            ? styles.senderMessage
-            : styles.receiverMessage
-        }>
-        <Text
-          style={
-            item.sender === nickname
-              ? styles.messageSenderText
-              : styles.messageReceiverText
-          }>
-          {item.message}
-        </Text>
-      </View>
-    );
   };
 
   return (

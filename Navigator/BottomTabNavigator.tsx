@@ -1,5 +1,5 @@
-import React from 'react';
-import { SafeAreaView, Text, ImageSourcePropType } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { SafeAreaView, Text, ImageSourcePropType, BackHandler, ToastAndroid } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
@@ -92,6 +92,29 @@ const MyPageWrapper = () => (
 );
 
 const BottomTabNavigator: React.FC = () => {
+  const backPressCount = useRef(0);
+
+  useEffect(() => {
+    const backAction = () => {
+      if (backPressCount.current === 0) {
+        backPressCount.current += 1;
+        ToastAndroid.show('버튼을 한번 더 누르면 종료됩니다', ToastAndroid.SHORT);
+        setTimeout(() => {
+          backPressCount.current = 0;
+        }, 2000);
+        return true;
+      } else if (backPressCount.current === 1) {
+        BackHandler.exitApp();
+        return true;
+      }
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => backHandler.remove();
+  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
       <Tab.Navigator

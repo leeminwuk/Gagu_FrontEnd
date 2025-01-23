@@ -23,7 +23,8 @@ export const TitleContainer = styled.View`
   height: ${height * 0.05}px;
   justify-content: center;
 `;
-
+export const EmailBox = styled.View`
+`;
 export const ProfileBox = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;

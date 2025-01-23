@@ -1,14 +1,16 @@
-import React, {useState, useRef} from 'react';
-import {View, Text, Image, Animated, TextInput, SafeAreaView} from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Text, Image, Animated, TextInput, SafeAreaView, Alert } from 'react-native';
 import styles from './Styles';
 import BackButton from '../../../Components/BackButton/BackButton';
 import TitleText from '../../../Components/TitleText/TitleText';
 import CommonButton from '../../../Button/CommonButton/CommonButton';
 import OneButtonModal from '../../../Modal/OneButtonMoadl/OneButtonModal';
+import { saveEstimate } from '../../../api/estimateSave';
 
-const SendEstimateScreen = ({navigation}) => {
+const SendEstimateScreen = ({ navigation, route }) => {
   const mainText = '견적서 보내기';
   const sideText = '가구 견적과 설명을 작성해서 견적을 보내주세요.';
+  const { estimateId } = route.params;
 
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
@@ -23,7 +25,8 @@ const SendEstimateScreen = ({navigation}) => {
     setModalVisible(false);
     navigation.navigate('WorkshopMainScreen');
   };
-  const handleSaveEstimate = () => {
+
+  const handleSaveEstimate = async () => {
     let hasError = false;
 
     if (!price) {
@@ -84,8 +87,15 @@ const SendEstimateScreen = ({navigation}) => {
       return;
     }
 
-    // 견적서 저장 로직
-    setModalVisible(true);
+    try {
+      // 견적서 저장 로직
+      const response = await saveEstimate(estimateId, price, description);
+      console.log('Save estimate response:', response);
+      setModalVisible(true);
+    } catch (error) {
+      Alert.alert('오류', '견적서를 저장하는 중에 오류가 발생했습니다.');
+      console.error('Error saving estimate:', error);
+    }
   };
 
   return (
@@ -97,8 +107,9 @@ const SendEstimateScreen = ({navigation}) => {
           <Animated.View
             style={[
               styles.estimateContainer,
-              {transform: [{translateX: priceShakeAnimation}]},
-            ]}>
+              { transform: [{ translateX: priceShakeAnimation }] },
+            ]}
+          >
             <View style={styles.estimateTitle}>
               <Image
                 source={require('../../../assets/images/moneyicon.png')}
@@ -112,7 +123,8 @@ const SendEstimateScreen = ({navigation}) => {
               style={[
                 styles.estimateInputContainer,
                 priceError && styles.errorBorder,
-              ]}>
+              ]}
+            >
               <Image
                 source={require('../../../assets/images/wonicon.png')}
                 style={styles.wonIcon}
@@ -122,7 +134,7 @@ const SendEstimateScreen = ({navigation}) => {
                 placeholder="금액을 입력해주세요."
                 placeholderTextColor={priceError ? '#FF9696' : '#ffffff'}
                 value={price}
-                onChangeText={text => {
+                onChangeText={(text) => {
                   setPrice(text);
                   setPriceError(false);
                 }}
@@ -132,8 +144,9 @@ const SendEstimateScreen = ({navigation}) => {
           <Animated.View
             style={[
               styles.estimateContainer,
-              {transform: [{translateX: descriptionShakeAnimation}]},
-            ]}>
+              { transform: [{ translateX: descriptionShakeAnimation }] },
+            ]}
+          >
             <View style={styles.estimateTitle}>
               <Image
                 source={require('../../../assets/images/opinionicon.png')}
@@ -147,14 +160,15 @@ const SendEstimateScreen = ({navigation}) => {
               style={[
                 styles.estimateInputContainer,
                 descriptionError && styles.errorBorder,
-              ]}>
+              ]}
+            >
               <TextInput
                 style={[styles.estimateInput, styles.multilineInput]}
                 placeholder="가구 제작에 대한 의견을 남겨주세요."
                 placeholderTextColor={descriptionError ? '#FF9696' : '#ffffff'}
                 multiline={true}
                 value={description}
-                onChangeText={text => {
+                onChangeText={(text) => {
                   setDescription(text);
                   setDescriptionError(false);
                 }}

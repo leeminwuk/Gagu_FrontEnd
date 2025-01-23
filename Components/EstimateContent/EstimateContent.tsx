@@ -1,9 +1,11 @@
 import React from 'react';
 import { ButtonText, Container, EstimateButton, EstimateContainer, EstimateDate, EstimateImage, EstimateName, EstimateText, Icon, Title, TitleText } from './Styles';
+
 interface EstimateContentProps {
   image: string;
   name: string;
   date: string;
+  estimateId: number;
   isWorkshop: boolean;
   navigation: any;
 }
@@ -12,6 +14,7 @@ const EstimateContent: React.FC<EstimateContentProps> = ({
   image,
   name,
   date,
+  estimateId,
   isWorkshop,
   navigation,
 }) => {
@@ -25,7 +28,7 @@ const EstimateContent: React.FC<EstimateContentProps> = ({
   };
 
   const handleSaveEstimatePress = () => {
-    navigation.navigate('SendEstimateScreen');
+    navigation.navigate('SendEstimateScreen', { estimateId });
   };
 
   return (

@@ -51,9 +51,7 @@ const ProgressDetailScreen = () => {
         }
 
         const estimatesData = await getEstimates(0, token);
-        console.log('Fetched estimates:', estimatesData);
 
-        // null 값을 필터링합니다.
         const filteredEstimates = estimatesData.content.filter(item => item !== null);
         setEstimates(filteredEstimates);
       } catch (error) {
@@ -81,11 +79,15 @@ const ProgressDetailScreen = () => {
       const chatRooms = await chatroomNumber(token);
       console.log('Fetched chat rooms:', chatRooms);
 
-      const matchingRoom = chatRooms.content.find(room => room.roomName.includes(workshopProfile.workshopName));
-      if (matchingRoom) {
-        navigation.navigate('ChatScreen', { roomId: matchingRoom.id, shopname: workshopProfile.workshopName });
+      if (workshopProfile) {
+        const matchingRoom = chatRooms.content.find(room => room.roomName.includes(workshopProfile.workshopName));
+        if (matchingRoom) {
+          navigation.navigate('ChatScreen', { roomId: matchingRoom.id, shopname: workshopProfile.workshopName });
+        } else {
+          console.error('No matching chat room found.');
+        }
       } else {
-        console.error('No matching chat room found.');
+        console.error('Workshop profile is null.');
       }
     } catch (error) {
       console.error('Error fetching chat rooms:', error);
@@ -111,8 +113,8 @@ const ProgressDetailScreen = () => {
           <SelectContainer>
             {estimates.length > 0 ? (
               <SelectWorkShop
-                workshopName={workshopProfile.workshopName}
-                workshopLocation={workshopProfile.address}
+                workshopName={workshopProfile ? workshopProfile.workshopName : ''}
+                workshopLocation={workshopProfile ? workshopProfile.address : ''}
                 onCheckEstimate={handleCheckEstimate}
                 onChatWithWorkshop={handleChatWithWorkshop}
               />

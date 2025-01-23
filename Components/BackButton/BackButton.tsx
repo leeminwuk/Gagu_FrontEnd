@@ -14,7 +14,7 @@ import { BackButtonProps } from './types';
 const BackButton: React.FC<BackButtonProps> = ({ navigation, titleText, image, onHamburgerPress, onPress, steps = 1 }) => {
   const handlerBack = async () => {
     if (onPress) {
-      await onPress();
+      onPress();
     }
     navigation.pop(steps);
   };

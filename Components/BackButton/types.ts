@@ -6,4 +6,5 @@ export interface BackButtonProps {
   image: ImageSourcePropType;
   onHamburgerPress: () => void;
   steps?: number;
+  onPress: () => void;
 }
