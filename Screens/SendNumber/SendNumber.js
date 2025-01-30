@@ -10,7 +10,9 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { verifyVerificationCode } from '../../api/authentication'; 
+import { verifyVerificationCode } from '../../api/authentication';
+import { saveUserPhoneNumber } from '../../api/saveUserPhoneNumber';
+import { getToken } from '../../utils/storage';
 import styles from './Styles';
 import BackButton from '../../Components/BackButton/BackButton';
 import OneButtonModal from '../../Modal/OneButtonMoadl/OneButtonModal';
@@ -48,15 +50,23 @@ const SendNumber = ({ route }) => {
       Alert.alert('오류', '인증번호를 입력해주세요.');
       return;
     }
-  
+
     try {
       console.log('Sending request with:', { phoneNumber, authorizationNumber: verificationCode });
       const response = await verifyVerificationCode(phoneNumber, verificationCode);
-  
+
       console.log('Server response:', response);
-  
+
       if (typeof response === 'string' && response.includes('인증에 성공하셨습니다')) {
-        navigation.navigate('CreateId');
+        const token = await getToken(); 
+        const saveResponse = await saveUserPhoneNumber(token, phoneNumber);
+        console.log('전화번호 저장 결과:', saveResponse);
+
+        if (saveResponse && saveResponse.includes('성공했습니다')) {
+          navigation.navigate('AddressScreen');
+        } else {
+          Alert.alert('오류', saveResponse || '전화번호 저장에 실패하셨습니다.');
+        }
       } else {
         Alert.alert('오류', response.msg || '인증에 실패하셨습니다.');
       }

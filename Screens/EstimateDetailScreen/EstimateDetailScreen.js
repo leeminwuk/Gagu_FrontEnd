@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, SafeAreaView, ScrollView} from 'react-native';
+import { Image, SafeAreaView, ScrollView, View, Text } from 'react-native';
 import BackButton from '../../Components/BackButton/BackButton';
 import CheckRenderStorage from '../../Components/CheckRender/CheckRenderStorage';
 import {
@@ -17,9 +17,24 @@ import {
 } from './Styles';
 import CommonButton from '../../Button/CommonButton/CommonButton';
 
-const EstimateDetailScreen = ({navigation, route}) => {
-  const {estimates} = route.params;
-  const item = estimates.content.find(est => est !== null) || {};
+const EstimateDetailScreen = ({ navigation, route }) => {
+  const { estimates } = route.params;
+
+  console.log('EstimateDetailScreen 호출됨');
+  console.log('전달된 estimates:', estimates);
+
+  if (!estimates) {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
+        <BackButton navigation={navigation} />
+        <View>
+          <Text>견적서 정보가 없습니다.</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  const item = estimates.find(est => est !== null) || {};
 
   const formatDate = dateString => {
     const dateParts = dateString.split(' ')[0].split('-');
@@ -33,6 +48,7 @@ const EstimateDetailScreen = ({navigation, route}) => {
   const formatPrice = price => {
     return Number(price).toLocaleString('ko-KR');
   };
+
   const handlePayment = () => {
     navigation.navigate('ResponsePaymentScreen', {
       item: {
@@ -45,10 +61,10 @@ const EstimateDetailScreen = ({navigation, route}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#191919'}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#191919' }}>
       <BackButton navigation={navigation} />
       <Container>
-        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <TextContainer>
             <MainText>
               {item.createdDate
@@ -75,7 +91,7 @@ const EstimateDetailScreen = ({navigation, route}) => {
           </MiniTextContainer>
           <ImageBox>
             <ImageContainer>
-              <ChairImage source={{uri: item.furniture2DUrl}} />
+              <ChairImage source={{ uri: item.furniture2DUrl }} />
             </ImageContainer>
           </ImageBox>
           <MiniTextContainer>

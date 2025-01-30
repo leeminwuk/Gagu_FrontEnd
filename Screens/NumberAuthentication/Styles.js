@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   buttonContainer: {
-    marginTop: height * 0.1010,
+    marginTop: height * 0.05,
   },
   input: {
     width: width * 0.9,

@@ -1,16 +1,17 @@
 import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {Dimensions} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
   background-color: #191919;
-  padding-horizontal: 22px;
 `;
 
-export const FixedContainer = styled.View``;
+export const FixedContainer = styled.View`
+  padding-horizontal: 22px;
+`;
 
 export const TextContainer = styled.View`
   margin-bottom: 10px;

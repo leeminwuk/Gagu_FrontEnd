@@ -25,7 +25,7 @@ export const getEstimates = async (page = 0) => {
       },
     });
 
-    console.log('Fetched estimates:', response.data);
+    console.log('견적서 정보:', response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching estimates:', error);

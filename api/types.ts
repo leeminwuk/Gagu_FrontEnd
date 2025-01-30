@@ -61,3 +61,8 @@ export interface WorkshopResponse {
   totalPages: number;
   totalElements: number;
 }
+// 전화번호 저장
+export interface SavePhoneNumberResponse {
+  code: number;
+  msg: string;
+}

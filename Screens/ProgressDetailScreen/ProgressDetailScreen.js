@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackButton from '../../Components/BackButton/BackButton';
 import { getToken } from '../../utils/storage';
 import { UserInfo } from '../../api/userInfo';
-import { getWorkshopProfile } from '../../api/workshopProfile';
-import { checkWorkshop } from '../../api/checkWorkshop';
 import { getEstimates } from '../../api/returnEstimates';
 import { chatroomNumber } from '../../api/chatroomNumber';
 import SelectWorkShop from '../../Components/SelectWorkShop/SelectWorkShop';
@@ -38,22 +36,29 @@ const ProgressDetailScreen = () => {
     const fetchData = async () => {
       try {
         const token = await getToken();
-        console.log('Token:', token); // 토큰 출력
         const userInfo = await UserInfo(token);
         setName(userInfo.name);
 
-        const workshops = await checkWorkshop(0, token);
-        if (workshops && workshops.length > 0) {
-          const workshopId = workshops[0].id; 
-          const profile = await getWorkshopProfile(workshopId);
-          console.log('Workshop profile:', profile);
-          setWorkshopProfile(profile);
-        }
-
         const estimatesData = await getEstimates(0, token);
+        console.log('견적서 데이터:', estimatesData);
 
-        const filteredEstimates = estimatesData.content.filter(item => item !== null);
-        setEstimates(filteredEstimates);
+        if (estimatesData && estimatesData.content) {
+          // makerName을 workshopName으로 변경
+          const filteredEstimates = estimatesData.content
+            .filter(item => item !== null)
+            .map(item => ({
+              ...item,
+              workshopName: item.makerName,
+            }));
+
+          setEstimates(filteredEstimates);
+
+          if (filteredEstimates.length > 0) {
+            setWorkshopProfile(filteredEstimates[0]);
+          }
+        } else {
+          console.error('Estimates data is not defined or empty');
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -65,9 +70,16 @@ const ProgressDetailScreen = () => {
   const handleCheckEstimate = async () => {
     try {
       const token = await getToken();
-      const estimates = await getEstimates(0, token);
-      console.log('Fetched estimates:', estimates);
-      navigation.navigate('EstimateDetailScreen', { estimates });
+      const estimatesData = await getEstimates(0, token);
+      console.log('견적서 정보:', estimatesData);
+
+      if (estimatesData && estimatesData.content && estimatesData.content.length > 0) {
+        const workshopName = estimatesData.content[0].makerName;
+        console.log('workshopName:', workshopName);
+        navigation.navigate('EstimateDetailScreen', { estimates: estimatesData.content });
+      } else {
+        console.error('Estimates data is not defined or empty');
+      }
     } catch (error) {
       console.error('Error fetching estimates:', error);
     }
@@ -82,9 +94,9 @@ const ProgressDetailScreen = () => {
       if (workshopProfile) {
         const matchingRoom = chatRooms.content.find(room => room.roomName.includes(workshopProfile.workshopName));
         if (matchingRoom) {
-          navigation.navigate('ChatScreen', { roomId: matchingRoom.id, shopname: workshopProfile.workshopName });
+          navigation.navigate('ChatScreen', { chatRoomId: matchingRoom.id, workshopName: workshopProfile.workshopName });
         } else {
-          console.error('No matching chat room found.');
+          console.error(`No matching chat room found for workshop: ${workshopProfile.workshopName}`);
         }
       } else {
         console.error('Workshop profile is null.');
@@ -113,8 +125,7 @@ const ProgressDetailScreen = () => {
           <SelectContainer>
             {estimates.length > 0 ? (
               <SelectWorkShop
-                workshopName={workshopProfile ? workshopProfile.workshopName : ''}
-                workshopLocation={workshopProfile ? workshopProfile.address : ''}
+                workshopName={estimates[0].workshopName}
                 onCheckEstimate={handleCheckEstimate}
                 onChatWithWorkshop={handleChatWithWorkshop}
               />

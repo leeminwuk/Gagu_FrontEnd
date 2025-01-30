@@ -16,9 +16,6 @@ export const checkWorkshop = async (
       accept: '*/*',
     };
 
-    console.log('요청 URL:', url);
-    console.log('요청 헤더:', headers);
-
     const response = await axios.get<WorkshopResponse>(url, { headers });
 
     console.log('응답 상태 코드:', response.status);

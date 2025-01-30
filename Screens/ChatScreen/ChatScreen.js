@@ -47,7 +47,7 @@ const ChatScreen = ({ navigation, route }) => {
   const [furnitureModalVisible, setFurnitureModalVisible] = useState(false);
   const [furnitureList, setFurnitureList] = useState([]);
   const [selectedFurniture, setSelectedFurniture] = useState(null);  
-  const shopname = route?.params?.shopname || '가구 공방';
+  const shopname = route?.params?.workshopName || '가구 공방';
   const isWorkshop = route?.params?.isWorkshop || false;
 
   useEffect(() => {
@@ -198,6 +198,7 @@ const ChatScreen = ({ navigation, route }) => {
           contentContainerStyle={{ paddingBottom: 30 }}
           style={[styles.chatContainer, { flexGrow: 1 }]} // flexGrow 추가
           onContentSizeChange={() => flatListRef.current.scrollToEnd({ animated: true })}
+          onLayout={() => flatListRef.current.scrollToEnd({ animated: true })}
         />
 
         <View style={styles.sendContainer}>

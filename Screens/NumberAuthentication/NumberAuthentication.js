@@ -17,7 +17,7 @@ import {sendVerificationCode} from '../../api/authentication';
 const NumberAuthentication = ({navigation}) => {
   const mainText = '먼저, 휴대폰 번호를\n입력해주세요';
   const sideText =
-    '공방 관계자 회원가입 페이지 입니다.\n가구 일반 사용자는 뒤로가기를 눌러주세요 :)';
+    '휴대폰 번호로 인증번호를 전송해드립니다.';
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isValid, setIsValid] = useState(true);
 
