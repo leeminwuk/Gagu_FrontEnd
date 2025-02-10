@@ -54,5 +54,14 @@ target 'GAGU_FrontEnd_New' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # hermes-engine 디버그 심볼 설정
+    installer.pods_project.targets.each do |target|
+      if target.name == 'hermes-engine'
+        target.build_configurations.each do |config|
+          config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf-with-dsym'
+        end
+      end
+    end
   end
 end

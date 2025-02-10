@@ -6,6 +6,7 @@ import InputContainer from '../../Components/InputContainer/InputContainer';
 import { getToken } from '../../utils/storage';
 import { UserInfo, UpdateUserInfo } from '../../api/userInfo';
 import { updateUserProfileImage } from '../../api/profileUpload';
+import logOut from '../../api/logOut';
 import CommonButton from '../../Button/CommonButton/CommonButton';
 import { launchImageLibrary } from 'react-native-image-picker';
 import {
@@ -94,11 +95,20 @@ const EditInformationScreen = () => {
         address: address,
         nickname: nickname, 
       };
+      console.log('Sending update request with data:', data); // 데이터 확인용 로그
       await UpdateUserInfo(token, data);
       Alert.alert('성공', '정보가 성공적으로 업데이트되었습니다.');
       setIsEditing(false);
+
+      // 로그아웃 처리
+      const logoutResponse = await logOut(token);
+      if (logoutResponse.success) {
+        navigation.navigate('LoginScreen');
+      } else {
+        Alert.alert('로그아웃 실패', logoutResponse.message);
+      }
     } catch (error) {
-      console.error('Error updating user info:', error);
+      console.error('Error updating user info:', error.response ? error.response.data : error.message);
       Alert.alert('실패', '정보 업데이트에 실패했습니다.');
     }
   };
@@ -128,6 +138,7 @@ const EditInformationScreen = () => {
           profileUrl: updatedProfileUrl,
           nickname: userInfo.nickname, 
         };
+        console.log('Sending update request with data:', data);
         await UpdateUserInfo(token, data);
         
         Alert.alert('성공', '프로필 이미지가 성공적으로 업데이트되었습니다.');
@@ -143,7 +154,7 @@ const EditInformationScreen = () => {
         Alert.alert('이미지 업로드 오류', '이미지 업로드에 실패했습니다.');
       }
     } catch (error) {
-      console.error('Error uploading profile image:', error);
+      console.error('Error uploading profile image:', error.response ? error.response.data : error.message);
       Alert.alert('실패', '프로필 이미지 업로드에 실패했습니다.');
     }
   };
