@@ -1,14 +1,14 @@
 import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 export const Container = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   padding-horizontal: 20px;
   width: ${width * 0.887}px;
-  height: ${height * 0.065}px;
+  height: ${width * 0.15}px;
   border-radius: 16px;
   border-color: #ffffff;
   border-width: 1px;

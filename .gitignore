@@ -90,3 +90,6 @@ ios/GoogleService-Info.plist
 
 # iOS Info Plist
 ios/GAGU_FrontEnd_New/Info.plist
+
+#keystore
+keystore.properties

@@ -10,7 +10,7 @@ export const ButtonContainer = styled.View`
 
 export const Button = styled.TouchableOpacity`
   background-color: #ffffff;
-  height: ${height * 0.06}px;
+  height: ${width * 0.15}px;
   border-radius: 8px;
   align-items: center;
   justify-content: center;

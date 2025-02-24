@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 export const MyPageContainer = styled.View`
   flex: 1;
@@ -12,22 +12,22 @@ export const Container = styled.View`
   flex: 1;
   align-items: center;
   background-color: #191919;
+  gap: ${height * 0.02}px;
 `;
 
 export const ProfileContainer = styled.View`
   align-items: center;
   justify-content: center;
   background-color: #fff;
-  width: 120px;
-  height: 120px;
-  border-radius: 60px;
-  margin-vertical: 40px;
+  width: ${width * 0.3}px;
+  height: ${width * 0.3}px;
+  border-radius: ${width * 0.15}px;
 `;
 
 export const ProfileImage = styled.Image`
-  width: 120px;
-  height: 120px;
-  border-radius: 60px;
+  width: ${width * 0.3}px;
+  height: ${width * 0.3}px;
+  border-radius: ${width * 0.15}px;
 `;
 
 export const ProfileDetailContainer = styled.View`
@@ -61,8 +61,6 @@ export const EmailText = styled.Text`
 export const ButtonContainer = styled.View`
   justify-content: center;
   align-items: center;
-  margin-top: ${height * 0.05}px;
-  gap: ${height * 0.01}px;
 `;
 
 export const LogoImage = styled.Image`
@@ -72,7 +70,7 @@ export const LogoImage = styled.Image`
 `;
 
 export const BarButtonContainer = styled.View`
-  gap: ${height * 0.03}px;
+  gap: ${height * 0.02}px;
 `;
 
 export const LogoStyle = styled.Image`

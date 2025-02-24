@@ -13,8 +13,9 @@ export const BackgroundImage = styled.ImageBackground`
 `;
 
 export const TextContainer = styled.View`
-  margin-top: 100px;
-  margin-left: 22px;
+  flex: 1;
+  justify-content: center;
+  margin-left: ${width * 0.07}px;
 `;
 
 export const OverlayText = styled.Text`
@@ -24,8 +25,8 @@ export const OverlayText = styled.Text`
 `;
 
 export const StartButton = styled.View`
-  margin-top: 200px;
-  margin-left: 22px;
+  flex: 1;
+  align-items: center;
 `;
 
 export const StartText = styled.Text`
@@ -33,7 +34,6 @@ export const StartText = styled.Text`
   font-weight: 700;
   color: #ffffff;
   letter-spacing: -0.5px;
-  width: ${width * 0.3}px;
 `;
 
 export const StartArrowContainer = styled.View`
@@ -78,6 +78,4 @@ export const SearchText = styled.Text`
 export const HR = styled.View`
   width: 30%;
   border: 1px solid gray;
-  margin-top: 10px;
-
 `;
